@@ -1,0 +1,9 @@
+C:\Darmstadt\SecondSem\EAA\Lab1\Lab1_RTE\RTE\SkinnySheep.cydsn\SkinnySheep.cyprj|0a21b767-47e3-4011-babe-7597042109b9
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|063d3dc3-5dff-4f9a-a447-2fa26355a4fe
+C:\Users\aditi\OneDrive\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|7b549967-d662-4457-b4c8-f53ad252963b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|73761374-67fc-4c92-933e-20be567041c4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|2868eef3-c446-4b64-be41-96b4c30aa6fb
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|710a2131-a64b-48d2-94b2-59c680f43e51
+C:\Darmstadt\SecondSem\EAA\Lab1\GasPedal\ElectronicGasPedal.cydsn\ElectronicGasPedal.cyprj|136af3ab-6a36-4274-9a9a-0ad2bbce2e44
+C:\Darmstadt\SecondSem\EAA\Lab1\Lab1_RTE\RTE\UART_Test.cydsn\UART_Test.cyprj|e7da6cd3-52ef-46f8-aac1-a8bf2492d17b
+C:\Darmstadt\SecondSem\EAA\Lab1\SAR_Example\SAR Example\SAR Example.cydsn\SAR Example.cyprj|ccb51b5d-48dd-4fbd-96f6-5c84a7441287
