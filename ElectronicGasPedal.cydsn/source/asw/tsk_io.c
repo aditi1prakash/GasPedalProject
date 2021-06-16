@@ -53,13 +53,13 @@ const uint16_t RTE_eventActivation_tsk_io_size = sizeof (RTE_eventActivationTabl
 
 /*
 * description: This task will contain all IO operations, e.g: joystick, engine...
-* events: ev_speed_onData
+* events: ev_speed_onData|ev_tick_1ms
 * mode: Cyclic and Event
 * name: tsk_io
 * shortname: io
 * signalpoolsRO: sp_common
 * signalpoolsRW: sp_common
-* tickEvent: 0
+* tickEvent: ev_tick_1ms
 * timertickperiod: 1
 */
 TASK(tsk_io)
@@ -71,26 +71,23 @@ TASK(tsk_io)
     
     while(1)
     {
-
+        //Wait, read and clear the event
+        WaitEvent(ev_speed_onData|ev_tick_1ms);
+        GetEvent(tsk_io,&ev);
+        ClearEvent(ev);
+    
 		/* USER CODE START TSK_IO_TASKBOBY_PRE */
 
 		/* USER CODE END TSK_IO_TASKBODY_PRE */
         
-        //if (ev & 0){
-        if (ticktime < 0xFFFFFF00)
-        {
+        if (ev & ev_tick_1ms){
             //Process Cyclic table on tick
             RTE_ProcessCyclicTable(RTE_cyclicActivationTable_tsk_io, RTE_cyclicActivation_tsk_io_size, ticktime);
 
 			ticktime += 1;
 			if (ticktime > 0xFFFFFF00) ticktime = 0;
-        }
-		//};
-        
-        //Wait, read and clear the event
-        //WaitEvent(ev_speed_onData);
-        //GetEvent(tsk_io,&ev);
-        //ClearEvent(ev);
+
+		};
 		
 		//Process data driven events
 		RTE_ProcessEventTable(RTE_eventActivationTable_tsk_io, RTE_eventActivation_tsk_io_size, ev);

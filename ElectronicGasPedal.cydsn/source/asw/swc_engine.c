@@ -10,19 +10,17 @@
 #include "rte_types.h"
 #include "swc_engine.h"
 
-
-
 /* USER CODE START SWC_ENGINE_INCLUDE */
-
+#include "watchdog.h"
+#include "uart.h"
 /* USER CODE END SWC_ENGINE_INCLUDE */
-
 
 #include "sp_common.h"
 
 /* USER CODE START SWC_ENGINE_USERDEFINITIONS */
-
+#define SIGNAL_AGE_MAX_LIMIT        0x32
+#define WDG_ALIVE_STATUS_ENGINE     0x04
 /* USER CODE END SWC_ENGINE_USERDEFINITIONS */
-
 
 
 /*
@@ -39,7 +37,48 @@
 void ENGINE_setEngine_run(RTE_event ev){
 	
 	/* USER CODE START ENGINE_setEngine_run */
-
+    SC_SPEED_data_t speed_t;
+    SC_PWM_t engineData_t;
+    
+    //Get the age of the speed signal
+    uint32_t speedSignalAge = RTE_SC_SPEED_getAge(&SO_SPEED_signal);
+    
+    //Get the value and status of the speed signal
+    speed_t = RTE_SC_SPEED_get(&SO_SPEED_signal);
+    RTE_signalStatus_t speedSignalStatus = RTE_SC_SPEED_getStatus(&SO_SPEED_signal);
+    
+    /*Check for age of the speed signal, 
+     * if it is not too old then copy it to engine signal and call pushPort()
+     */
+    if (RTE_SIGNALSTATUS_VALID == speedSignalStatus)
+    {
+        if(speedSignalAge < SIGNAL_AGE_MAX_LIMIT)
+        {
+            engineData_t.value.pwm_engine = speed_t.speed; 
+        }
+        else
+        {
+            engineData_t.value.pwm_engine = 0;
+        }
+    }
+    else
+    {
+        UART_Log_Tx("Invalid speed signal received(ENG)");
+    }
+    
+    //Set the engine speed value to Engine signal object and push the value to the driver
+    if (RC_SUCCESS == RTE_SC_PWM_set(&SO_ENGINE_signal, engineData_t.value))
+    {
+        RTE_SC_PWM_pushPort(&SO_ENGINE_signal);
+    }
+    else
+    {
+        UART_Log_Tx("Unable to set PWM signal");
+    }
+    
+    //Report Alive Status to Watchdog timer
+    WD_Alive(WDG_ALIVE_STATUS_ENGINE);
+   
     /* USER CODE END ENGINE_setEngine_run */
 }
 

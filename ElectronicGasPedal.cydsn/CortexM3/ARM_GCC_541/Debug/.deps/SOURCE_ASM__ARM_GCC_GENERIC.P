@@ -8,3 +8,19 @@ C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Sour
 
 C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/cyfittergnu.inc : 
 
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/CortexM3/ARM_GCC_541/Debug/ErikaOS_ee_gnu_change_context_isr.o : C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_change_context_isr.s 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_change_context_isr.s : 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/CortexM3/ARM_GCC_541/Debug/ErikaOS_ee_gnu_irq_stack.o : C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_irq_stack.s 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_irq_stack.s : 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/CortexM3/ARM_GCC_541/Debug/ErikaOS_ee_gnu_multi_context.o : C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_multi_context.s 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_multi_context.s : 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/CortexM3/ARM_GCC_541/Debug/ErikaOS_ee_gnu_oo.o : C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_oo.s 
+
+C:/Darmstadt/SecondSem/EAA/Lab1/GasPedal/ElectronicGasPedal.cydsn/Generated_Source/PSoC5/ErikaOS_ee_gnu_oo.s : 
+

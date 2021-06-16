@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 1
   28:source\asw/tsk_io.c **** 
   29:source\asw/tsk_io.c **** /* USER CODE END TSK_IO_USERDEFINITIONS */
   30:source\asw/tsk_io.c **** 
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 2
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 2
 
 
   31:source\asw/tsk_io.c **** /*******************************************************************************
@@ -86,1157 +86,1264 @@ ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 1
   53:source\asw/tsk_io.c **** 
   54:source\asw/tsk_io.c **** /*
   55:source\asw/tsk_io.c **** * description: This task will contain all IO operations, e.g: joystick, engine...
-  56:source\asw/tsk_io.c **** * events: ev_speed_onData
+  56:source\asw/tsk_io.c **** * events: ev_speed_onData|ev_tick_1ms
   57:source\asw/tsk_io.c **** * mode: Cyclic and Event
   58:source\asw/tsk_io.c **** * name: tsk_io
   59:source\asw/tsk_io.c **** * shortname: io
   60:source\asw/tsk_io.c **** * signalpoolsRO: sp_common
   61:source\asw/tsk_io.c **** * signalpoolsRW: sp_common
-  62:source\asw/tsk_io.c **** * tickEvent: 0
+  62:source\asw/tsk_io.c **** * tickEvent: ev_tick_1ms
   63:source\asw/tsk_io.c **** * timertickperiod: 1
   64:source\asw/tsk_io.c **** */
   65:source\asw/tsk_io.c **** TASK(tsk_io)
   66:source\asw/tsk_io.c **** {
   28              		.loc 1 66 0
   29              		.cfi_startproc
-  30              		@ args = 0, pretend = 0, frame = 0
+  30              		@ args = 0, pretend = 0, frame = 8
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32 0000 08B5     		push	{r3, lr}
+  32 0000 10B5     		push	{r4, lr}
   33              		.cfi_def_cfa_offset 8
-  34              		.cfi_offset 3, -8
+  34              		.cfi_offset 4, -8
   35              		.cfi_offset 14, -4
-  36              	.L3:
+  36 0002 82B0     		sub	sp, sp, #8
+  37              		.cfi_def_cfa_offset 16
   67:source\asw/tsk_io.c **** 	/* ticktime of the task */
   68:source\asw/tsk_io.c **** 	static uint32_t ticktime = 0;
   69:source\asw/tsk_io.c **** 	
   70:source\asw/tsk_io.c ****     EventMaskType ev = 0;
+  38              		.loc 1 70 0
+  39 0004 0023     		movs	r3, #0
+  40 0006 0193     		str	r3, [sp, #4]
+  41              	.L3:
   71:source\asw/tsk_io.c ****     
   72:source\asw/tsk_io.c ****     while(1)
   73:source\asw/tsk_io.c ****     {
-  74:source\asw/tsk_io.c **** 
-  75:source\asw/tsk_io.c **** 		/* USER CODE START TSK_IO_TASKBOBY_PRE */
-  76:source\asw/tsk_io.c **** 
-  77:source\asw/tsk_io.c **** 		/* USER CODE END TSK_IO_TASKBODY_PRE */
-  78:source\asw/tsk_io.c ****         
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 3
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 3
 
 
-  79:source\asw/tsk_io.c ****         //if (ev & 0){
-  80:source\asw/tsk_io.c ****         if (ticktime < 0xFFFFFF00)
-  37              		.loc 1 80 0
-  38 0002 0C4B     		ldr	r3, .L5
-  39 0004 1A68     		ldr	r2, [r3]
-  40 0006 12F5807F 		cmn	r2, #256
-  41 000a 0DD2     		bcs	.L2
-  81:source\asw/tsk_io.c ****         {
-  82:source\asw/tsk_io.c ****             //Process Cyclic table on tick
-  83:source\asw/tsk_io.c ****             RTE_ProcessCyclicTable(RTE_cyclicActivationTable_tsk_io, RTE_cyclicActivation_tsk_io_si
-  42              		.loc 1 83 0
-  43 000c 0221     		movs	r1, #2
-  44 000e 0A48     		ldr	r0, .L5+4
-  45 0010 FFF7FEFF 		bl	RTE_ProcessCyclicTable
-  46              	.LVL0:
-  84:source\asw/tsk_io.c **** 
-  85:source\asw/tsk_io.c **** 			ticktime += 1;
-  47              		.loc 1 85 0
-  48 0014 074A     		ldr	r2, .L5
-  49 0016 1368     		ldr	r3, [r2]
-  50 0018 0133     		adds	r3, r3, #1
-  51 001a 1360     		str	r3, [r2]
-  86:source\asw/tsk_io.c **** 			if (ticktime > 0xFFFFFF00) ticktime = 0;
-  52              		.loc 1 86 0
-  53 001c 13F5807F 		cmn	r3, #256
-  54 0020 02D9     		bls	.L2
-  55              		.loc 1 86 0 is_stmt 0 discriminator 1
-  56 0022 0022     		movs	r2, #0
-  57 0024 034B     		ldr	r3, .L5
-  58 0026 1A60     		str	r2, [r3]
-  59              	.L2:
-  87:source\asw/tsk_io.c ****         }
-  88:source\asw/tsk_io.c **** 		//};
-  89:source\asw/tsk_io.c ****         
-  90:source\asw/tsk_io.c ****         //Wait, read and clear the event
-  91:source\asw/tsk_io.c ****         //WaitEvent(ev_speed_onData);
-  92:source\asw/tsk_io.c ****         //GetEvent(tsk_io,&ev);
-  93:source\asw/tsk_io.c ****         //ClearEvent(ev);
+  74:source\asw/tsk_io.c ****         //Wait, read and clear the event
+  75:source\asw/tsk_io.c ****         WaitEvent(ev_speed_onData|ev_tick_1ms);
+  42              		.loc 1 75 0
+  43 0008 0620     		movs	r0, #6
+  44 000a FFF7FEFF 		bl	EE_oo_WaitEvent
+  45              	.LVL0:
+  76:source\asw/tsk_io.c ****         GetEvent(tsk_io,&ev);
+  46              		.loc 1 76 0
+  47 000e 01A9     		add	r1, sp, #4
+  48 0010 0220     		movs	r0, #2
+  49 0012 FFF7FEFF 		bl	EE_oo_GetEvent
+  50              	.LVL1:
+  77:source\asw/tsk_io.c ****         ClearEvent(ev);
+  51              		.loc 1 77 0
+  52 0016 0198     		ldr	r0, [sp, #4]
+  53 0018 FFF7FEFF 		bl	EE_oo_ClearEvent
+  54              	.LVL2:
+  78:source\asw/tsk_io.c ****     
+  79:source\asw/tsk_io.c **** 		/* USER CODE START TSK_IO_TASKBOBY_PRE */
+  80:source\asw/tsk_io.c **** 
+  81:source\asw/tsk_io.c **** 		/* USER CODE END TSK_IO_TASKBODY_PRE */
+  82:source\asw/tsk_io.c ****         
+  83:source\asw/tsk_io.c ****         if (ev & ev_tick_1ms){
+  55              		.loc 1 83 0
+  56 001c 019B     		ldr	r3, [sp, #4]
+  57 001e 13F0040F 		tst	r3, #4
+  58 0022 0DD0     		beq	.L2
+  84:source\asw/tsk_io.c ****             //Process Cyclic table on tick
+  85:source\asw/tsk_io.c ****             RTE_ProcessCyclicTable(RTE_cyclicActivationTable_tsk_io, RTE_cyclicActivation_tsk_io_si
+  59              		.loc 1 85 0
+  60 0024 094C     		ldr	r4, .L5
+  61 0026 2268     		ldr	r2, [r4]
+  62 0028 0221     		movs	r1, #2
+  63 002a 0948     		ldr	r0, .L5+4
+  64 002c FFF7FEFF 		bl	RTE_ProcessCyclicTable
+  65              	.LVL3:
+  86:source\asw/tsk_io.c **** 
+  87:source\asw/tsk_io.c **** 			ticktime += 1;
+  66              		.loc 1 87 0
+  67 0030 2368     		ldr	r3, [r4]
+  68 0032 0133     		adds	r3, r3, #1
+  69 0034 2360     		str	r3, [r4]
+  88:source\asw/tsk_io.c **** 			if (ticktime > 0xFFFFFF00) ticktime = 0;
+  70              		.loc 1 88 0
+  71 0036 13F5807F 		cmn	r3, #256
+  72 003a 01D9     		bls	.L2
+  73              		.loc 1 88 0 is_stmt 0 discriminator 1
+  74 003c 0022     		movs	r2, #0
+  75 003e 2260     		str	r2, [r4]
+  76              	.L2:
+  89:source\asw/tsk_io.c **** 
+  90:source\asw/tsk_io.c **** 		};
+  91:source\asw/tsk_io.c **** 		
+  92:source\asw/tsk_io.c **** 		//Process data driven events
+  93:source\asw/tsk_io.c **** 		RTE_ProcessEventTable(RTE_eventActivationTable_tsk_io, RTE_eventActivation_tsk_io_size, ev);
+  77              		.loc 1 93 0 is_stmt 1
+  78 0040 019A     		ldr	r2, [sp, #4]
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 4
+
+
+  79 0042 0121     		movs	r1, #1
+  80 0044 0348     		ldr	r0, .L5+8
+  81 0046 FFF7FEFF 		bl	RTE_ProcessEventTable
+  82              	.LVL4:
   94:source\asw/tsk_io.c **** 		
-  95:source\asw/tsk_io.c **** 		//Process data driven events
-  96:source\asw/tsk_io.c **** 		RTE_ProcessEventTable(RTE_eventActivationTable_tsk_io, RTE_eventActivation_tsk_io_size, ev);
-  60              		.loc 1 96 0 is_stmt 1
-  61 0028 0022     		movs	r2, #0
-  62 002a 0121     		movs	r1, #1
-  63 002c 0348     		ldr	r0, .L5+8
-  64 002e FFF7FEFF 		bl	RTE_ProcessEventTable
-  65              	.LVL1:
-  97:source\asw/tsk_io.c **** 		
-  98:source\asw/tsk_io.c **** 		/* USER CODE START TSK_IO_TASKBODY_POST */
-  99:source\asw/tsk_io.c **** 
- 100:source\asw/tsk_io.c **** 		/* USER CODE END TSK_IO_TASKBODY_POST */
- 101:source\asw/tsk_io.c **** 
- 102:source\asw/tsk_io.c ****         
- 103:source\asw/tsk_io.c ****     }
-  66              		.loc 1 103 0
-  67 0032 E6E7     		b	.L3
-  68              	.L6:
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 4
+  95:source\asw/tsk_io.c **** 		/* USER CODE START TSK_IO_TASKBODY_POST */
+  96:source\asw/tsk_io.c **** 
+  97:source\asw/tsk_io.c **** 		/* USER CODE END TSK_IO_TASKBODY_POST */
+  98:source\asw/tsk_io.c **** 
+  99:source\asw/tsk_io.c ****         
+ 100:source\asw/tsk_io.c ****     }
+  83              		.loc 1 100 0
+  84 004a DDE7     		b	.L3
+  85              	.L6:
+  86              		.align	2
+  87              	.L5:
+  88 004c 00000000 		.word	.LANCHOR0
+  89 0050 00000000 		.word	.LANCHOR1
+  90 0054 10000000 		.word	.LANCHOR1+16
+  91              		.cfi_endproc
+  92              	.LFE110:
+  93              		.size	Functsk_io, .-Functsk_io
+  94              		.global	RTE_eventActivation_tsk_io_size
+  95              		.global	RTE_eventActivationTable_tsk_io
+  96              		.global	RTE_cyclicActivation_tsk_io_size
+  97              		.global	RTE_cyclicActivationTable_tsk_io
+  98              		.section	.rodata
+  99              		.align	2
+ 100              		.set	.LANCHOR1,. + 0
+ 101              		.type	RTE_cyclicActivationTable_tsk_io, %object
+ 102              		.size	RTE_cyclicActivationTable_tsk_io, 16
+ 103              	RTE_cyclicActivationTable_tsk_io:
+ 104 0000 00000000 		.word	JOYSTICK_readJoystick_run
+ 105 0004 0A00     		.short	10
+ 106 0006 0000     		.space	2
+ 107 0008 00000000 		.word	ENGINE_setEngine_run
+ 108 000c 6400     		.short	100
+ 109 000e 0000     		.space	2
+ 110              		.type	RTE_eventActivationTable_tsk_io, %object
+ 111              		.size	RTE_eventActivationTable_tsk_io, 8
+ 112              	RTE_eventActivationTable_tsk_io:
+ 113 0010 00000000 		.word	BRAKELIGHT_setBrakelight_run
+ 114 0014 02000000 		.word	2
+ 115              		.type	RTE_eventActivation_tsk_io_size, %object
+ 116              		.size	RTE_eventActivation_tsk_io_size, 2
+ 117              	RTE_eventActivation_tsk_io_size:
+ 118 0018 0100     		.short	1
+ 119              		.type	RTE_cyclicActivation_tsk_io_size, %object
+ 120              		.size	RTE_cyclicActivation_tsk_io_size, 2
+ 121              	RTE_cyclicActivation_tsk_io_size:
+ 122 001a 0200     		.short	2
+ 123              		.bss
+ 124              		.align	2
+ 125              		.set	.LANCHOR0,. + 0
+ 126              		.type	ticktime.6382, %object
+ 127              		.size	ticktime.6382, 4
+ 128              	ticktime.6382:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 5
 
 
-  69              		.align	2
-  70              	.L5:
-  71 0034 00000000 		.word	.LANCHOR0
-  72 0038 00000000 		.word	.LANCHOR1
-  73 003c 10000000 		.word	.LANCHOR1+16
-  74              		.cfi_endproc
-  75              	.LFE110:
-  76              		.size	Functsk_io, .-Functsk_io
-  77              		.global	RTE_eventActivation_tsk_io_size
-  78              		.global	RTE_eventActivationTable_tsk_io
-  79              		.global	RTE_cyclicActivation_tsk_io_size
-  80              		.global	RTE_cyclicActivationTable_tsk_io
-  81              		.section	.rodata
-  82              		.align	2
-  83              		.set	.LANCHOR1,. + 0
-  84              		.type	RTE_cyclicActivationTable_tsk_io, %object
-  85              		.size	RTE_cyclicActivationTable_tsk_io, 16
-  86              	RTE_cyclicActivationTable_tsk_io:
-  87 0000 00000000 		.word	JOYSTICK_readJoystick_run
-  88 0004 0A00     		.short	10
-  89 0006 0000     		.space	2
-  90 0008 00000000 		.word	ENGINE_setEngine_run
-  91 000c 6400     		.short	100
-  92 000e 0000     		.space	2
-  93              		.type	RTE_eventActivationTable_tsk_io, %object
-  94              		.size	RTE_eventActivationTable_tsk_io, 8
-  95              	RTE_eventActivationTable_tsk_io:
-  96 0010 00000000 		.word	BRAKELIGHT_setBrakelight_run
-  97 0014 02000000 		.word	2
-  98              		.type	RTE_eventActivation_tsk_io_size, %object
-  99              		.size	RTE_eventActivation_tsk_io_size, 2
- 100              	RTE_eventActivation_tsk_io_size:
- 101 0018 0100     		.short	1
- 102              		.type	RTE_cyclicActivation_tsk_io_size, %object
- 103              		.size	RTE_cyclicActivation_tsk_io_size, 2
- 104              	RTE_cyclicActivation_tsk_io_size:
- 105 001a 0200     		.short	2
- 106              		.bss
- 107              		.align	2
- 108              		.set	.LANCHOR0,. + 0
- 109              		.type	ticktime.6446, %object
- 110              		.size	ticktime.6446, 4
- 111              	ticktime.6446:
- 112 0000 00000000 		.space	4
- 113              		.text
- 114              	.Letext0:
- 115              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 116              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 117              		.file 4 "Generated_Source\\PSoC5/ErikaOS_1_common_ee_types.inc"
- 118              		.file 5 "Generated_Source\\PSoC5/ErikaOS_1_cortex_mx_ee_cpu.inc"
- 119              		.file 6 "Generated_Source\\PSoC5/ErikaOS_1_ee_oo_common.inc"
- 120              		.file 7 ".\\source\\rte/rte_types.h"
- 121              		.file 8 ".\\source\\rte/rte.h"
- 122              		.file 9 "Generated_Source\\PSoC5/ErikaOS_1_ee_oo_intfunc.inc"
- 123              		.file 10 "Generated_Source\\PSoC5/ErikaOS_1_cortex_mx_ee_context.inc"
- 124              		.file 11 "Generated_Source\\PSoC5/ErikaOS_1_common_ee_primitives.inc"
- 125              		.file 12 "Generated_Source\\PSoC5/core_cm3.h"
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 5
+ 129 0000 00000000 		.space	4
+ 130              		.text
+ 131              	.Letext0:
+ 132              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 133              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 134              		.file 4 "Generated_Source\\PSoC5/ErikaOS_common_ee_types.inc"
+ 135              		.file 5 "Generated_Source\\PSoC5/ErikaOS_cortex_mx_ee_cpu.inc"
+ 136              		.file 6 "Generated_Source\\PSoC5/ErikaOS_ee_oo_common.inc"
+ 137              		.file 7 ".\\source\\rte/rte_types.h"
+ 138              		.file 8 ".\\source\\rte/rte.h"
+ 139              		.file 9 "Generated_Source\\PSoC5/ErikaOS_ee_oo_intfunc.inc"
+ 140              		.file 10 "Generated_Source\\PSoC5/ErikaOS_cortex_mx_ee_context.inc"
+ 141              		.file 11 "Generated_Source\\PSoC5/ErikaOS_common_ee_primitives.inc"
+ 142              		.file 12 "Generated_Source\\PSoC5/core_cm3.h"
+ 143              		.file 13 "Generated_Source\\PSoC5/ErikaOS_ee_oo_kernel.inc"
+ 144              		.section	.debug_info,"",%progbits
+ 145              	.Ldebug_info0:
+ 146 0000 2B030000 		.4byte	0x32b
+ 147 0004 0400     		.2byte	0x4
+ 148 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 149 000a 04       		.byte	0x4
+ 150 000b 01       		.uleb128 0x1
+ 151 000c AE000000 		.4byte	.LASF48
+ 152 0010 0C       		.byte	0xc
+ 153 0011 17020000 		.4byte	.LASF49
+ 154 0015 5B030000 		.4byte	.LASF50
+ 155 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 156 001d 00000000 		.4byte	0
+ 157 0021 00000000 		.4byte	.Ldebug_line0
+ 158 0025 02       		.uleb128 0x2
+ 159 0026 01       		.byte	0x1
+ 160 0027 06       		.byte	0x6
+ 161 0028 32030000 		.4byte	.LASF0
+ 162 002c 02       		.uleb128 0x2
+ 163 002d 01       		.byte	0x1
+ 164 002e 08       		.byte	0x8
+ 165 002f A0000000 		.4byte	.LASF1
+ 166 0033 02       		.uleb128 0x2
+ 167 0034 02       		.byte	0x2
+ 168 0035 05       		.byte	0x5
+ 169 0036 E9020000 		.4byte	.LASF2
+ 170 003a 03       		.uleb128 0x3
+ 171 003b C6010000 		.4byte	.LASF4
+ 172 003f 02       		.byte	0x2
+ 173 0040 2B       		.byte	0x2b
+ 174 0041 45000000 		.4byte	0x45
+ 175 0045 02       		.uleb128 0x2
+ 176 0046 02       		.byte	0x2
+ 177 0047 07       		.byte	0x7
+ 178 0048 77010000 		.4byte	.LASF3
+ 179 004c 03       		.uleb128 0x3
+ 180 004d 21000000 		.4byte	.LASF5
+ 181 0051 02       		.byte	0x2
+ 182 0052 3F       		.byte	0x3f
+ 183 0053 57000000 		.4byte	0x57
+ 184 0057 02       		.uleb128 0x2
+ 185 0058 04       		.byte	0x4
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 6
 
 
- 126              		.section	.debug_info,"",%progbits
- 127              	.Ldebug_info0:
- 128 0000 D4020000 		.4byte	0x2d4
- 129 0004 0400     		.2byte	0x4
- 130 0006 00000000 		.4byte	.Ldebug_abbrev0
- 131 000a 04       		.byte	0x4
- 132 000b 01       		.uleb128 0x1
- 133 000c 9E000000 		.4byte	.LASF44
- 134 0010 0C       		.byte	0xc
- 135 0011 F6010000 		.4byte	.LASF45
- 136 0015 2B030000 		.4byte	.LASF46
- 137 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 138 001d 00000000 		.4byte	0
- 139 0021 00000000 		.4byte	.Ldebug_line0
- 140 0025 02       		.uleb128 0x2
- 141 0026 01       		.byte	0x1
- 142 0027 06       		.byte	0x6
- 143 0028 11030000 		.4byte	.LASF0
- 144 002c 02       		.uleb128 0x2
- 145 002d 01       		.byte	0x1
- 146 002e 08       		.byte	0x8
- 147 002f 90000000 		.4byte	.LASF1
- 148 0033 02       		.uleb128 0x2
- 149 0034 02       		.byte	0x2
- 150 0035 05       		.byte	0x5
- 151 0036 C8020000 		.4byte	.LASF2
- 152 003a 03       		.uleb128 0x3
- 153 003b B6010000 		.4byte	.LASF4
- 154 003f 02       		.byte	0x2
- 155 0040 2B       		.byte	0x2b
- 156 0041 45000000 		.4byte	0x45
- 157 0045 02       		.uleb128 0x2
- 158 0046 02       		.byte	0x2
- 159 0047 07       		.byte	0x7
- 160 0048 67010000 		.4byte	.LASF3
- 161 004c 03       		.uleb128 0x3
- 162 004d 11000000 		.4byte	.LASF5
- 163 0051 02       		.byte	0x2
- 164 0052 3F       		.byte	0x3f
- 165 0053 57000000 		.4byte	0x57
- 166 0057 02       		.uleb128 0x2
- 167 0058 04       		.byte	0x4
- 168 0059 05       		.byte	0x5
- 169 005a FC020000 		.4byte	.LASF6
- 170 005e 03       		.uleb128 0x3
- 171 005f CB010000 		.4byte	.LASF7
- 172 0063 02       		.byte	0x2
- 173 0064 41       		.byte	0x41
- 174 0065 69000000 		.4byte	0x69
- 175 0069 02       		.uleb128 0x2
- 176 006a 04       		.byte	0x4
- 177 006b 07       		.byte	0x7
- 178 006c 55010000 		.4byte	.LASF8
- 179 0070 02       		.uleb128 0x2
- 180 0071 08       		.byte	0x8
- 181 0072 05       		.byte	0x5
- 182 0073 8F020000 		.4byte	.LASF9
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 6
+ 186 0059 05       		.byte	0x5
+ 187 005a 1D030000 		.4byte	.LASF6
+ 188 005e 03       		.uleb128 0x3
+ 189 005f EC010000 		.4byte	.LASF7
+ 190 0063 02       		.byte	0x2
+ 191 0064 41       		.byte	0x41
+ 192 0065 69000000 		.4byte	0x69
+ 193 0069 02       		.uleb128 0x2
+ 194 006a 04       		.byte	0x4
+ 195 006b 07       		.byte	0x7
+ 196 006c 65010000 		.4byte	.LASF8
+ 197 0070 02       		.uleb128 0x2
+ 198 0071 08       		.byte	0x8
+ 199 0072 05       		.byte	0x5
+ 200 0073 B0020000 		.4byte	.LASF9
+ 201 0077 02       		.uleb128 0x2
+ 202 0078 08       		.byte	0x8
+ 203 0079 07       		.byte	0x7
+ 204 007a 7F000000 		.4byte	.LASF10
+ 205 007e 04       		.uleb128 0x4
+ 206 007f 04       		.byte	0x4
+ 207 0080 05       		.byte	0x5
+ 208 0081 696E7400 		.ascii	"int\000"
+ 209 0085 02       		.uleb128 0x2
+ 210 0086 04       		.byte	0x4
+ 211 0087 07       		.byte	0x7
+ 212 0088 43020000 		.4byte	.LASF11
+ 213 008c 03       		.uleb128 0x3
+ 214 008d E0020000 		.4byte	.LASF12
+ 215 0091 03       		.byte	0x3
+ 216 0092 24       		.byte	0x24
+ 217 0093 3A000000 		.4byte	0x3a
+ 218 0097 03       		.uleb128 0x3
+ 219 0098 9F020000 		.4byte	.LASF13
+ 220 009c 03       		.byte	0x3
+ 221 009d 2C       		.byte	0x2c
+ 222 009e 4C000000 		.4byte	0x4c
+ 223 00a2 03       		.uleb128 0x3
+ 224 00a3 14030000 		.4byte	.LASF14
+ 225 00a7 03       		.byte	0x3
+ 226 00a8 30       		.byte	0x30
+ 227 00a9 5E000000 		.4byte	0x5e
+ 228 00ad 02       		.uleb128 0x2
+ 229 00ae 04       		.byte	0x4
+ 230 00af 04       		.byte	0x4
+ 231 00b0 60000000 		.4byte	.LASF15
+ 232 00b4 02       		.uleb128 0x2
+ 233 00b5 08       		.byte	0x8
+ 234 00b6 04       		.byte	0x4
+ 235 00b7 39000000 		.4byte	.LASF16
+ 236 00bb 02       		.uleb128 0x2
+ 237 00bc 01       		.byte	0x1
+ 238 00bd 08       		.byte	0x8
+ 239 00be BE020000 		.4byte	.LASF17
+ 240 00c2 02       		.uleb128 0x2
+ 241 00c3 08       		.byte	0x8
+ 242 00c4 04       		.byte	0x4
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 7
 
 
- 183 0077 02       		.uleb128 0x2
- 184 0078 08       		.byte	0x8
- 185 0079 07       		.byte	0x7
- 186 007a 6F000000 		.4byte	.LASF10
- 187 007e 04       		.uleb128 0x4
- 188 007f 04       		.byte	0x4
- 189 0080 05       		.byte	0x5
- 190 0081 696E7400 		.ascii	"int\000"
- 191 0085 02       		.uleb128 0x2
- 192 0086 04       		.byte	0x4
- 193 0087 07       		.byte	0x7
- 194 0088 22020000 		.4byte	.LASF11
- 195 008c 03       		.uleb128 0x3
- 196 008d BF020000 		.4byte	.LASF12
- 197 0091 03       		.byte	0x3
- 198 0092 24       		.byte	0x24
- 199 0093 3A000000 		.4byte	0x3a
- 200 0097 03       		.uleb128 0x3
- 201 0098 7E020000 		.4byte	.LASF13
- 202 009c 03       		.byte	0x3
- 203 009d 2C       		.byte	0x2c
- 204 009e 4C000000 		.4byte	0x4c
- 205 00a2 03       		.uleb128 0x3
- 206 00a3 F3020000 		.4byte	.LASF14
- 207 00a7 03       		.byte	0x3
- 208 00a8 30       		.byte	0x30
- 209 00a9 5E000000 		.4byte	0x5e
- 210 00ad 02       		.uleb128 0x2
- 211 00ae 04       		.byte	0x4
- 212 00af 04       		.byte	0x4
- 213 00b0 50000000 		.4byte	.LASF15
- 214 00b4 02       		.uleb128 0x2
- 215 00b5 08       		.byte	0x8
- 216 00b6 04       		.byte	0x4
- 217 00b7 29000000 		.4byte	.LASF16
- 218 00bb 02       		.uleb128 0x2
- 219 00bc 01       		.byte	0x1
- 220 00bd 08       		.byte	0x8
- 221 00be 9D020000 		.4byte	.LASF17
- 222 00c2 02       		.uleb128 0x2
- 223 00c3 08       		.byte	0x8
- 224 00c4 04       		.byte	0x4
- 225 00c5 05030000 		.4byte	.LASF18
- 226 00c9 03       		.uleb128 0x3
- 227 00ca 4C010000 		.4byte	.LASF19
- 228 00ce 04       		.byte	0x4
- 229 00cf 53       		.byte	0x53
- 230 00d0 7E000000 		.4byte	0x7e
- 231 00d4 03       		.uleb128 0x3
- 232 00d5 37020000 		.4byte	.LASF20
- 233 00d9 04       		.byte	0x4
- 234 00da 54       		.byte	0x54
- 235 00db 85000000 		.4byte	0x85
- 236 00df 03       		.uleb128 0x3
- 237 00e0 A2020000 		.4byte	.LASF21
- 238 00e4 05       		.byte	0x5
- 239 00e5 4D       		.byte	0x4d
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 7
+ 243 00c5 26030000 		.4byte	.LASF18
+ 244 00c9 03       		.uleb128 0x3
+ 245 00ca 5C010000 		.4byte	.LASF19
+ 246 00ce 04       		.byte	0x4
+ 247 00cf 53       		.byte	0x53
+ 248 00d0 7E000000 		.4byte	0x7e
+ 249 00d4 03       		.uleb128 0x3
+ 250 00d5 58020000 		.4byte	.LASF20
+ 251 00d9 04       		.byte	0x4
+ 252 00da 54       		.byte	0x54
+ 253 00db 85000000 		.4byte	0x85
+ 254 00df 03       		.uleb128 0x3
+ 255 00e0 C3020000 		.4byte	.LASF21
+ 256 00e4 05       		.byte	0x5
+ 257 00e5 4D       		.byte	0x4d
+ 258 00e6 D4000000 		.4byte	0xd4
+ 259 00ea 03       		.uleb128 0x3
+ 260 00eb 50020000 		.4byte	.LASF22
+ 261 00ef 05       		.byte	0x5
+ 262 00f0 4F       		.byte	0x4f
+ 263 00f1 D4000000 		.4byte	0xd4
+ 264 00f5 03       		.uleb128 0x3
+ 265 00f6 59000000 		.4byte	.LASF23
+ 266 00fa 05       		.byte	0x5
+ 267 00fb 78       		.byte	0x78
+ 268 00fc C9000000 		.4byte	0xc9
+ 269 0100 05       		.uleb128 0x5
+ 270 0101 2B000000 		.4byte	.LASF24
+ 271 0105 06       		.byte	0x6
+ 272 0106 2C02     		.2byte	0x22c
+ 273 0108 DF000000 		.4byte	0xdf
+ 274 010c 02       		.uleb128 0x2
+ 275 010d 04       		.byte	0x4
+ 276 010e 07       		.byte	0x7
+ 277 010f A7020000 		.4byte	.LASF25
+ 278 0113 03       		.uleb128 0x3
+ 279 0114 D1010000 		.4byte	.LASF26
+ 280 0118 07       		.byte	0x7
+ 281 0119 21       		.byte	0x21
+ 282 011a 00010000 		.4byte	0x100
+ 283 011e 03       		.uleb128 0x3
+ 284 011f 3E030000 		.4byte	.LASF27
+ 285 0123 08       		.byte	0x8
+ 286 0124 66       		.byte	0x66
+ 287 0125 29010000 		.4byte	0x129
+ 288 0129 06       		.uleb128 0x6
+ 289 012a 04       		.byte	0x4
+ 290 012b 2F010000 		.4byte	0x12f
+ 291 012f 07       		.uleb128 0x7
+ 292 0130 3A010000 		.4byte	0x13a
+ 293 0134 08       		.uleb128 0x8
+ 294 0135 13010000 		.4byte	0x113
+ 295 0139 00       		.byte	0
+ 296 013a 09       		.uleb128 0x9
+ 297 013b 08       		.byte	0x8
+ 298 013c 08       		.byte	0x8
+ 299 013d 6B       		.byte	0x6b
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 8
 
 
- 240 00e6 D4000000 		.4byte	0xd4
- 241 00ea 03       		.uleb128 0x3
- 242 00eb 2F020000 		.4byte	.LASF22
- 243 00ef 05       		.byte	0x5
- 244 00f0 4F       		.byte	0x4f
- 245 00f1 D4000000 		.4byte	0xd4
- 246 00f5 03       		.uleb128 0x3
- 247 00f6 49000000 		.4byte	.LASF23
- 248 00fa 05       		.byte	0x5
- 249 00fb 78       		.byte	0x78
- 250 00fc C9000000 		.4byte	0xc9
- 251 0100 05       		.uleb128 0x5
- 252 0101 1B000000 		.4byte	.LASF24
- 253 0105 06       		.byte	0x6
- 254 0106 2C02     		.2byte	0x22c
- 255 0108 DF000000 		.4byte	0xdf
- 256 010c 02       		.uleb128 0x2
- 257 010d 04       		.byte	0x4
- 258 010e 07       		.byte	0x7
- 259 010f 86020000 		.4byte	.LASF25
- 260 0113 03       		.uleb128 0x3
- 261 0114 C1010000 		.4byte	.LASF26
- 262 0118 07       		.byte	0x7
- 263 0119 21       		.byte	0x21
- 264 011a 00010000 		.4byte	0x100
- 265 011e 03       		.uleb128 0x3
- 266 011f 1D030000 		.4byte	.LASF27
- 267 0123 08       		.byte	0x8
- 268 0124 66       		.byte	0x66
- 269 0125 29010000 		.4byte	0x129
- 270 0129 06       		.uleb128 0x6
- 271 012a 04       		.byte	0x4
- 272 012b 2F010000 		.4byte	0x12f
- 273 012f 07       		.uleb128 0x7
- 274 0130 3A010000 		.4byte	0x13a
- 275 0134 08       		.uleb128 0x8
- 276 0135 13010000 		.4byte	0x113
- 277 0139 00       		.byte	0
- 278 013a 09       		.uleb128 0x9
- 279 013b 08       		.byte	0x8
- 280 013c 08       		.byte	0x8
- 281 013d 6B       		.byte	0x6b
- 282 013e 5B010000 		.4byte	0x15b
- 283 0142 0A       		.uleb128 0xa
- 284 0143 72756E00 		.ascii	"run\000"
- 285 0147 08       		.byte	0x8
- 286 0148 6D       		.byte	0x6d
- 287 0149 1E010000 		.4byte	0x11e
- 288 014d 00       		.byte	0
- 289 014e 0B       		.uleb128 0xb
- 290 014f 86000000 		.4byte	.LASF28
- 291 0153 08       		.byte	0x8
- 292 0154 6E       		.byte	0x6e
- 293 0155 8C000000 		.4byte	0x8c
- 294 0159 04       		.byte	0x4
- 295 015a 00       		.byte	0
- 296 015b 03       		.uleb128 0x3
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 8
+ 300 013e 5B010000 		.4byte	0x15b
+ 301 0142 0A       		.uleb128 0xa
+ 302 0143 72756E00 		.ascii	"run\000"
+ 303 0147 08       		.byte	0x8
+ 304 0148 6D       		.byte	0x6d
+ 305 0149 1E010000 		.4byte	0x11e
+ 306 014d 00       		.byte	0
+ 307 014e 0B       		.uleb128 0xb
+ 308 014f 96000000 		.4byte	.LASF28
+ 309 0153 08       		.byte	0x8
+ 310 0154 6E       		.byte	0x6e
+ 311 0155 8C000000 		.4byte	0x8c
+ 312 0159 04       		.byte	0x4
+ 313 015a 00       		.byte	0
+ 314 015b 03       		.uleb128 0x3
+ 315 015c 31020000 		.4byte	.LASF29
+ 316 0160 08       		.byte	0x8
+ 317 0161 6F       		.byte	0x6f
+ 318 0162 3A010000 		.4byte	0x13a
+ 319 0166 09       		.uleb128 0x9
+ 320 0167 08       		.byte	0x8
+ 321 0168 08       		.byte	0x8
+ 322 0169 74       		.byte	0x74
+ 323 016a 87010000 		.4byte	0x187
+ 324 016e 0A       		.uleb128 0xa
+ 325 016f 72756E00 		.ascii	"run\000"
+ 326 0173 08       		.byte	0x8
+ 327 0174 76       		.byte	0x76
+ 328 0175 1E010000 		.4byte	0x11e
+ 329 0179 00       		.byte	0
+ 330 017a 0B       		.uleb128 0xb
+ 331 017b 2B020000 		.4byte	.LASF30
+ 332 017f 08       		.byte	0x8
+ 333 0180 77       		.byte	0x77
+ 334 0181 00010000 		.4byte	0x100
+ 335 0185 04       		.byte	0x4
+ 336 0186 00       		.byte	0
+ 337 0187 03       		.uleb128 0x3
+ 338 0188 10000000 		.4byte	.LASF31
+ 339 018c 08       		.byte	0x8
+ 340 018d 78       		.byte	0x78
+ 341 018e 66010000 		.4byte	0x166
+ 342 0192 0C       		.uleb128 0xc
+ 343 0193 6B020000 		.4byte	.LASF51
+ 344 0197 01       		.byte	0x1
+ 345 0198 41       		.byte	0x41
+ 346 0199 00000000 		.4byte	.LFB110
+ 347 019d 58000000 		.4byte	.LFE110-.LFB110
+ 348 01a1 01       		.uleb128 0x1
+ 349 01a2 9C       		.byte	0x9c
+ 350 01a3 2F020000 		.4byte	0x22f
+ 351 01a7 0D       		.uleb128 0xd
+ 352 01a8 62020000 		.4byte	.LASF32
+ 353 01ac 01       		.byte	0x1
+ 354 01ad 44       		.byte	0x44
+ 355 01ae A2000000 		.4byte	0xa2
+ 356 01b2 05       		.uleb128 0x5
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 9
 
 
- 297 015c 10020000 		.4byte	.LASF29
- 298 0160 08       		.byte	0x8
- 299 0161 6F       		.byte	0x6f
- 300 0162 3A010000 		.4byte	0x13a
- 301 0166 09       		.uleb128 0x9
- 302 0167 08       		.byte	0x8
- 303 0168 08       		.byte	0x8
- 304 0169 74       		.byte	0x74
- 305 016a 87010000 		.4byte	0x187
- 306 016e 0A       		.uleb128 0xa
- 307 016f 72756E00 		.ascii	"run\000"
- 308 0173 08       		.byte	0x8
- 309 0174 76       		.byte	0x76
- 310 0175 1E010000 		.4byte	0x11e
- 311 0179 00       		.byte	0
- 312 017a 0B       		.uleb128 0xb
- 313 017b 0A020000 		.4byte	.LASF30
- 314 017f 08       		.byte	0x8
- 315 0180 77       		.byte	0x77
- 316 0181 00010000 		.4byte	0x100
- 317 0185 04       		.byte	0x4
- 318 0186 00       		.byte	0
- 319 0187 03       		.uleb128 0x3
- 320 0188 00000000 		.4byte	.LASF31
- 321 018c 08       		.byte	0x8
- 322 018d 78       		.byte	0x78
- 323 018e 66010000 		.4byte	0x166
- 324 0192 0C       		.uleb128 0xc
- 325 0193 4A020000 		.4byte	.LASF47
- 326 0197 01       		.byte	0x1
- 327 0198 41       		.byte	0x41
- 328 0199 00000000 		.4byte	.LFB110
- 329 019d 40000000 		.4byte	.LFE110-.LFB110
- 330 01a1 01       		.uleb128 0x1
- 331 01a2 9C       		.byte	0x9c
- 332 01a3 FC010000 		.4byte	0x1fc
- 333 01a7 0D       		.uleb128 0xd
- 334 01a8 41020000 		.4byte	.LASF48
- 335 01ac 01       		.byte	0x1
- 336 01ad 44       		.byte	0x44
- 337 01ae A2000000 		.4byte	0xa2
- 338 01b2 05       		.uleb128 0x5
- 339 01b3 03       		.byte	0x3
- 340 01b4 00000000 		.4byte	ticktime.6446
- 341 01b8 0E       		.uleb128 0xe
- 342 01b9 657600   		.ascii	"ev\000"
- 343 01bc 01       		.byte	0x1
- 344 01bd 46       		.byte	0x46
- 345 01be 00010000 		.4byte	0x100
- 346 01c2 0F       		.uleb128 0xf
- 347 01c3 14000000 		.4byte	.LVL0
- 348 01c7 C1020000 		.4byte	0x2c1
- 349 01cb DE010000 		.4byte	0x1de
- 350 01cf 10       		.uleb128 0x10
- 351 01d0 01       		.uleb128 0x1
- 352 01d1 50       		.byte	0x50
- 353 01d2 05       		.uleb128 0x5
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 9
+ 357 01b3 03       		.byte	0x3
+ 358 01b4 00000000 		.4byte	ticktime.6382
+ 359 01b8 0E       		.uleb128 0xe
+ 360 01b9 657600   		.ascii	"ev\000"
+ 361 01bc 01       		.byte	0x1
+ 362 01bd 46       		.byte	0x46
+ 363 01be 00010000 		.4byte	0x100
+ 364 01c2 02       		.uleb128 0x2
+ 365 01c3 91       		.byte	0x91
+ 366 01c4 74       		.sleb128 -12
+ 367 01c5 0F       		.uleb128 0xf
+ 368 01c6 0E000000 		.4byte	.LVL0
+ 369 01ca F4020000 		.4byte	0x2f4
+ 370 01ce D8010000 		.4byte	0x1d8
+ 371 01d2 10       		.uleb128 0x10
+ 372 01d3 01       		.uleb128 0x1
+ 373 01d4 50       		.byte	0x50
+ 374 01d5 01       		.uleb128 0x1
+ 375 01d6 36       		.byte	0x36
+ 376 01d7 00       		.byte	0
+ 377 01d8 0F       		.uleb128 0xf
+ 378 01d9 16000000 		.4byte	.LVL1
+ 379 01dd 00030000 		.4byte	0x300
+ 380 01e1 F1010000 		.4byte	0x1f1
+ 381 01e5 10       		.uleb128 0x10
+ 382 01e6 01       		.uleb128 0x1
+ 383 01e7 50       		.byte	0x50
+ 384 01e8 01       		.uleb128 0x1
+ 385 01e9 32       		.byte	0x32
+ 386 01ea 10       		.uleb128 0x10
+ 387 01eb 01       		.uleb128 0x1
+ 388 01ec 51       		.byte	0x51
+ 389 01ed 02       		.uleb128 0x2
+ 390 01ee 91       		.byte	0x91
+ 391 01ef 74       		.sleb128 -12
+ 392 01f0 00       		.byte	0
+ 393 01f1 11       		.uleb128 0x11
+ 394 01f2 1C000000 		.4byte	.LVL2
+ 395 01f6 0C030000 		.4byte	0x30c
+ 396 01fa 0F       		.uleb128 0xf
+ 397 01fb 30000000 		.4byte	.LVL3
+ 398 01ff 18030000 		.4byte	0x318
+ 399 0203 16020000 		.4byte	0x216
+ 400 0207 10       		.uleb128 0x10
+ 401 0208 01       		.uleb128 0x1
+ 402 0209 50       		.byte	0x50
+ 403 020a 05       		.uleb128 0x5
+ 404 020b 03       		.byte	0x3
+ 405 020c 00000000 		.4byte	.LANCHOR1
+ 406 0210 10       		.uleb128 0x10
+ 407 0211 01       		.uleb128 0x1
+ 408 0212 51       		.byte	0x51
+ 409 0213 01       		.uleb128 0x1
+ 410 0214 32       		.byte	0x32
+ 411 0215 00       		.byte	0
+ 412 0216 12       		.uleb128 0x12
+ 413 0217 4A000000 		.4byte	.LVL4
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 10
 
 
- 354 01d3 03       		.byte	0x3
- 355 01d4 00000000 		.4byte	.LANCHOR1
- 356 01d8 10       		.uleb128 0x10
- 357 01d9 01       		.uleb128 0x1
- 358 01da 51       		.byte	0x51
- 359 01db 01       		.uleb128 0x1
- 360 01dc 32       		.byte	0x32
- 361 01dd 00       		.byte	0
- 362 01de 11       		.uleb128 0x11
- 363 01df 32000000 		.4byte	.LVL1
- 364 01e3 CC020000 		.4byte	0x2cc
- 365 01e7 10       		.uleb128 0x10
- 366 01e8 01       		.uleb128 0x1
- 367 01e9 50       		.byte	0x50
- 368 01ea 05       		.uleb128 0x5
- 369 01eb 03       		.byte	0x3
- 370 01ec 10000000 		.4byte	.LANCHOR1+16
- 371 01f0 10       		.uleb128 0x10
- 372 01f1 01       		.uleb128 0x1
- 373 01f2 51       		.byte	0x51
- 374 01f3 01       		.uleb128 0x1
- 375 01f4 31       		.byte	0x31
- 376 01f5 10       		.uleb128 0x10
- 377 01f6 01       		.uleb128 0x1
- 378 01f7 52       		.byte	0x52
- 379 01f8 01       		.uleb128 0x1
- 380 01f9 30       		.byte	0x30
- 381 01fa 00       		.byte	0
- 382 01fb 00       		.byte	0
- 383 01fc 12       		.uleb128 0x12
- 384 01fd 7A010000 		.4byte	.LASF32
- 385 0201 09       		.byte	0x9
- 386 0202 40       		.byte	0x40
- 387 0203 DF000000 		.4byte	0xdf
- 388 0207 12       		.uleb128 0x12
- 389 0208 30000000 		.4byte	.LASF33
- 390 020c 09       		.byte	0x9
- 391 020d 47       		.byte	0x47
- 392 020e EA000000 		.4byte	0xea
- 393 0212 12       		.uleb128 0x12
- 394 0213 55020000 		.4byte	.LASF34
- 395 0217 09       		.byte	0x9
- 396 0218 4A       		.byte	0x4a
- 397 0219 DF000000 		.4byte	0xdf
- 398 021d 12       		.uleb128 0x12
- 399 021e 56000000 		.4byte	.LASF35
- 400 0222 0A       		.byte	0xa
- 401 0223 48       		.byte	0x48
- 402 0224 F5000000 		.4byte	0xf5
- 403 0228 12       		.uleb128 0x12
- 404 0229 AA020000 		.4byte	.LASF36
- 405 022d 0B       		.byte	0xb
- 406 022e 44       		.byte	0x44
- 407 022f DF000000 		.4byte	0xdf
- 408 0233 13       		.uleb128 0x13
- 409 0234 92010000 		.4byte	.LASF37
- 410 0238 0C       		.byte	0xc
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 10
+ 414 021b 23030000 		.4byte	0x323
+ 415 021f 10       		.uleb128 0x10
+ 416 0220 01       		.uleb128 0x1
+ 417 0221 50       		.byte	0x50
+ 418 0222 05       		.uleb128 0x5
+ 419 0223 03       		.byte	0x3
+ 420 0224 10000000 		.4byte	.LANCHOR1+16
+ 421 0228 10       		.uleb128 0x10
+ 422 0229 01       		.uleb128 0x1
+ 423 022a 51       		.byte	0x51
+ 424 022b 01       		.uleb128 0x1
+ 425 022c 31       		.byte	0x31
+ 426 022d 00       		.byte	0
+ 427 022e 00       		.byte	0
+ 428 022f 13       		.uleb128 0x13
+ 429 0230 8A010000 		.4byte	.LASF33
+ 430 0234 09       		.byte	0x9
+ 431 0235 40       		.byte	0x40
+ 432 0236 DF000000 		.4byte	0xdf
+ 433 023a 13       		.uleb128 0x13
+ 434 023b 40000000 		.4byte	.LASF34
+ 435 023f 09       		.byte	0x9
+ 436 0240 47       		.byte	0x47
+ 437 0241 EA000000 		.4byte	0xea
+ 438 0245 13       		.uleb128 0x13
+ 439 0246 76020000 		.4byte	.LASF35
+ 440 024a 09       		.byte	0x9
+ 441 024b 4A       		.byte	0x4a
+ 442 024c DF000000 		.4byte	0xdf
+ 443 0250 13       		.uleb128 0x13
+ 444 0251 66000000 		.4byte	.LASF36
+ 445 0255 0A       		.byte	0xa
+ 446 0256 48       		.byte	0x48
+ 447 0257 F5000000 		.4byte	0xf5
+ 448 025b 13       		.uleb128 0x13
+ 449 025c CB020000 		.4byte	.LASF37
+ 450 0260 0B       		.byte	0xb
+ 451 0261 44       		.byte	0x44
+ 452 0262 DF000000 		.4byte	0xdf
+ 453 0266 14       		.uleb128 0x14
+ 454 0267 A2010000 		.4byte	.LASF38
+ 455 026b 0C       		.byte	0xc
+ 456 026c 1207     		.2byte	0x712
+ 457 026e 72020000 		.4byte	0x272
+ 458 0272 15       		.uleb128 0x15
+ 459 0273 97000000 		.4byte	0x97
+ 460 0277 16       		.uleb128 0x16
+ 461 0278 87020000 		.4byte	0x287
+ 462 027c 87020000 		.4byte	0x287
+ 463 0280 17       		.uleb128 0x17
+ 464 0281 0C010000 		.4byte	0x10c
+ 465 0285 01       		.byte	0x1
+ 466 0286 00       		.byte	0
+ 467 0287 18       		.uleb128 0x18
+ 468 0288 5B010000 		.4byte	0x15b
+ 469 028c 19       		.uleb128 0x19
+ 470 028d 9D030000 		.4byte	.LASF39
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 11
 
 
- 411 0239 1207     		.2byte	0x712
- 412 023b 3F020000 		.4byte	0x23f
- 413 023f 14       		.uleb128 0x14
- 414 0240 97000000 		.4byte	0x97
- 415 0244 15       		.uleb128 0x15
- 416 0245 54020000 		.4byte	0x254
- 417 0249 54020000 		.4byte	0x254
- 418 024d 16       		.uleb128 0x16
- 419 024e 0C010000 		.4byte	0x10c
- 420 0252 01       		.byte	0x1
- 421 0253 00       		.byte	0
- 422 0254 17       		.uleb128 0x17
- 423 0255 5B010000 		.4byte	0x15b
- 424 0259 18       		.uleb128 0x18
- 425 025a 6D030000 		.4byte	.LASF38
- 426 025e 01       		.byte	0x1
- 427 025f 25       		.byte	0x25
- 428 0260 6A020000 		.4byte	0x26a
- 429 0264 05       		.uleb128 0x5
- 430 0265 03       		.byte	0x3
- 431 0266 00000000 		.4byte	RTE_cyclicActivationTable_tsk_io
- 432 026a 17       		.uleb128 0x17
- 433 026b 44020000 		.4byte	0x244
- 434 026f 18       		.uleb128 0x18
- 435 0270 D2020000 		.4byte	.LASF39
- 436 0274 01       		.byte	0x1
- 437 0275 29       		.byte	0x29
- 438 0276 80020000 		.4byte	0x280
- 439 027a 05       		.uleb128 0x5
- 440 027b 03       		.byte	0x3
- 441 027c 00000000 		.4byte	RTE_cyclicActivation_tsk_io_size
- 442 0280 17       		.uleb128 0x17
- 443 0281 8C000000 		.4byte	0x8c
- 444 0285 15       		.uleb128 0x15
- 445 0286 95020000 		.4byte	0x295
- 446 028a 95020000 		.4byte	0x295
- 447 028e 16       		.uleb128 0x16
- 448 028f 0C010000 		.4byte	0x10c
- 449 0293 00       		.byte	0
- 450 0294 00       		.byte	0
- 451 0295 17       		.uleb128 0x17
- 452 0296 87010000 		.4byte	0x187
- 453 029a 18       		.uleb128 0x18
- 454 029b D6010000 		.4byte	.LASF40
- 455 029f 01       		.byte	0x1
- 456 02a0 2C       		.byte	0x2c
- 457 02a1 AB020000 		.4byte	0x2ab
- 458 02a5 05       		.uleb128 0x5
- 459 02a6 03       		.byte	0x3
- 460 02a7 00000000 		.4byte	RTE_eventActivationTable_tsk_io
- 461 02ab 17       		.uleb128 0x17
- 462 02ac 85020000 		.4byte	0x285
- 463 02b0 18       		.uleb128 0x18
- 464 02b1 2C010000 		.4byte	.LASF41
- 465 02b5 01       		.byte	0x1
- 466 02b6 2F       		.byte	0x2f
- 467 02b7 80020000 		.4byte	0x280
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 11
+ 471 0291 01       		.byte	0x1
+ 472 0292 25       		.byte	0x25
+ 473 0293 9D020000 		.4byte	0x29d
+ 474 0297 05       		.uleb128 0x5
+ 475 0298 03       		.byte	0x3
+ 476 0299 00000000 		.4byte	RTE_cyclicActivationTable_tsk_io
+ 477 029d 18       		.uleb128 0x18
+ 478 029e 77020000 		.4byte	0x277
+ 479 02a2 19       		.uleb128 0x19
+ 480 02a3 F3020000 		.4byte	.LASF40
+ 481 02a7 01       		.byte	0x1
+ 482 02a8 29       		.byte	0x29
+ 483 02a9 B3020000 		.4byte	0x2b3
+ 484 02ad 05       		.uleb128 0x5
+ 485 02ae 03       		.byte	0x3
+ 486 02af 00000000 		.4byte	RTE_cyclicActivation_tsk_io_size
+ 487 02b3 18       		.uleb128 0x18
+ 488 02b4 8C000000 		.4byte	0x8c
+ 489 02b8 16       		.uleb128 0x16
+ 490 02b9 C8020000 		.4byte	0x2c8
+ 491 02bd C8020000 		.4byte	0x2c8
+ 492 02c1 17       		.uleb128 0x17
+ 493 02c2 0C010000 		.4byte	0x10c
+ 494 02c6 00       		.byte	0
+ 495 02c7 00       		.byte	0
+ 496 02c8 18       		.uleb128 0x18
+ 497 02c9 87010000 		.4byte	0x187
+ 498 02cd 19       		.uleb128 0x19
+ 499 02ce F7010000 		.4byte	.LASF41
+ 500 02d2 01       		.byte	0x1
+ 501 02d3 2C       		.byte	0x2c
+ 502 02d4 DE020000 		.4byte	0x2de
+ 503 02d8 05       		.uleb128 0x5
+ 504 02d9 03       		.byte	0x3
+ 505 02da 00000000 		.4byte	RTE_eventActivationTable_tsk_io
+ 506 02de 18       		.uleb128 0x18
+ 507 02df B8020000 		.4byte	0x2b8
+ 508 02e3 19       		.uleb128 0x19
+ 509 02e4 3C010000 		.4byte	.LASF42
+ 510 02e8 01       		.byte	0x1
+ 511 02e9 2F       		.byte	0x2f
+ 512 02ea B3020000 		.4byte	0x2b3
+ 513 02ee 05       		.uleb128 0x5
+ 514 02ef 03       		.byte	0x3
+ 515 02f0 00000000 		.4byte	RTE_eventActivation_tsk_io_size
+ 516 02f4 1A       		.uleb128 0x1a
+ 517 02f5 00000000 		.4byte	.LASF43
+ 518 02f9 00000000 		.4byte	.LASF43
+ 519 02fd 0D       		.byte	0xd
+ 520 02fe 5901     		.2byte	0x159
+ 521 0300 1A       		.uleb128 0x1a
+ 522 0301 4C030000 		.4byte	.LASF44
+ 523 0305 4C030000 		.4byte	.LASF44
+ 524 0309 0D       		.byte	0xd
+ 525 030a 5401     		.2byte	0x154
+ 526 030c 1A       		.uleb128 0x1a
+ 527 030d DB010000 		.4byte	.LASF45
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 12
 
 
- 468 02bb 05       		.uleb128 0x5
- 469 02bc 03       		.byte	0x3
- 470 02bd 00000000 		.4byte	RTE_eventActivation_tsk_io_size
- 471 02c1 19       		.uleb128 0x19
- 472 02c2 9F010000 		.4byte	.LASF42
- 473 02c6 9F010000 		.4byte	.LASF42
- 474 02ca 08       		.byte	0x8
- 475 02cb 8E       		.byte	0x8e
- 476 02cc 19       		.uleb128 0x19
- 477 02cd 68020000 		.4byte	.LASF43
- 478 02d1 68020000 		.4byte	.LASF43
- 479 02d5 08       		.byte	0x8
- 480 02d6 97       		.byte	0x97
- 481 02d7 00       		.byte	0
- 482              		.section	.debug_abbrev,"",%progbits
- 483              	.Ldebug_abbrev0:
- 484 0000 01       		.uleb128 0x1
- 485 0001 11       		.uleb128 0x11
- 486 0002 01       		.byte	0x1
- 487 0003 25       		.uleb128 0x25
- 488 0004 0E       		.uleb128 0xe
- 489 0005 13       		.uleb128 0x13
- 490 0006 0B       		.uleb128 0xb
- 491 0007 03       		.uleb128 0x3
- 492 0008 0E       		.uleb128 0xe
- 493 0009 1B       		.uleb128 0x1b
- 494 000a 0E       		.uleb128 0xe
- 495 000b 55       		.uleb128 0x55
- 496 000c 17       		.uleb128 0x17
- 497 000d 11       		.uleb128 0x11
- 498 000e 01       		.uleb128 0x1
- 499 000f 10       		.uleb128 0x10
- 500 0010 17       		.uleb128 0x17
- 501 0011 00       		.byte	0
- 502 0012 00       		.byte	0
- 503 0013 02       		.uleb128 0x2
- 504 0014 24       		.uleb128 0x24
- 505 0015 00       		.byte	0
- 506 0016 0B       		.uleb128 0xb
- 507 0017 0B       		.uleb128 0xb
- 508 0018 3E       		.uleb128 0x3e
- 509 0019 0B       		.uleb128 0xb
- 510 001a 03       		.uleb128 0x3
- 511 001b 0E       		.uleb128 0xe
- 512 001c 00       		.byte	0
- 513 001d 00       		.byte	0
- 514 001e 03       		.uleb128 0x3
- 515 001f 16       		.uleb128 0x16
- 516 0020 00       		.byte	0
- 517 0021 03       		.uleb128 0x3
- 518 0022 0E       		.uleb128 0xe
- 519 0023 3A       		.uleb128 0x3a
- 520 0024 0B       		.uleb128 0xb
- 521 0025 3B       		.uleb128 0x3b
- 522 0026 0B       		.uleb128 0xb
- 523 0027 49       		.uleb128 0x49
- 524 0028 13       		.uleb128 0x13
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 12
+ 528 0311 DB010000 		.4byte	.LASF45
+ 529 0315 0D       		.byte	0xd
+ 530 0316 4F01     		.2byte	0x14f
+ 531 0318 1B       		.uleb128 0x1b
+ 532 0319 AF010000 		.4byte	.LASF46
+ 533 031d AF010000 		.4byte	.LASF46
+ 534 0321 08       		.byte	0x8
+ 535 0322 8E       		.byte	0x8e
+ 536 0323 1B       		.uleb128 0x1b
+ 537 0324 89020000 		.4byte	.LASF47
+ 538 0328 89020000 		.4byte	.LASF47
+ 539 032c 08       		.byte	0x8
+ 540 032d 97       		.byte	0x97
+ 541 032e 00       		.byte	0
+ 542              		.section	.debug_abbrev,"",%progbits
+ 543              	.Ldebug_abbrev0:
+ 544 0000 01       		.uleb128 0x1
+ 545 0001 11       		.uleb128 0x11
+ 546 0002 01       		.byte	0x1
+ 547 0003 25       		.uleb128 0x25
+ 548 0004 0E       		.uleb128 0xe
+ 549 0005 13       		.uleb128 0x13
+ 550 0006 0B       		.uleb128 0xb
+ 551 0007 03       		.uleb128 0x3
+ 552 0008 0E       		.uleb128 0xe
+ 553 0009 1B       		.uleb128 0x1b
+ 554 000a 0E       		.uleb128 0xe
+ 555 000b 55       		.uleb128 0x55
+ 556 000c 17       		.uleb128 0x17
+ 557 000d 11       		.uleb128 0x11
+ 558 000e 01       		.uleb128 0x1
+ 559 000f 10       		.uleb128 0x10
+ 560 0010 17       		.uleb128 0x17
+ 561 0011 00       		.byte	0
+ 562 0012 00       		.byte	0
+ 563 0013 02       		.uleb128 0x2
+ 564 0014 24       		.uleb128 0x24
+ 565 0015 00       		.byte	0
+ 566 0016 0B       		.uleb128 0xb
+ 567 0017 0B       		.uleb128 0xb
+ 568 0018 3E       		.uleb128 0x3e
+ 569 0019 0B       		.uleb128 0xb
+ 570 001a 03       		.uleb128 0x3
+ 571 001b 0E       		.uleb128 0xe
+ 572 001c 00       		.byte	0
+ 573 001d 00       		.byte	0
+ 574 001e 03       		.uleb128 0x3
+ 575 001f 16       		.uleb128 0x16
+ 576 0020 00       		.byte	0
+ 577 0021 03       		.uleb128 0x3
+ 578 0022 0E       		.uleb128 0xe
+ 579 0023 3A       		.uleb128 0x3a
+ 580 0024 0B       		.uleb128 0xb
+ 581 0025 3B       		.uleb128 0x3b
+ 582 0026 0B       		.uleb128 0xb
+ 583 0027 49       		.uleb128 0x49
+ 584 0028 13       		.uleb128 0x13
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 13
 
 
- 525 0029 00       		.byte	0
- 526 002a 00       		.byte	0
- 527 002b 04       		.uleb128 0x4
- 528 002c 24       		.uleb128 0x24
- 529 002d 00       		.byte	0
- 530 002e 0B       		.uleb128 0xb
- 531 002f 0B       		.uleb128 0xb
- 532 0030 3E       		.uleb128 0x3e
- 533 0031 0B       		.uleb128 0xb
- 534 0032 03       		.uleb128 0x3
- 535 0033 08       		.uleb128 0x8
- 536 0034 00       		.byte	0
- 537 0035 00       		.byte	0
- 538 0036 05       		.uleb128 0x5
- 539 0037 16       		.uleb128 0x16
- 540 0038 00       		.byte	0
- 541 0039 03       		.uleb128 0x3
- 542 003a 0E       		.uleb128 0xe
- 543 003b 3A       		.uleb128 0x3a
- 544 003c 0B       		.uleb128 0xb
- 545 003d 3B       		.uleb128 0x3b
- 546 003e 05       		.uleb128 0x5
- 547 003f 49       		.uleb128 0x49
- 548 0040 13       		.uleb128 0x13
- 549 0041 00       		.byte	0
- 550 0042 00       		.byte	0
- 551 0043 06       		.uleb128 0x6
- 552 0044 0F       		.uleb128 0xf
- 553 0045 00       		.byte	0
- 554 0046 0B       		.uleb128 0xb
- 555 0047 0B       		.uleb128 0xb
- 556 0048 49       		.uleb128 0x49
- 557 0049 13       		.uleb128 0x13
- 558 004a 00       		.byte	0
- 559 004b 00       		.byte	0
- 560 004c 07       		.uleb128 0x7
- 561 004d 15       		.uleb128 0x15
- 562 004e 01       		.byte	0x1
- 563 004f 27       		.uleb128 0x27
- 564 0050 19       		.uleb128 0x19
- 565 0051 01       		.uleb128 0x1
- 566 0052 13       		.uleb128 0x13
- 567 0053 00       		.byte	0
- 568 0054 00       		.byte	0
- 569 0055 08       		.uleb128 0x8
- 570 0056 05       		.uleb128 0x5
- 571 0057 00       		.byte	0
- 572 0058 49       		.uleb128 0x49
- 573 0059 13       		.uleb128 0x13
- 574 005a 00       		.byte	0
- 575 005b 00       		.byte	0
- 576 005c 09       		.uleb128 0x9
- 577 005d 13       		.uleb128 0x13
- 578 005e 01       		.byte	0x1
- 579 005f 0B       		.uleb128 0xb
- 580 0060 0B       		.uleb128 0xb
- 581 0061 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 13
+ 585 0029 00       		.byte	0
+ 586 002a 00       		.byte	0
+ 587 002b 04       		.uleb128 0x4
+ 588 002c 24       		.uleb128 0x24
+ 589 002d 00       		.byte	0
+ 590 002e 0B       		.uleb128 0xb
+ 591 002f 0B       		.uleb128 0xb
+ 592 0030 3E       		.uleb128 0x3e
+ 593 0031 0B       		.uleb128 0xb
+ 594 0032 03       		.uleb128 0x3
+ 595 0033 08       		.uleb128 0x8
+ 596 0034 00       		.byte	0
+ 597 0035 00       		.byte	0
+ 598 0036 05       		.uleb128 0x5
+ 599 0037 16       		.uleb128 0x16
+ 600 0038 00       		.byte	0
+ 601 0039 03       		.uleb128 0x3
+ 602 003a 0E       		.uleb128 0xe
+ 603 003b 3A       		.uleb128 0x3a
+ 604 003c 0B       		.uleb128 0xb
+ 605 003d 3B       		.uleb128 0x3b
+ 606 003e 05       		.uleb128 0x5
+ 607 003f 49       		.uleb128 0x49
+ 608 0040 13       		.uleb128 0x13
+ 609 0041 00       		.byte	0
+ 610 0042 00       		.byte	0
+ 611 0043 06       		.uleb128 0x6
+ 612 0044 0F       		.uleb128 0xf
+ 613 0045 00       		.byte	0
+ 614 0046 0B       		.uleb128 0xb
+ 615 0047 0B       		.uleb128 0xb
+ 616 0048 49       		.uleb128 0x49
+ 617 0049 13       		.uleb128 0x13
+ 618 004a 00       		.byte	0
+ 619 004b 00       		.byte	0
+ 620 004c 07       		.uleb128 0x7
+ 621 004d 15       		.uleb128 0x15
+ 622 004e 01       		.byte	0x1
+ 623 004f 27       		.uleb128 0x27
+ 624 0050 19       		.uleb128 0x19
+ 625 0051 01       		.uleb128 0x1
+ 626 0052 13       		.uleb128 0x13
+ 627 0053 00       		.byte	0
+ 628 0054 00       		.byte	0
+ 629 0055 08       		.uleb128 0x8
+ 630 0056 05       		.uleb128 0x5
+ 631 0057 00       		.byte	0
+ 632 0058 49       		.uleb128 0x49
+ 633 0059 13       		.uleb128 0x13
+ 634 005a 00       		.byte	0
+ 635 005b 00       		.byte	0
+ 636 005c 09       		.uleb128 0x9
+ 637 005d 13       		.uleb128 0x13
+ 638 005e 01       		.byte	0x1
+ 639 005f 0B       		.uleb128 0xb
+ 640 0060 0B       		.uleb128 0xb
+ 641 0061 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 14
 
 
- 582 0062 0B       		.uleb128 0xb
- 583 0063 3B       		.uleb128 0x3b
- 584 0064 0B       		.uleb128 0xb
- 585 0065 01       		.uleb128 0x1
- 586 0066 13       		.uleb128 0x13
- 587 0067 00       		.byte	0
- 588 0068 00       		.byte	0
- 589 0069 0A       		.uleb128 0xa
- 590 006a 0D       		.uleb128 0xd
- 591 006b 00       		.byte	0
- 592 006c 03       		.uleb128 0x3
- 593 006d 08       		.uleb128 0x8
- 594 006e 3A       		.uleb128 0x3a
- 595 006f 0B       		.uleb128 0xb
- 596 0070 3B       		.uleb128 0x3b
- 597 0071 0B       		.uleb128 0xb
- 598 0072 49       		.uleb128 0x49
- 599 0073 13       		.uleb128 0x13
- 600 0074 38       		.uleb128 0x38
- 601 0075 0B       		.uleb128 0xb
- 602 0076 00       		.byte	0
- 603 0077 00       		.byte	0
- 604 0078 0B       		.uleb128 0xb
- 605 0079 0D       		.uleb128 0xd
- 606 007a 00       		.byte	0
- 607 007b 03       		.uleb128 0x3
- 608 007c 0E       		.uleb128 0xe
- 609 007d 3A       		.uleb128 0x3a
- 610 007e 0B       		.uleb128 0xb
- 611 007f 3B       		.uleb128 0x3b
- 612 0080 0B       		.uleb128 0xb
- 613 0081 49       		.uleb128 0x49
- 614 0082 13       		.uleb128 0x13
- 615 0083 38       		.uleb128 0x38
- 616 0084 0B       		.uleb128 0xb
- 617 0085 00       		.byte	0
- 618 0086 00       		.byte	0
- 619 0087 0C       		.uleb128 0xc
- 620 0088 2E       		.uleb128 0x2e
- 621 0089 01       		.byte	0x1
- 622 008a 3F       		.uleb128 0x3f
- 623 008b 19       		.uleb128 0x19
- 624 008c 03       		.uleb128 0x3
- 625 008d 0E       		.uleb128 0xe
- 626 008e 3A       		.uleb128 0x3a
- 627 008f 0B       		.uleb128 0xb
- 628 0090 3B       		.uleb128 0x3b
- 629 0091 0B       		.uleb128 0xb
- 630 0092 27       		.uleb128 0x27
- 631 0093 19       		.uleb128 0x19
- 632 0094 8701     		.uleb128 0x87
- 633 0096 19       		.uleb128 0x19
- 634 0097 11       		.uleb128 0x11
- 635 0098 01       		.uleb128 0x1
- 636 0099 12       		.uleb128 0x12
- 637 009a 06       		.uleb128 0x6
- 638 009b 40       		.uleb128 0x40
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 14
+ 642 0062 0B       		.uleb128 0xb
+ 643 0063 3B       		.uleb128 0x3b
+ 644 0064 0B       		.uleb128 0xb
+ 645 0065 01       		.uleb128 0x1
+ 646 0066 13       		.uleb128 0x13
+ 647 0067 00       		.byte	0
+ 648 0068 00       		.byte	0
+ 649 0069 0A       		.uleb128 0xa
+ 650 006a 0D       		.uleb128 0xd
+ 651 006b 00       		.byte	0
+ 652 006c 03       		.uleb128 0x3
+ 653 006d 08       		.uleb128 0x8
+ 654 006e 3A       		.uleb128 0x3a
+ 655 006f 0B       		.uleb128 0xb
+ 656 0070 3B       		.uleb128 0x3b
+ 657 0071 0B       		.uleb128 0xb
+ 658 0072 49       		.uleb128 0x49
+ 659 0073 13       		.uleb128 0x13
+ 660 0074 38       		.uleb128 0x38
+ 661 0075 0B       		.uleb128 0xb
+ 662 0076 00       		.byte	0
+ 663 0077 00       		.byte	0
+ 664 0078 0B       		.uleb128 0xb
+ 665 0079 0D       		.uleb128 0xd
+ 666 007a 00       		.byte	0
+ 667 007b 03       		.uleb128 0x3
+ 668 007c 0E       		.uleb128 0xe
+ 669 007d 3A       		.uleb128 0x3a
+ 670 007e 0B       		.uleb128 0xb
+ 671 007f 3B       		.uleb128 0x3b
+ 672 0080 0B       		.uleb128 0xb
+ 673 0081 49       		.uleb128 0x49
+ 674 0082 13       		.uleb128 0x13
+ 675 0083 38       		.uleb128 0x38
+ 676 0084 0B       		.uleb128 0xb
+ 677 0085 00       		.byte	0
+ 678 0086 00       		.byte	0
+ 679 0087 0C       		.uleb128 0xc
+ 680 0088 2E       		.uleb128 0x2e
+ 681 0089 01       		.byte	0x1
+ 682 008a 3F       		.uleb128 0x3f
+ 683 008b 19       		.uleb128 0x19
+ 684 008c 03       		.uleb128 0x3
+ 685 008d 0E       		.uleb128 0xe
+ 686 008e 3A       		.uleb128 0x3a
+ 687 008f 0B       		.uleb128 0xb
+ 688 0090 3B       		.uleb128 0x3b
+ 689 0091 0B       		.uleb128 0xb
+ 690 0092 27       		.uleb128 0x27
+ 691 0093 19       		.uleb128 0x19
+ 692 0094 8701     		.uleb128 0x87
+ 693 0096 19       		.uleb128 0x19
+ 694 0097 11       		.uleb128 0x11
+ 695 0098 01       		.uleb128 0x1
+ 696 0099 12       		.uleb128 0x12
+ 697 009a 06       		.uleb128 0x6
+ 698 009b 40       		.uleb128 0x40
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 15
 
 
- 639 009c 18       		.uleb128 0x18
- 640 009d 9742     		.uleb128 0x2117
- 641 009f 19       		.uleb128 0x19
- 642 00a0 01       		.uleb128 0x1
- 643 00a1 13       		.uleb128 0x13
- 644 00a2 00       		.byte	0
- 645 00a3 00       		.byte	0
- 646 00a4 0D       		.uleb128 0xd
- 647 00a5 34       		.uleb128 0x34
- 648 00a6 00       		.byte	0
- 649 00a7 03       		.uleb128 0x3
- 650 00a8 0E       		.uleb128 0xe
- 651 00a9 3A       		.uleb128 0x3a
- 652 00aa 0B       		.uleb128 0xb
- 653 00ab 3B       		.uleb128 0x3b
- 654 00ac 0B       		.uleb128 0xb
- 655 00ad 49       		.uleb128 0x49
- 656 00ae 13       		.uleb128 0x13
- 657 00af 02       		.uleb128 0x2
- 658 00b0 18       		.uleb128 0x18
- 659 00b1 00       		.byte	0
- 660 00b2 00       		.byte	0
- 661 00b3 0E       		.uleb128 0xe
- 662 00b4 34       		.uleb128 0x34
- 663 00b5 00       		.byte	0
- 664 00b6 03       		.uleb128 0x3
- 665 00b7 08       		.uleb128 0x8
- 666 00b8 3A       		.uleb128 0x3a
- 667 00b9 0B       		.uleb128 0xb
- 668 00ba 3B       		.uleb128 0x3b
- 669 00bb 0B       		.uleb128 0xb
- 670 00bc 49       		.uleb128 0x49
- 671 00bd 13       		.uleb128 0x13
- 672 00be 00       		.byte	0
- 673 00bf 00       		.byte	0
- 674 00c0 0F       		.uleb128 0xf
- 675 00c1 898201   		.uleb128 0x4109
- 676 00c4 01       		.byte	0x1
- 677 00c5 11       		.uleb128 0x11
- 678 00c6 01       		.uleb128 0x1
- 679 00c7 31       		.uleb128 0x31
- 680 00c8 13       		.uleb128 0x13
- 681 00c9 01       		.uleb128 0x1
- 682 00ca 13       		.uleb128 0x13
- 683 00cb 00       		.byte	0
- 684 00cc 00       		.byte	0
- 685 00cd 10       		.uleb128 0x10
- 686 00ce 8A8201   		.uleb128 0x410a
- 687 00d1 00       		.byte	0
- 688 00d2 02       		.uleb128 0x2
- 689 00d3 18       		.uleb128 0x18
- 690 00d4 9142     		.uleb128 0x2111
- 691 00d6 18       		.uleb128 0x18
- 692 00d7 00       		.byte	0
- 693 00d8 00       		.byte	0
- 694 00d9 11       		.uleb128 0x11
- 695 00da 898201   		.uleb128 0x4109
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 15
+ 699 009c 18       		.uleb128 0x18
+ 700 009d 9742     		.uleb128 0x2117
+ 701 009f 19       		.uleb128 0x19
+ 702 00a0 01       		.uleb128 0x1
+ 703 00a1 13       		.uleb128 0x13
+ 704 00a2 00       		.byte	0
+ 705 00a3 00       		.byte	0
+ 706 00a4 0D       		.uleb128 0xd
+ 707 00a5 34       		.uleb128 0x34
+ 708 00a6 00       		.byte	0
+ 709 00a7 03       		.uleb128 0x3
+ 710 00a8 0E       		.uleb128 0xe
+ 711 00a9 3A       		.uleb128 0x3a
+ 712 00aa 0B       		.uleb128 0xb
+ 713 00ab 3B       		.uleb128 0x3b
+ 714 00ac 0B       		.uleb128 0xb
+ 715 00ad 49       		.uleb128 0x49
+ 716 00ae 13       		.uleb128 0x13
+ 717 00af 02       		.uleb128 0x2
+ 718 00b0 18       		.uleb128 0x18
+ 719 00b1 00       		.byte	0
+ 720 00b2 00       		.byte	0
+ 721 00b3 0E       		.uleb128 0xe
+ 722 00b4 34       		.uleb128 0x34
+ 723 00b5 00       		.byte	0
+ 724 00b6 03       		.uleb128 0x3
+ 725 00b7 08       		.uleb128 0x8
+ 726 00b8 3A       		.uleb128 0x3a
+ 727 00b9 0B       		.uleb128 0xb
+ 728 00ba 3B       		.uleb128 0x3b
+ 729 00bb 0B       		.uleb128 0xb
+ 730 00bc 49       		.uleb128 0x49
+ 731 00bd 13       		.uleb128 0x13
+ 732 00be 02       		.uleb128 0x2
+ 733 00bf 18       		.uleb128 0x18
+ 734 00c0 00       		.byte	0
+ 735 00c1 00       		.byte	0
+ 736 00c2 0F       		.uleb128 0xf
+ 737 00c3 898201   		.uleb128 0x4109
+ 738 00c6 01       		.byte	0x1
+ 739 00c7 11       		.uleb128 0x11
+ 740 00c8 01       		.uleb128 0x1
+ 741 00c9 31       		.uleb128 0x31
+ 742 00ca 13       		.uleb128 0x13
+ 743 00cb 01       		.uleb128 0x1
+ 744 00cc 13       		.uleb128 0x13
+ 745 00cd 00       		.byte	0
+ 746 00ce 00       		.byte	0
+ 747 00cf 10       		.uleb128 0x10
+ 748 00d0 8A8201   		.uleb128 0x410a
+ 749 00d3 00       		.byte	0
+ 750 00d4 02       		.uleb128 0x2
+ 751 00d5 18       		.uleb128 0x18
+ 752 00d6 9142     		.uleb128 0x2111
+ 753 00d8 18       		.uleb128 0x18
+ 754 00d9 00       		.byte	0
+ 755 00da 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 16
 
 
- 696 00dd 01       		.byte	0x1
- 697 00de 11       		.uleb128 0x11
- 698 00df 01       		.uleb128 0x1
- 699 00e0 31       		.uleb128 0x31
- 700 00e1 13       		.uleb128 0x13
- 701 00e2 00       		.byte	0
- 702 00e3 00       		.byte	0
- 703 00e4 12       		.uleb128 0x12
- 704 00e5 34       		.uleb128 0x34
- 705 00e6 00       		.byte	0
- 706 00e7 03       		.uleb128 0x3
- 707 00e8 0E       		.uleb128 0xe
- 708 00e9 3A       		.uleb128 0x3a
- 709 00ea 0B       		.uleb128 0xb
- 710 00eb 3B       		.uleb128 0x3b
- 711 00ec 0B       		.uleb128 0xb
- 712 00ed 49       		.uleb128 0x49
- 713 00ee 13       		.uleb128 0x13
- 714 00ef 3F       		.uleb128 0x3f
- 715 00f0 19       		.uleb128 0x19
- 716 00f1 3C       		.uleb128 0x3c
- 717 00f2 19       		.uleb128 0x19
- 718 00f3 00       		.byte	0
- 719 00f4 00       		.byte	0
- 720 00f5 13       		.uleb128 0x13
- 721 00f6 34       		.uleb128 0x34
- 722 00f7 00       		.byte	0
- 723 00f8 03       		.uleb128 0x3
- 724 00f9 0E       		.uleb128 0xe
- 725 00fa 3A       		.uleb128 0x3a
- 726 00fb 0B       		.uleb128 0xb
- 727 00fc 3B       		.uleb128 0x3b
- 728 00fd 05       		.uleb128 0x5
- 729 00fe 49       		.uleb128 0x49
- 730 00ff 13       		.uleb128 0x13
- 731 0100 3F       		.uleb128 0x3f
- 732 0101 19       		.uleb128 0x19
- 733 0102 3C       		.uleb128 0x3c
- 734 0103 19       		.uleb128 0x19
- 735 0104 00       		.byte	0
- 736 0105 00       		.byte	0
- 737 0106 14       		.uleb128 0x14
- 738 0107 35       		.uleb128 0x35
- 739 0108 00       		.byte	0
- 740 0109 49       		.uleb128 0x49
- 741 010a 13       		.uleb128 0x13
- 742 010b 00       		.byte	0
- 743 010c 00       		.byte	0
- 744 010d 15       		.uleb128 0x15
- 745 010e 01       		.uleb128 0x1
- 746 010f 01       		.byte	0x1
- 747 0110 49       		.uleb128 0x49
- 748 0111 13       		.uleb128 0x13
- 749 0112 01       		.uleb128 0x1
- 750 0113 13       		.uleb128 0x13
- 751 0114 00       		.byte	0
- 752 0115 00       		.byte	0
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 16
+ 756 00db 11       		.uleb128 0x11
+ 757 00dc 898201   		.uleb128 0x4109
+ 758 00df 00       		.byte	0
+ 759 00e0 11       		.uleb128 0x11
+ 760 00e1 01       		.uleb128 0x1
+ 761 00e2 31       		.uleb128 0x31
+ 762 00e3 13       		.uleb128 0x13
+ 763 00e4 00       		.byte	0
+ 764 00e5 00       		.byte	0
+ 765 00e6 12       		.uleb128 0x12
+ 766 00e7 898201   		.uleb128 0x4109
+ 767 00ea 01       		.byte	0x1
+ 768 00eb 11       		.uleb128 0x11
+ 769 00ec 01       		.uleb128 0x1
+ 770 00ed 31       		.uleb128 0x31
+ 771 00ee 13       		.uleb128 0x13
+ 772 00ef 00       		.byte	0
+ 773 00f0 00       		.byte	0
+ 774 00f1 13       		.uleb128 0x13
+ 775 00f2 34       		.uleb128 0x34
+ 776 00f3 00       		.byte	0
+ 777 00f4 03       		.uleb128 0x3
+ 778 00f5 0E       		.uleb128 0xe
+ 779 00f6 3A       		.uleb128 0x3a
+ 780 00f7 0B       		.uleb128 0xb
+ 781 00f8 3B       		.uleb128 0x3b
+ 782 00f9 0B       		.uleb128 0xb
+ 783 00fa 49       		.uleb128 0x49
+ 784 00fb 13       		.uleb128 0x13
+ 785 00fc 3F       		.uleb128 0x3f
+ 786 00fd 19       		.uleb128 0x19
+ 787 00fe 3C       		.uleb128 0x3c
+ 788 00ff 19       		.uleb128 0x19
+ 789 0100 00       		.byte	0
+ 790 0101 00       		.byte	0
+ 791 0102 14       		.uleb128 0x14
+ 792 0103 34       		.uleb128 0x34
+ 793 0104 00       		.byte	0
+ 794 0105 03       		.uleb128 0x3
+ 795 0106 0E       		.uleb128 0xe
+ 796 0107 3A       		.uleb128 0x3a
+ 797 0108 0B       		.uleb128 0xb
+ 798 0109 3B       		.uleb128 0x3b
+ 799 010a 05       		.uleb128 0x5
+ 800 010b 49       		.uleb128 0x49
+ 801 010c 13       		.uleb128 0x13
+ 802 010d 3F       		.uleb128 0x3f
+ 803 010e 19       		.uleb128 0x19
+ 804 010f 3C       		.uleb128 0x3c
+ 805 0110 19       		.uleb128 0x19
+ 806 0111 00       		.byte	0
+ 807 0112 00       		.byte	0
+ 808 0113 15       		.uleb128 0x15
+ 809 0114 35       		.uleb128 0x35
+ 810 0115 00       		.byte	0
+ 811 0116 49       		.uleb128 0x49
+ 812 0117 13       		.uleb128 0x13
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 17
 
 
- 753 0116 16       		.uleb128 0x16
- 754 0117 21       		.uleb128 0x21
- 755 0118 00       		.byte	0
- 756 0119 49       		.uleb128 0x49
- 757 011a 13       		.uleb128 0x13
- 758 011b 2F       		.uleb128 0x2f
- 759 011c 0B       		.uleb128 0xb
- 760 011d 00       		.byte	0
- 761 011e 00       		.byte	0
- 762 011f 17       		.uleb128 0x17
- 763 0120 26       		.uleb128 0x26
- 764 0121 00       		.byte	0
- 765 0122 49       		.uleb128 0x49
- 766 0123 13       		.uleb128 0x13
- 767 0124 00       		.byte	0
- 768 0125 00       		.byte	0
- 769 0126 18       		.uleb128 0x18
- 770 0127 34       		.uleb128 0x34
- 771 0128 00       		.byte	0
- 772 0129 03       		.uleb128 0x3
- 773 012a 0E       		.uleb128 0xe
- 774 012b 3A       		.uleb128 0x3a
- 775 012c 0B       		.uleb128 0xb
- 776 012d 3B       		.uleb128 0x3b
- 777 012e 0B       		.uleb128 0xb
- 778 012f 49       		.uleb128 0x49
- 779 0130 13       		.uleb128 0x13
- 780 0131 3F       		.uleb128 0x3f
- 781 0132 19       		.uleb128 0x19
- 782 0133 02       		.uleb128 0x2
- 783 0134 18       		.uleb128 0x18
- 784 0135 00       		.byte	0
- 785 0136 00       		.byte	0
- 786 0137 19       		.uleb128 0x19
- 787 0138 2E       		.uleb128 0x2e
- 788 0139 00       		.byte	0
- 789 013a 3F       		.uleb128 0x3f
- 790 013b 19       		.uleb128 0x19
- 791 013c 3C       		.uleb128 0x3c
- 792 013d 19       		.uleb128 0x19
- 793 013e 6E       		.uleb128 0x6e
- 794 013f 0E       		.uleb128 0xe
- 795 0140 03       		.uleb128 0x3
- 796 0141 0E       		.uleb128 0xe
- 797 0142 3A       		.uleb128 0x3a
- 798 0143 0B       		.uleb128 0xb
- 799 0144 3B       		.uleb128 0x3b
- 800 0145 0B       		.uleb128 0xb
- 801 0146 00       		.byte	0
- 802 0147 00       		.byte	0
- 803 0148 00       		.byte	0
- 804              		.section	.debug_aranges,"",%progbits
- 805 0000 1C000000 		.4byte	0x1c
- 806 0004 0200     		.2byte	0x2
- 807 0006 00000000 		.4byte	.Ldebug_info0
- 808 000a 04       		.byte	0x4
- 809 000b 00       		.byte	0
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 17
+ 813 0118 00       		.byte	0
+ 814 0119 00       		.byte	0
+ 815 011a 16       		.uleb128 0x16
+ 816 011b 01       		.uleb128 0x1
+ 817 011c 01       		.byte	0x1
+ 818 011d 49       		.uleb128 0x49
+ 819 011e 13       		.uleb128 0x13
+ 820 011f 01       		.uleb128 0x1
+ 821 0120 13       		.uleb128 0x13
+ 822 0121 00       		.byte	0
+ 823 0122 00       		.byte	0
+ 824 0123 17       		.uleb128 0x17
+ 825 0124 21       		.uleb128 0x21
+ 826 0125 00       		.byte	0
+ 827 0126 49       		.uleb128 0x49
+ 828 0127 13       		.uleb128 0x13
+ 829 0128 2F       		.uleb128 0x2f
+ 830 0129 0B       		.uleb128 0xb
+ 831 012a 00       		.byte	0
+ 832 012b 00       		.byte	0
+ 833 012c 18       		.uleb128 0x18
+ 834 012d 26       		.uleb128 0x26
+ 835 012e 00       		.byte	0
+ 836 012f 49       		.uleb128 0x49
+ 837 0130 13       		.uleb128 0x13
+ 838 0131 00       		.byte	0
+ 839 0132 00       		.byte	0
+ 840 0133 19       		.uleb128 0x19
+ 841 0134 34       		.uleb128 0x34
+ 842 0135 00       		.byte	0
+ 843 0136 03       		.uleb128 0x3
+ 844 0137 0E       		.uleb128 0xe
+ 845 0138 3A       		.uleb128 0x3a
+ 846 0139 0B       		.uleb128 0xb
+ 847 013a 3B       		.uleb128 0x3b
+ 848 013b 0B       		.uleb128 0xb
+ 849 013c 49       		.uleb128 0x49
+ 850 013d 13       		.uleb128 0x13
+ 851 013e 3F       		.uleb128 0x3f
+ 852 013f 19       		.uleb128 0x19
+ 853 0140 02       		.uleb128 0x2
+ 854 0141 18       		.uleb128 0x18
+ 855 0142 00       		.byte	0
+ 856 0143 00       		.byte	0
+ 857 0144 1A       		.uleb128 0x1a
+ 858 0145 2E       		.uleb128 0x2e
+ 859 0146 00       		.byte	0
+ 860 0147 3F       		.uleb128 0x3f
+ 861 0148 19       		.uleb128 0x19
+ 862 0149 3C       		.uleb128 0x3c
+ 863 014a 19       		.uleb128 0x19
+ 864 014b 6E       		.uleb128 0x6e
+ 865 014c 0E       		.uleb128 0xe
+ 866 014d 03       		.uleb128 0x3
+ 867 014e 0E       		.uleb128 0xe
+ 868 014f 3A       		.uleb128 0x3a
+ 869 0150 0B       		.uleb128 0xb
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 18
 
 
- 810 000c 0000     		.2byte	0
- 811 000e 0000     		.2byte	0
- 812 0010 00000000 		.4byte	.LFB110
- 813 0014 40000000 		.4byte	.LFE110-.LFB110
- 814 0018 00000000 		.4byte	0
- 815 001c 00000000 		.4byte	0
- 816              		.section	.debug_ranges,"",%progbits
- 817              	.Ldebug_ranges0:
- 818 0000 00000000 		.4byte	.LFB110
- 819 0004 40000000 		.4byte	.LFE110
- 820 0008 00000000 		.4byte	0
- 821 000c 00000000 		.4byte	0
- 822              		.section	.debug_line,"",%progbits
- 823              	.Ldebug_line0:
- 824 0000 64020000 		.section	.debug_str,"MS",%progbits,1
- 824      02003D02 
- 824      00000201 
- 824      FB0E0D00 
- 824      01010101 
- 825              	.LASF31:
- 826 0000 5254455F 		.ascii	"RTE_eventTable_t\000"
- 826      6576656E 
- 826      74546162 
- 826      6C655F74 
- 826      00
- 827              	.LASF5:
- 828 0011 5F5F696E 		.ascii	"__int32_t\000"
- 828      7433325F 
- 828      7400
- 829              	.LASF24:
- 830 001b 4576656E 		.ascii	"EventMaskType\000"
- 830      744D6173 
- 830      6B547970 
- 830      6500
- 831              	.LASF16:
- 832 0029 646F7562 		.ascii	"double\000"
- 832      6C6500
- 833              	.LASF33:
- 834 0030 45455F6F 		.ascii	"EE_oo_IRQ_suspend_status\000"
- 834      6F5F4952 
- 834      515F7375 
- 834      7370656E 
- 834      645F7374 
- 835              	.LASF23:
- 836 0049 45455F54 		.ascii	"EE_TID\000"
- 836      494400
- 837              	.LASF15:
- 838 0050 666C6F61 		.ascii	"float\000"
- 838      7400
- 839              	.LASF35:
- 840 0056 45455F73 		.ascii	"EE_std_endcycle_next_tid\000"
- 840      74645F65 
- 840      6E646379 
- 840      636C655F 
- 840      6E657874 
- 841              	.LASF10:
- 842 006f 6C6F6E67 		.ascii	"long long unsigned int\000"
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 18
+ 870 0151 3B       		.uleb128 0x3b
+ 871 0152 05       		.uleb128 0x5
+ 872 0153 00       		.byte	0
+ 873 0154 00       		.byte	0
+ 874 0155 1B       		.uleb128 0x1b
+ 875 0156 2E       		.uleb128 0x2e
+ 876 0157 00       		.byte	0
+ 877 0158 3F       		.uleb128 0x3f
+ 878 0159 19       		.uleb128 0x19
+ 879 015a 3C       		.uleb128 0x3c
+ 880 015b 19       		.uleb128 0x19
+ 881 015c 6E       		.uleb128 0x6e
+ 882 015d 0E       		.uleb128 0xe
+ 883 015e 03       		.uleb128 0x3
+ 884 015f 0E       		.uleb128 0xe
+ 885 0160 3A       		.uleb128 0x3a
+ 886 0161 0B       		.uleb128 0xb
+ 887 0162 3B       		.uleb128 0x3b
+ 888 0163 0B       		.uleb128 0xb
+ 889 0164 00       		.byte	0
+ 890 0165 00       		.byte	0
+ 891 0166 00       		.byte	0
+ 892              		.section	.debug_aranges,"",%progbits
+ 893 0000 1C000000 		.4byte	0x1c
+ 894 0004 0200     		.2byte	0x2
+ 895 0006 00000000 		.4byte	.Ldebug_info0
+ 896 000a 04       		.byte	0x4
+ 897 000b 00       		.byte	0
+ 898 000c 0000     		.2byte	0
+ 899 000e 0000     		.2byte	0
+ 900 0010 00000000 		.4byte	.LFB110
+ 901 0014 58000000 		.4byte	.LFE110-.LFB110
+ 902 0018 00000000 		.4byte	0
+ 903 001c 00000000 		.4byte	0
+ 904              		.section	.debug_ranges,"",%progbits
+ 905              	.Ldebug_ranges0:
+ 906 0000 00000000 		.4byte	.LFB110
+ 907 0004 58000000 		.4byte	.LFE110
+ 908 0008 00000000 		.4byte	0
+ 909 000c 00000000 		.4byte	0
+ 910              		.section	.debug_line,"",%progbits
+ 911              	.Ldebug_line0:
+ 912 0000 74020000 		.section	.debug_str,"MS",%progbits,1
+ 912      02004D02 
+ 912      00000201 
+ 912      FB0E0D00 
+ 912      01010101 
+ 913              	.LASF43:
+ 914 0000 45455F6F 		.ascii	"EE_oo_WaitEvent\000"
+ 914      6F5F5761 
+ 914      69744576 
+ 914      656E7400 
+ 915              	.LASF31:
+ 916 0010 5254455F 		.ascii	"RTE_eventTable_t\000"
+ 916      6576656E 
+ 916      74546162 
+ 916      6C655F74 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 19
 
 
- 842      206C6F6E 
- 842      6720756E 
- 842      7369676E 
- 842      65642069 
- 843              	.LASF28:
- 844 0086 6379636C 		.ascii	"cycleTime\000"
- 844      6554696D 
- 844      6500
- 845              	.LASF1:
- 846 0090 756E7369 		.ascii	"unsigned char\000"
- 846      676E6564 
- 846      20636861 
- 846      7200
- 847              	.LASF44:
- 848 009e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 848      43313120 
- 848      352E342E 
- 848      31203230 
- 848      31363036 
- 849 00d1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 849      20726576 
- 849      6973696F 
- 849      6E203233 
- 849      37373135 
- 850 0104 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 850      66756E63 
- 850      74696F6E 
- 850      2D736563 
- 850      74696F6E 
- 851              	.LASF41:
- 852 012c 5254455F 		.ascii	"RTE_eventActivation_tsk_io_size\000"
- 852      6576656E 
- 852      74416374 
- 852      69766174 
- 852      696F6E5F 
- 853              	.LASF19:
- 854 014c 45455F49 		.ascii	"EE_INT32\000"
- 854      4E543332 
- 854      00
- 855              	.LASF8:
- 856 0155 6C6F6E67 		.ascii	"long unsigned int\000"
- 856      20756E73 
- 856      69676E65 
- 856      6420696E 
- 856      7400
- 857              	.LASF3:
- 858 0167 73686F72 		.ascii	"short unsigned int\000"
- 858      7420756E 
- 858      7369676E 
- 858      65642069 
- 858      6E7400
- 859              	.LASF32:
- 860 017a 45455F6F 		.ascii	"EE_oo_IRQ_disable_count\000"
- 860      6F5F4952 
- 860      515F6469 
- 860      7361626C 
- 860      655F636F 
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 19
-
-
- 861              	.LASF37:
- 862 0192 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 862      52784275 
- 862      66666572 
- 862      00
- 863              	.LASF42:
- 864 019f 5254455F 		.ascii	"RTE_ProcessCyclicTable\000"
- 864      50726F63 
- 864      65737343 
- 864      79636C69 
- 864      63546162 
- 865              	.LASF4:
- 866 01b6 5F5F7569 		.ascii	"__uint16_t\000"
- 866      6E743136 
- 866      5F7400
- 867              	.LASF26:
- 868 01c1 5254455F 		.ascii	"RTE_event\000"
- 868      6576656E 
- 868      7400
- 869              	.LASF7:
- 870 01cb 5F5F7569 		.ascii	"__uint32_t\000"
- 870      6E743332 
- 870      5F7400
- 871              	.LASF40:
- 872 01d6 5254455F 		.ascii	"RTE_eventActivationTable_tsk_io\000"
- 872      6576656E 
- 872      74416374 
- 872      69766174 
- 872      696F6E54 
- 873              	.LASF45:
- 874 01f6 736F7572 		.ascii	"source\\asw\\tsk_io.c\000"
- 874      63655C61 
- 874      73775C74 
- 874      736B5F69 
- 874      6F2E6300 
- 875              	.LASF30:
- 876 020a 6576656E 		.ascii	"event\000"
- 876      7400
- 877              	.LASF29:
- 878 0210 5254455F 		.ascii	"RTE_cyclicTable_t\000"
- 878      6379636C 
- 878      69635461 
- 878      626C655F 
- 878      7400
- 879              	.LASF11:
- 880 0222 756E7369 		.ascii	"unsigned int\000"
- 880      676E6564 
- 880      20696E74 
- 880      00
- 881              	.LASF22:
- 882 022f 45455F46 		.ascii	"EE_FREG\000"
- 882      52454700 
- 883              	.LASF20:
- 884 0237 45455F55 		.ascii	"EE_UINT32\000"
- 884      494E5433 
- 884      3200
- 885              	.LASF48:
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 20
-
-
- 886 0241 7469636B 		.ascii	"ticktime\000"
- 886      74696D65 
- 886      00
- 887              	.LASF47:
- 888 024a 46756E63 		.ascii	"Functsk_io\000"
- 888      74736B5F 
- 888      696F00
- 889              	.LASF34:
- 890 0255 45455F41 		.ascii	"EE_ApplicationMode\000"
- 890      70706C69 
- 890      63617469 
- 890      6F6E4D6F 
- 890      646500
- 891              	.LASF43:
- 892 0268 5254455F 		.ascii	"RTE_ProcessEventTable\000"
- 892      50726F63 
- 892      65737345 
- 892      76656E74 
- 892      5461626C 
- 893              	.LASF13:
- 894 027e 696E7433 		.ascii	"int32_t\000"
- 894      325F7400 
- 895              	.LASF25:
- 896 0286 73697A65 		.ascii	"sizetype\000"
- 896      74797065 
- 896      00
- 897              	.LASF9:
- 898 028f 6C6F6E67 		.ascii	"long long int\000"
- 898      206C6F6E 
- 898      6720696E 
- 898      7400
- 899              	.LASF17:
- 900 029d 63686172 		.ascii	"char\000"
- 900      00
- 901              	.LASF21:
- 902 02a2 45455F55 		.ascii	"EE_UREG\000"
- 902      52454700 
- 903              	.LASF36:
- 904 02aa 45455F49 		.ascii	"EE_IRQ_nesting_level\000"
- 904      52515F6E 
- 904      65737469 
- 904      6E675F6C 
- 904      6576656C 
- 905              	.LASF12:
- 906 02bf 75696E74 		.ascii	"uint16_t\000"
- 906      31365F74 
- 906      00
- 907              	.LASF2:
- 908 02c8 73686F72 		.ascii	"short int\000"
- 908      7420696E 
- 908      7400
- 909              	.LASF39:
- 910 02d2 5254455F 		.ascii	"RTE_cyclicActivation_tsk_io_size\000"
- 910      6379636C 
- 910      69634163 
- 910      74697661 
- 910      74696F6E 
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccOLAx6H.s 			page 21
-
-
- 911              	.LASF14:
- 912 02f3 75696E74 		.ascii	"uint32_t\000"
- 912      33325F74 
- 912      00
- 913              	.LASF6:
- 914 02fc 6C6F6E67 		.ascii	"long int\000"
- 914      20696E74 
- 914      00
- 915              	.LASF18:
- 916 0305 6C6F6E67 		.ascii	"long double\000"
- 916      20646F75 
- 916      626C6500 
- 917              	.LASF0:
- 918 0311 7369676E 		.ascii	"signed char\000"
- 918      65642063 
- 918      68617200 
- 919              	.LASF27:
- 920 031d 5254455F 		.ascii	"RTE_pRunnable\000"
- 920      7052756E 
- 920      6E61626C 
+ 916      00
+ 917              	.LASF5:
+ 918 0021 5F5F696E 		.ascii	"__int32_t\000"
+ 918      7433325F 
+ 918      7400
+ 919              	.LASF24:
+ 920 002b 4576656E 		.ascii	"EventMaskType\000"
+ 920      744D6173 
+ 920      6B547970 
  920      6500
- 921              	.LASF46:
- 922 032b 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
- 922      61726D73 
- 922      74616474 
- 922      5C536563 
- 922      6F6E6453 
- 923 0358 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
- 923      69634761 
- 923      73506564 
- 923      616C2E63 
- 923      7964736E 
- 924              	.LASF38:
- 925 036d 5254455F 		.ascii	"RTE_cyclicActivationTable_tsk_io\000"
- 925      6379636C 
- 925      69634163 
- 925      74697661 
- 925      74696F6E 
- 926              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 921              	.LASF16:
+ 922 0039 646F7562 		.ascii	"double\000"
+ 922      6C6500
+ 923              	.LASF34:
+ 924 0040 45455F6F 		.ascii	"EE_oo_IRQ_suspend_status\000"
+ 924      6F5F4952 
+ 924      515F7375 
+ 924      7370656E 
+ 924      645F7374 
+ 925              	.LASF23:
+ 926 0059 45455F54 		.ascii	"EE_TID\000"
+ 926      494400
+ 927              	.LASF15:
+ 928 0060 666C6F61 		.ascii	"float\000"
+ 928      7400
+ 929              	.LASF36:
+ 930 0066 45455F73 		.ascii	"EE_std_endcycle_next_tid\000"
+ 930      74645F65 
+ 930      6E646379 
+ 930      636C655F 
+ 930      6E657874 
+ 931              	.LASF10:
+ 932 007f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 932      206C6F6E 
+ 932      6720756E 
+ 932      7369676E 
+ 932      65642069 
+ 933              	.LASF28:
+ 934 0096 6379636C 		.ascii	"cycleTime\000"
+ 934      6554696D 
+ 934      6500
+ 935              	.LASF1:
+ 936 00a0 756E7369 		.ascii	"unsigned char\000"
+ 936      676E6564 
+ 936      20636861 
+ 936      7200
+ 937              	.LASF48:
+ 938 00ae 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 938      43313120 
+ 938      352E342E 
+ 938      31203230 
+ 938      31363036 
+ 939 00e1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 939      20726576 
+ 939      6973696F 
+ 939      6E203233 
+ 939      37373135 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 20
+
+
+ 940 0114 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 940      66756E63 
+ 940      74696F6E 
+ 940      2D736563 
+ 940      74696F6E 
+ 941              	.LASF42:
+ 942 013c 5254455F 		.ascii	"RTE_eventActivation_tsk_io_size\000"
+ 942      6576656E 
+ 942      74416374 
+ 942      69766174 
+ 942      696F6E5F 
+ 943              	.LASF19:
+ 944 015c 45455F49 		.ascii	"EE_INT32\000"
+ 944      4E543332 
+ 944      00
+ 945              	.LASF8:
+ 946 0165 6C6F6E67 		.ascii	"long unsigned int\000"
+ 946      20756E73 
+ 946      69676E65 
+ 946      6420696E 
+ 946      7400
+ 947              	.LASF3:
+ 948 0177 73686F72 		.ascii	"short unsigned int\000"
+ 948      7420756E 
+ 948      7369676E 
+ 948      65642069 
+ 948      6E7400
+ 949              	.LASF33:
+ 950 018a 45455F6F 		.ascii	"EE_oo_IRQ_disable_count\000"
+ 950      6F5F4952 
+ 950      515F6469 
+ 950      7361626C 
+ 950      655F636F 
+ 951              	.LASF38:
+ 952 01a2 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 952      52784275 
+ 952      66666572 
+ 952      00
+ 953              	.LASF46:
+ 954 01af 5254455F 		.ascii	"RTE_ProcessCyclicTable\000"
+ 954      50726F63 
+ 954      65737343 
+ 954      79636C69 
+ 954      63546162 
+ 955              	.LASF4:
+ 956 01c6 5F5F7569 		.ascii	"__uint16_t\000"
+ 956      6E743136 
+ 956      5F7400
+ 957              	.LASF26:
+ 958 01d1 5254455F 		.ascii	"RTE_event\000"
+ 958      6576656E 
+ 958      7400
+ 959              	.LASF45:
+ 960 01db 45455F6F 		.ascii	"EE_oo_ClearEvent\000"
+ 960      6F5F436C 
+ 960      65617245 
+ 960      76656E74 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 21
+
+
+ 960      00
+ 961              	.LASF7:
+ 962 01ec 5F5F7569 		.ascii	"__uint32_t\000"
+ 962      6E743332 
+ 962      5F7400
+ 963              	.LASF41:
+ 964 01f7 5254455F 		.ascii	"RTE_eventActivationTable_tsk_io\000"
+ 964      6576656E 
+ 964      74416374 
+ 964      69766174 
+ 964      696F6E54 
+ 965              	.LASF49:
+ 966 0217 736F7572 		.ascii	"source\\asw\\tsk_io.c\000"
+ 966      63655C61 
+ 966      73775C74 
+ 966      736B5F69 
+ 966      6F2E6300 
+ 967              	.LASF30:
+ 968 022b 6576656E 		.ascii	"event\000"
+ 968      7400
+ 969              	.LASF29:
+ 970 0231 5254455F 		.ascii	"RTE_cyclicTable_t\000"
+ 970      6379636C 
+ 970      69635461 
+ 970      626C655F 
+ 970      7400
+ 971              	.LASF11:
+ 972 0243 756E7369 		.ascii	"unsigned int\000"
+ 972      676E6564 
+ 972      20696E74 
+ 972      00
+ 973              	.LASF22:
+ 974 0250 45455F46 		.ascii	"EE_FREG\000"
+ 974      52454700 
+ 975              	.LASF20:
+ 976 0258 45455F55 		.ascii	"EE_UINT32\000"
+ 976      494E5433 
+ 976      3200
+ 977              	.LASF32:
+ 978 0262 7469636B 		.ascii	"ticktime\000"
+ 978      74696D65 
+ 978      00
+ 979              	.LASF51:
+ 980 026b 46756E63 		.ascii	"Functsk_io\000"
+ 980      74736B5F 
+ 980      696F00
+ 981              	.LASF35:
+ 982 0276 45455F41 		.ascii	"EE_ApplicationMode\000"
+ 982      70706C69 
+ 982      63617469 
+ 982      6F6E4D6F 
+ 982      646500
+ 983              	.LASF47:
+ 984 0289 5254455F 		.ascii	"RTE_ProcessEventTable\000"
+ 984      50726F63 
+ 984      65737345 
+ 984      76656E74 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 22
+
+
+ 984      5461626C 
+ 985              	.LASF13:
+ 986 029f 696E7433 		.ascii	"int32_t\000"
+ 986      325F7400 
+ 987              	.LASF25:
+ 988 02a7 73697A65 		.ascii	"sizetype\000"
+ 988      74797065 
+ 988      00
+ 989              	.LASF9:
+ 990 02b0 6C6F6E67 		.ascii	"long long int\000"
+ 990      206C6F6E 
+ 990      6720696E 
+ 990      7400
+ 991              	.LASF17:
+ 992 02be 63686172 		.ascii	"char\000"
+ 992      00
+ 993              	.LASF21:
+ 994 02c3 45455F55 		.ascii	"EE_UREG\000"
+ 994      52454700 
+ 995              	.LASF37:
+ 996 02cb 45455F49 		.ascii	"EE_IRQ_nesting_level\000"
+ 996      52515F6E 
+ 996      65737469 
+ 996      6E675F6C 
+ 996      6576656C 
+ 997              	.LASF12:
+ 998 02e0 75696E74 		.ascii	"uint16_t\000"
+ 998      31365F74 
+ 998      00
+ 999              	.LASF2:
+ 1000 02e9 73686F72 		.ascii	"short int\000"
+ 1000      7420696E 
+ 1000      7400
+ 1001              	.LASF40:
+ 1002 02f3 5254455F 		.ascii	"RTE_cyclicActivation_tsk_io_size\000"
+ 1002      6379636C 
+ 1002      69634163 
+ 1002      74697661 
+ 1002      74696F6E 
+ 1003              	.LASF14:
+ 1004 0314 75696E74 		.ascii	"uint32_t\000"
+ 1004      33325F74 
+ 1004      00
+ 1005              	.LASF6:
+ 1006 031d 6C6F6E67 		.ascii	"long int\000"
+ 1006      20696E74 
+ 1006      00
+ 1007              	.LASF18:
+ 1008 0326 6C6F6E67 		.ascii	"long double\000"
+ 1008      20646F75 
+ 1008      626C6500 
+ 1009              	.LASF0:
+ 1010 0332 7369676E 		.ascii	"signed char\000"
+ 1010      65642063 
+ 1010      68617200 
+ 1011              	.LASF27:
+ 1012 033e 5254455F 		.ascii	"RTE_pRunnable\000"
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccLaCdCE.s 			page 23
+
+
+ 1012      7052756E 
+ 1012      6E61626C 
+ 1012      6500
+ 1013              	.LASF44:
+ 1014 034c 45455F6F 		.ascii	"EE_oo_GetEvent\000"
+ 1014      6F5F4765 
+ 1014      74457665 
+ 1014      6E7400
+ 1015              	.LASF50:
+ 1016 035b 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
+ 1016      61726D73 
+ 1016      74616474 
+ 1016      5C536563 
+ 1016      6F6E6453 
+ 1017 0388 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
+ 1017      69634761 
+ 1017      73506564 
+ 1017      616C2E63 
+ 1017      7964736E 
+ 1018              	.LASF39:
+ 1019 039d 5254455F 		.ascii	"RTE_cyclicActivationTable_tsk_io\000"
+ 1019      6379636C 
+ 1019      69634163 
+ 1019      74697661 
+ 1019      74696F6E 
+ 1020              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

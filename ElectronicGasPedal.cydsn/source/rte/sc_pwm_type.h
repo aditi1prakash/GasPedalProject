@@ -30,14 +30,14 @@ typedef
 /* USER CODE START SC_PWM_SIGNALDATADEFINITION */
 struct
 {
-	//#error "Provide your data structure"
+	uint8_t pwm_engine;
 } 
 /* USER CODE END SC_PWM_SIGNALDATADEFINITION */
 SC_PWM_data_t;
 
 /* USER CODE START InitSC_PWM */
 //#error "Provide a sensible init value"
-#define SC_PWM_INIT_DATA ((SC_PWM_data_t){})
+#define SC_PWM_INIT_DATA ((SC_PWM_data_t){0})
 /* USER CODE END InitSC_PWM */
 
 

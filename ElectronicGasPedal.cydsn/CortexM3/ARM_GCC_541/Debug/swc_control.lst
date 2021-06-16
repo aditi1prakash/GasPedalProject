@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 1
 
 
    1              		.syntax unified
@@ -26,7 +26,7 @@ ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 1
   23              		.thumb_func
   24              		.type	CONTROL_calcControl_run, %function
   25              	CONTROL_calcControl_run:
-  26              	.LFB150:
+  26              	.LFB151:
   27              		.file 1 "source\\asw\\swc_control.c"
    1:source\asw/swc_control.c **** 
    2:source\asw/swc_control.c **** 
@@ -42,597 +42,3265 @@ ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 1
   12:source\asw/swc_control.c **** #include "rte_types.h"
   13:source\asw/swc_control.c **** #include "swc_control.h"
   14:source\asw/swc_control.c **** 
-  15:source\asw/swc_control.c **** 
-  16:source\asw/swc_control.c **** 
-  17:source\asw/swc_control.c **** /* USER CODE START SWC_CONTROL_INCLUDE */
-  18:source\asw/swc_control.c **** 
-  19:source\asw/swc_control.c **** /* USER CODE END SWC_CONTROL_INCLUDE */
-  20:source\asw/swc_control.c **** 
+  15:source\asw/swc_control.c **** /* USER CODE START SWC_CONTROL_INCLUDE */
+  16:source\asw/swc_control.c **** #include <stdio.h>
+  17:source\asw/swc_control.c **** #include "watchdog.h"
+  18:source\asw/swc_control.c **** #include "uart.h"
+  19:source\asw/swc_control.c **** #include "sp_common.h"
+  20:source\asw/swc_control.c **** /* USER CODE END SWC_CONTROL_INCLUDE */
   21:source\asw/swc_control.c **** 
-  22:source\asw/swc_control.c **** #include "sp_common.h"
-  23:source\asw/swc_control.c **** 
-  24:source\asw/swc_control.c **** /* USER CODE START SWC_CONTROL_USERDEFINITIONS */
-  25:source\asw/swc_control.c **** 
+  22:source\asw/swc_control.c **** /* USER CODE START SWC_CONTROL_USERDEFINITIONS */
+  23:source\asw/swc_control.c **** #define ADC_OUTPUT_MIN              0
+  24:source\asw/swc_control.c **** #define ADC_OUTPUT_MAX              127
+  25:source\asw/swc_control.c **** #define WDG_ALIVE_STATUS_CONTROL    0x02
   26:source\asw/swc_control.c **** /* USER CODE END SWC_CONTROL_USERDEFINITIONS */
   27:source\asw/swc_control.c **** 
   28:source\asw/swc_control.c **** 
-  29:source\asw/swc_control.c **** 
-  30:source\asw/swc_control.c **** /*
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 2
+  29:source\asw/swc_control.c **** /*
+  30:source\asw/swc_control.c **** * component: swc_control
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 2
 
 
-  31:source\asw/swc_control.c **** * component: swc_control
-  32:source\asw/swc_control.c **** * cycletime: 0
-  33:source\asw/swc_control.c **** * description: Runnable to check value of joystick signal and update speed signal
-  34:source\asw/swc_control.c **** * events: ev_joystick_onData
-  35:source\asw/swc_control.c **** * name: CONTROL_calcControl_run
-  36:source\asw/swc_control.c **** * shortname: calcControl
-  37:source\asw/swc_control.c **** * signalIN: so_joystick
-  38:source\asw/swc_control.c **** * signalOUT: so_speed
-  39:source\asw/swc_control.c **** * task: tsk_control
-  40:source\asw/swc_control.c **** */
-  41:source\asw/swc_control.c **** void CONTROL_calcControl_run(RTE_event ev){
-  28              		.loc 1 41 0
+  31:source\asw/swc_control.c **** * cycletime: 0
+  32:source\asw/swc_control.c **** * description: Runnable to check value of joystick signal and update speed signal
+  33:source\asw/swc_control.c **** * events: ev_joystick_onData
+  34:source\asw/swc_control.c **** * name: CONTROL_calcControl_run
+  35:source\asw/swc_control.c **** * shortname: calcControl
+  36:source\asw/swc_control.c **** * signalIN: so_joystick
+  37:source\asw/swc_control.c **** * signalOUT: so_speed
+  38:source\asw/swc_control.c **** * task: tsk_control
+  39:source\asw/swc_control.c **** */
+  40:source\asw/swc_control.c **** void CONTROL_calcControl_run(RTE_event ev){
+  28              		.loc 1 40 0
   29              		.cfi_startproc
-  30              		@ args = 0, pretend = 0, frame = 0
+  30              		@ args = 0, pretend = 0, frame = 56
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		@ link register save eliminated.
-  33              	.LVL0:
-  34 0000 7047     		bx	lr
-  35              		.cfi_endproc
-  36              	.LFE150:
-  37              		.size	CONTROL_calcControl_run, .-CONTROL_calcControl_run
-  38 0002 00BF     		.text
-  39              	.Letext0:
-  40              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-  41              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-  42              		.file 4 "Generated_Source\\PSoC5/ErikaOS_1_common_ee_types.inc"
-  43              		.file 5 "Generated_Source\\PSoC5/ErikaOS_1_cortex_mx_ee_cpu.inc"
-  44              		.file 6 "Generated_Source\\PSoC5/ErikaOS_1_ee_oo_common.inc"
-  45              		.file 7 ".\\source\\rte/rte_types.h"
-  46              		.file 8 "Generated_Source\\PSoC5/ErikaOS_1_ee_oo_intfunc.inc"
-  47              		.file 9 "Generated_Source\\PSoC5/ErikaOS_1_cortex_mx_ee_context.inc"
-  48              		.file 10 "Generated_Source\\PSoC5/ErikaOS_1_common_ee_primitives.inc"
-  49              		.file 11 "Generated_Source\\PSoC5/core_cm3.h"
-  50              		.section	.debug_info,"",%progbits
-  51              	.Ldebug_info0:
-  52 0000 59010000 		.4byte	0x159
-  53 0004 0400     		.2byte	0x4
-  54 0006 00000000 		.4byte	.Ldebug_abbrev0
-  55 000a 04       		.byte	0x4
-  56 000b 01       		.uleb128 0x1
-  57 000c 53000000 		.4byte	.LASF29
-  58 0010 0C       		.byte	0xc
-  59 0011 F9010000 		.4byte	.LASF30
-  60 0015 3D020000 		.4byte	.LASF31
-  61 0019 00000000 		.4byte	.Ldebug_ranges0+0
-  62 001d 00000000 		.4byte	0
-  63 0021 00000000 		.4byte	.Ldebug_line0
-  64 0025 02       		.uleb128 0x2
-  65 0026 01       		.byte	0x1
-  66 0027 06       		.byte	0x6
-  67 0028 31020000 		.4byte	.LASF0
-  68 002c 02       		.uleb128 0x2
-  69 002d 01       		.byte	0x1
-  70 002e 08       		.byte	0x8
-  71 002f 45000000 		.4byte	.LASF1
-  72 0033 02       		.uleb128 0x2
-  73 0034 02       		.byte	0x2
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 3
+  32              	.LVL0:
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39 0002 8EB0     		sub	sp, sp, #56
+  40              		.cfi_def_cfa_offset 72
+  41:source\asw/swc_control.c **** 	
+  42:source\asw/swc_control.c **** 	/* USER CODE START CONTROL_calcControl_run */
+  43:source\asw/swc_control.c ****     
+  44:source\asw/swc_control.c ****     //Temporary variable for UART logging, TODO: To be removed later
+  45:source\asw/swc_control.c ****     char speedString[50] = {0};
+  41              		.loc 1 45 0
+  42 0004 3222     		movs	r2, #50
+  43 0006 0021     		movs	r1, #0
+  44 0008 01A8     		add	r0, sp, #4
+  45              	.LVL1:
+  46 000a FFF7FEFF 		bl	memset
+  47              	.LVL2:
+  48              	.LBB9:
+  49              	.LBB10:
+  50              		.file 2 ".\\source\\rte/sc_adc.h"
+   1:.\source\rte/sc_adc.h **** 
+   2:.\source\rte/sc_adc.h **** 
+   3:.\source\rte/sc_adc.h **** /**
+   4:.\source\rte/sc_adc.h **** *  file    SC_ADC_signal.h
+   5:.\source\rte/sc_adc.h **** *
+   6:.\source\rte/sc_adc.h **** *  brief   signal base class for signal sc_adc
+   7:.\source\rte/sc_adc.h **** *
+   8:.\source\rte/sc_adc.h **** *  author  Autogenerated, Peter Fromm       <peter.fromm@h-da.de>
+   9:.\source\rte/sc_adc.h **** *
+  10:.\source\rte/sc_adc.h **** *
+  11:.\source\rte/sc_adc.h **** */
+  12:.\source\rte/sc_adc.h **** 
+  13:.\source\rte/sc_adc.h **** /*
+  14:.\source\rte/sc_adc.h **** * description: Joystick Representation
+  15:.\source\rte/sc_adc.h **** * name: sc_adc
+  16:.\source\rte/sc_adc.h **** * shortname: adc
+  17:.\source\rte/sc_adc.h **** */
+  18:.\source\rte/sc_adc.h **** 
+  19:.\source\rte/sc_adc.h **** #ifndef SC_ADC_SIGNAL_H_INCLUDED
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 3
 
 
-  74 0035 05       		.byte	0x5
-  75 0036 12020000 		.4byte	.LASF2
-  76 003a 02       		.uleb128 0x2
-  77 003b 02       		.byte	0x2
-  78 003c 07       		.byte	0x7
-  79 003d FC000000 		.4byte	.LASF3
-  80 0041 03       		.uleb128 0x3
-  81 0042 00000000 		.4byte	.LASF9
-  82 0046 02       		.byte	0x2
-  83 0047 3F       		.byte	0x3f
-  84 0048 4C000000 		.4byte	0x4c
-  85 004c 02       		.uleb128 0x2
-  86 004d 04       		.byte	0x4
-  87 004e 05       		.byte	0x5
-  88 004f 1C020000 		.4byte	.LASF4
-  89 0053 02       		.uleb128 0x2
-  90 0054 04       		.byte	0x4
-  91 0055 07       		.byte	0x7
-  92 0056 EA000000 		.4byte	.LASF5
-  93 005a 02       		.uleb128 0x2
-  94 005b 08       		.byte	0x8
-  95 005c 05       		.byte	0x5
-  96 005d B1010000 		.4byte	.LASF6
-  97 0061 02       		.uleb128 0x2
-  98 0062 08       		.byte	0x8
-  99 0063 07       		.byte	0x7
- 100 0064 76010000 		.4byte	.LASF7
- 101 0068 04       		.uleb128 0x4
- 102 0069 04       		.byte	0x4
- 103 006a 05       		.byte	0x5
- 104 006b 696E7400 		.ascii	"int\000"
- 105 006f 02       		.uleb128 0x2
- 106 0070 04       		.byte	0x4
- 107 0071 07       		.byte	0x7
- 108 0072 57010000 		.4byte	.LASF8
- 109 0076 03       		.uleb128 0x3
- 110 0077 A0010000 		.4byte	.LASF10
- 111 007b 03       		.byte	0x3
- 112 007c 2C       		.byte	0x2c
- 113 007d 41000000 		.4byte	0x41
- 114 0081 02       		.uleb128 0x2
- 115 0082 04       		.byte	0x4
- 116 0083 04       		.byte	0x4
- 117 0084 3F000000 		.4byte	.LASF11
- 118 0088 02       		.uleb128 0x2
- 119 0089 08       		.byte	0x8
- 120 008a 04       		.byte	0x4
- 121 008b 18000000 		.4byte	.LASF12
- 122 008f 02       		.uleb128 0x2
- 123 0090 01       		.byte	0x1
- 124 0091 08       		.byte	0x8
- 125 0092 BF010000 		.4byte	.LASF13
- 126 0096 02       		.uleb128 0x2
- 127 0097 08       		.byte	0x8
- 128 0098 04       		.byte	0x4
- 129 0099 25020000 		.4byte	.LASF14
- 130 009d 03       		.uleb128 0x3
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 4
+  20:.\source\rte/sc_adc.h **** #define SC_ADC_SIGNAL_H_INCLUDED
+  21:.\source\rte/sc_adc.h **** 
+  22:.\source\rte/sc_adc.h **** /*================================================[ public includes  ]=============================
+  23:.\source\rte/sc_adc.h **** #include "global.h"
+  24:.\source\rte/sc_adc.h **** #include "project.h"
+  25:.\source\rte/sc_adc.h **** #include "rte.h"
+  26:.\source\rte/sc_adc.h **** #include "rte_types.h"
+  27:.\source\rte/sc_adc.h **** 
+  28:.\source\rte/sc_adc.h **** #include "sc_adc_type.h"
+  29:.\source\rte/sc_adc.h **** 
+  30:.\source\rte/sc_adc.h **** 
+  31:.\source\rte/sc_adc.h **** /**************************************************************************************************
+  32:.\source\rte/sc_adc.h **** /* The driver API block																						*/
+  33:.\source\rte/sc_adc.h **** /**************************************************************************************************
+  34:.\source\rte/sc_adc.h ****                                                                                                    
+  35:.\source\rte/sc_adc.h **** /**
+  36:.\source\rte/sc_adc.h ****  *  Definition of function types for driver interfaces.
+  37:.\source\rte/sc_adc.h ****  *  I-Port
+  38:.\source\rte/sc_adc.h ****  */
+  39:.\source\rte/sc_adc.h **** typedef RC_t (*SC_ADC_driverIn_t)(SC_ADC_data_t * const);
+  40:.\source\rte/sc_adc.h **** 
+  41:.\source\rte/sc_adc.h **** /**
+  42:.\source\rte/sc_adc.h ****  *  Definition of function types for driver interfaces.
+  43:.\source\rte/sc_adc.h ****  *  O-Port
+  44:.\source\rte/sc_adc.h ****  */
+  45:.\source\rte/sc_adc.h **** typedef RC_t (*SC_ADC_driverOut_t)( const SC_ADC_data_t * const);
+  46:.\source\rte/sc_adc.h **** 
+  47:.\source\rte/sc_adc.h **** 
+  48:.\source\rte/sc_adc.h **** /**************************************************************************************************
+  49:.\source\rte/sc_adc.h **** /* The signal configuration API block																				*/
+  50:.\source\rte/sc_adc.h **** /**************************************************************************************************
+  51:.\source\rte/sc_adc.h **** 
+  52:.\source\rte/sc_adc.h **** /**
+  53:.\source\rte/sc_adc.h ****  * Instances of the struct SC_ADC_cfg_t represent the signal object configuration.
+  54:.\source\rte/sc_adc.h ****  */
+  55:.\source\rte/sc_adc.h **** struct SC_ADC_cfg_s
+  56:.\source\rte/sc_adc.h **** {
+  57:.\source\rte/sc_adc.h ****     /**
+  58:.\source\rte/sc_adc.h ****      * Function pointer to the input driver
+  59:.\source\rte/sc_adc.h ****      */
+  60:.\source\rte/sc_adc.h ****     SC_ADC_driverIn_t const inDriver;
+  61:.\source\rte/sc_adc.h **** 
+  62:.\source\rte/sc_adc.h ****     /**
+  63:.\source\rte/sc_adc.h ****      * Function pointer to the output driver table
+  64:.\source\rte/sc_adc.h ****      */
+  65:.\source\rte/sc_adc.h ****    SC_ADC_driverOut_t const outDriver;
+  66:.\source\rte/sc_adc.h ****    
+  67:.\source\rte/sc_adc.h ****     /**
+  68:.\source\rte/sc_adc.h ****      * Event onUpdate
+  69:.\source\rte/sc_adc.h ****      */
+  70:.\source\rte/sc_adc.h ****     EventMaskType const evOnUpdate;
+  71:.\source\rte/sc_adc.h ****     
+  72:.\source\rte/sc_adc.h ****     
+  73:.\source\rte/sc_adc.h ****     /**
+  74:.\source\rte/sc_adc.h ****      * Event onError
+  75:.\source\rte/sc_adc.h ****      */
+  76:.\source\rte/sc_adc.h ****     EventMaskType const evOnError;
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 4
 
 
- 131 009e E1000000 		.4byte	.LASF15
- 132 00a2 04       		.byte	0x4
- 133 00a3 53       		.byte	0x53
- 134 00a4 68000000 		.4byte	0x68
- 135 00a8 03       		.uleb128 0x3
- 136 00a9 6C010000 		.4byte	.LASF16
- 137 00ad 04       		.byte	0x4
- 138 00ae 54       		.byte	0x54
- 139 00af 6F000000 		.4byte	0x6f
- 140 00b3 03       		.uleb128 0x3
- 141 00b4 DC010000 		.4byte	.LASF17
- 142 00b8 05       		.byte	0x5
- 143 00b9 4D       		.byte	0x4d
- 144 00ba A8000000 		.4byte	0xa8
- 145 00be 03       		.uleb128 0x3
- 146 00bf 64010000 		.4byte	.LASF18
- 147 00c3 05       		.byte	0x5
- 148 00c4 4F       		.byte	0x4f
- 149 00c5 A8000000 		.4byte	0xa8
- 150 00c9 03       		.uleb128 0x3
- 151 00ca 38000000 		.4byte	.LASF19
- 152 00ce 05       		.byte	0x5
- 153 00cf 78       		.byte	0x78
- 154 00d0 9D000000 		.4byte	0x9d
- 155 00d4 05       		.uleb128 0x5
- 156 00d5 0A000000 		.4byte	.LASF20
- 157 00d9 06       		.byte	0x6
- 158 00da 2C02     		.2byte	0x22c
- 159 00dc B3000000 		.4byte	0xb3
- 160 00e0 02       		.uleb128 0x2
- 161 00e1 04       		.byte	0x4
- 162 00e2 07       		.byte	0x7
- 163 00e3 A8010000 		.4byte	.LASF21
- 164 00e7 03       		.uleb128 0x3
- 165 00e8 34010000 		.4byte	.LASF22
- 166 00ec 07       		.byte	0x7
- 167 00ed 21       		.byte	0x21
- 168 00ee D4000000 		.4byte	0xd4
- 169 00f2 06       		.uleb128 0x6
- 170 00f3 C4010000 		.4byte	.LASF32
- 171 00f7 01       		.byte	0x1
- 172 00f8 29       		.byte	0x29
- 173 00f9 00000000 		.4byte	.LFB150
- 174 00fd 02000000 		.4byte	.LFE150-.LFB150
- 175 0101 01       		.uleb128 0x1
- 176 0102 9C       		.byte	0x9c
- 177 0103 14010000 		.4byte	0x114
- 178 0107 07       		.uleb128 0x7
- 179 0108 657600   		.ascii	"ev\000"
- 180 010b 01       		.byte	0x1
- 181 010c 29       		.byte	0x29
- 182 010d E7000000 		.4byte	0xe7
- 183 0111 01       		.uleb128 0x1
- 184 0112 50       		.byte	0x50
- 185 0113 00       		.byte	0
- 186 0114 08       		.uleb128 0x8
- 187 0115 0F010000 		.4byte	.LASF23
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 5
+  77:.\source\rte/sc_adc.h ****     
+  78:.\source\rte/sc_adc.h ****     /**
+  79:.\source\rte/sc_adc.h ****      * Task Count onUpdate
+  80:.\source\rte/sc_adc.h ****      */
+  81:.\source\rte/sc_adc.h ****     size_t const onUpdateTaskCount;
+  82:.\source\rte/sc_adc.h **** 
+  83:.\source\rte/sc_adc.h ****     /**
+  84:.\source\rte/sc_adc.h ****      * Task List onUpdate
+  85:.\source\rte/sc_adc.h ****      */
+  86:.\source\rte/sc_adc.h ****     TaskTypeArray* const onUpdateTasks;
+  87:.\source\rte/sc_adc.h ****     
+  88:.\source\rte/sc_adc.h ****     /**
+  89:.\source\rte/sc_adc.h ****      * Task Count onError
+  90:.\source\rte/sc_adc.h ****      */
+  91:.\source\rte/sc_adc.h ****     size_t const onErrorTaskCount;
+  92:.\source\rte/sc_adc.h **** 
+  93:.\source\rte/sc_adc.h ****     /**
+  94:.\source\rte/sc_adc.h ****      * Task List onError
+  95:.\source\rte/sc_adc.h ****      */
+  96:.\source\rte/sc_adc.h ****     TaskTypeArray* const onErrorTasks;
+  97:.\source\rte/sc_adc.h **** 	
+  98:.\source\rte/sc_adc.h **** 	
+  99:.\source\rte/sc_adc.h **** 	/**
+ 100:.\source\rte/sc_adc.h **** 	 * Ressourse is active? We need an additional boolean as a ressource value 0 is valid.
+ 101:.\source\rte/sc_adc.h **** 	 */
+ 102:.\source\rte/sc_adc.h **** 	 boolean_t const resourceActive;
+ 103:.\source\rte/sc_adc.h **** 	 
+ 104:.\source\rte/sc_adc.h **** 	/**
+ 105:.\source\rte/sc_adc.h **** 	 * Ressourse 
+ 106:.\source\rte/sc_adc.h **** 	 */
+ 107:.\source\rte/sc_adc.h **** 	 ResourceType const resource;
+ 108:.\source\rte/sc_adc.h **** 
+ 109:.\source\rte/sc_adc.h **** };                                                                                                 
+ 110:.\source\rte/sc_adc.h **** typedef const struct SC_ADC_cfg_s SC_ADC_cfg_t;
+ 111:.\source\rte/sc_adc.h ****                               
+ 112:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 113:.\source\rte/sc_adc.h **** /* The data interface block																							*/
+ 114:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 115:.\source\rte/sc_adc.h **** 
+ 116:.\source\rte/sc_adc.h ****                                                                                                    
+ 117:.\source\rte/sc_adc.h **** 							  
+ 118:.\source\rte/sc_adc.h **** /**
+ 119:.\source\rte/sc_adc.h ****  * Instances of the struct SC_ADC_t represent the signal objects.
+ 120:.\source\rte/sc_adc.h ****  * A signal object contains the current application value 'value' as well as relevant meta data.
+ 121:.\source\rte/sc_adc.h ****  */
+ 122:.\source\rte/sc_adc.h **** struct SC_ADC_s
+ 123:.\source\rte/sc_adc.h **** {                                                                                                  
+ 124:.\source\rte/sc_adc.h **** 
+ 125:.\source\rte/sc_adc.h **** 	/**
+ 126:.\source\rte/sc_adc.h **** 	 * Data buffer for the application value
+ 127:.\source\rte/sc_adc.h **** 	 */
+ 128:.\source\rte/sc_adc.h ****     SC_ADC_data_t value;
+ 129:.\source\rte/sc_adc.h **** 
+ 130:.\source\rte/sc_adc.h ****     /**
+ 131:.\source\rte/sc_adc.h ****      * Current signal status
+ 132:.\source\rte/sc_adc.h ****      */
+ 133:.\source\rte/sc_adc.h ****     RTE_signalStatus_t status;
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 5
 
 
- 188 0119 08       		.byte	0x8
- 189 011a 40       		.byte	0x40
- 190 011b B3000000 		.4byte	0xb3
- 191 011f 08       		.uleb128 0x8
- 192 0120 1F000000 		.4byte	.LASF24
- 193 0124 08       		.byte	0x8
- 194 0125 47       		.byte	0x47
- 195 0126 BE000000 		.4byte	0xbe
- 196 012a 08       		.uleb128 0x8
- 197 012b 8D010000 		.4byte	.LASF25
- 198 012f 08       		.byte	0x8
- 199 0130 4A       		.byte	0x4a
- 200 0131 B3000000 		.4byte	0xb3
- 201 0135 08       		.uleb128 0x8
- 202 0136 3E010000 		.4byte	.LASF26
- 203 013a 09       		.byte	0x9
- 204 013b 48       		.byte	0x48
- 205 013c C9000000 		.4byte	0xc9
- 206 0140 08       		.uleb128 0x8
- 207 0141 E4010000 		.4byte	.LASF27
- 208 0145 0A       		.byte	0xa
- 209 0146 44       		.byte	0x44
- 210 0147 B3000000 		.4byte	0xb3
- 211 014b 09       		.uleb128 0x9
- 212 014c 27010000 		.4byte	.LASF28
- 213 0150 0B       		.byte	0xb
- 214 0151 1207     		.2byte	0x712
- 215 0153 57010000 		.4byte	0x157
- 216 0157 0A       		.uleb128 0xa
- 217 0158 76000000 		.4byte	0x76
- 218 015c 00       		.byte	0
- 219              		.section	.debug_abbrev,"",%progbits
- 220              	.Ldebug_abbrev0:
- 221 0000 01       		.uleb128 0x1
- 222 0001 11       		.uleb128 0x11
- 223 0002 01       		.byte	0x1
- 224 0003 25       		.uleb128 0x25
- 225 0004 0E       		.uleb128 0xe
- 226 0005 13       		.uleb128 0x13
- 227 0006 0B       		.uleb128 0xb
- 228 0007 03       		.uleb128 0x3
- 229 0008 0E       		.uleb128 0xe
- 230 0009 1B       		.uleb128 0x1b
- 231 000a 0E       		.uleb128 0xe
- 232 000b 55       		.uleb128 0x55
- 233 000c 17       		.uleb128 0x17
- 234 000d 11       		.uleb128 0x11
- 235 000e 01       		.uleb128 0x1
- 236 000f 10       		.uleb128 0x10
- 237 0010 17       		.uleb128 0x17
- 238 0011 00       		.byte	0
- 239 0012 00       		.byte	0
- 240 0013 02       		.uleb128 0x2
- 241 0014 24       		.uleb128 0x24
- 242 0015 00       		.byte	0
- 243 0016 0B       		.uleb128 0xb
- 244 0017 0B       		.uleb128 0xb
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 6
+ 134:.\source\rte/sc_adc.h **** 
+ 135:.\source\rte/sc_adc.h ****     /**
+ 136:.\source\rte/sc_adc.h ****      * Current age of the signal (in calling cycles)
+ 137:.\source\rte/sc_adc.h ****      */
+ 138:.\source\rte/sc_adc.h ****     uint32_t age;
+ 139:.\source\rte/sc_adc.h **** 
+ 140:.\source\rte/sc_adc.h ****     /**
+ 141:.\source\rte/sc_adc.h ****      * Pointer to the signal configuration
+ 142:.\source\rte/sc_adc.h ****      */
+ 143:.\source\rte/sc_adc.h **** 	const SC_ADC_cfg_t * const    pSigCfg;
+ 144:.\source\rte/sc_adc.h **** 
+ 145:.\source\rte/sc_adc.h **** };                                                                                                 
+ 146:.\source\rte/sc_adc.h **** typedef struct SC_ADC_s SC_ADC_t;
+ 147:.\source\rte/sc_adc.h **** 
+ 148:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 149:.\source\rte/sc_adc.h **** /* Signal initialisation   																							*/
+ 150:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 151:.\source\rte/sc_adc.h **** 
+ 152:.\source\rte/sc_adc.h **** /**
+ 153:.\source\rte/sc_adc.h ****  * Initializes a signal instance with a passed init value.
+ 154:.\source\rte/sc_adc.h ****  * Depending on the configured conversion or scaling function the raw_value will be calculated.
+ 155:.\source\rte/sc_adc.h ****  * Signal status will change from RTE_SIGNALSTATUS_STARTUP to RTE_SIGNALSTATUS_INITIALIZED.
+ 156:.\source\rte/sc_adc.h ****  *
+ 157:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object which will be initialised
+ 158:.\source\rte/sc_adc.h ****  * @param const sc_adc_data_t * const value: Pointer to initial value of the application data
+ 159:.\source\rte/sc_adc.h ****  * @return RC_t: standard return code, currently only RC_SUCCESS
+ 160:.\source\rte/sc_adc.h ****  *
+ 161:.\source\rte/sc_adc.h ****  **/
+ 162:.\source\rte/sc_adc.h **** inline RC_t RTE_SC_ADC_init( SC_ADC_t * const signal, const SC_ADC_data_t * const value )
+ 163:.\source\rte/sc_adc.h **** {                                                                                                  
+ 164:.\source\rte/sc_adc.h **** 
+ 165:.\source\rte/sc_adc.h ****    RC_t ret = RC_SUCCESS;
+ 166:.\source\rte/sc_adc.h **** 
+ 167:.\source\rte/sc_adc.h ****    //Set value and raw value
+ 168:.\source\rte/sc_adc.h ****    signal->value  = *value;
+ 169:.\source\rte/sc_adc.h ****    signal->age    = 0;
+ 170:.\source\rte/sc_adc.h ****    signal->status = RTE_SIGNALSTATUS_INITIALIZED;
+ 171:.\source\rte/sc_adc.h **** 
+ 172:.\source\rte/sc_adc.h ****    return ret;
+ 173:.\source\rte/sc_adc.h **** }
+ 174:.\source\rte/sc_adc.h **** 
+ 175:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 176:.\source\rte/sc_adc.h **** /* Status and timeout control																						*/
+ 177:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 178:.\source\rte/sc_adc.h **** 
+ 179:.\source\rte/sc_adc.h **** /**
+ 180:.\source\rte/sc_adc.h ****  *  Returns the current signal status of the passed signal instance.
+ 181:.\source\rte/sc_adc.h ****  *
+ 182:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object
+ 183:.\source\rte/sc_adc.h ****  * @return  sig_status_t: The current signal status
+ 184:.\source\rte/sc_adc.h ****  *
+ 185:.\source\rte/sc_adc.h ****  **/
+ 186:.\source\rte/sc_adc.h **** inline RTE_signalStatus_t RTE_SC_ADC_getStatus( const SC_ADC_t * const signal )
+ 187:.\source\rte/sc_adc.h **** {
+ 188:.\source\rte/sc_adc.h ****    return signal->status;
+ 189:.\source\rte/sc_adc.h **** }
+ 190:.\source\rte/sc_adc.h **** 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 6
 
 
- 245 0018 3E       		.uleb128 0x3e
- 246 0019 0B       		.uleb128 0xb
- 247 001a 03       		.uleb128 0x3
- 248 001b 0E       		.uleb128 0xe
- 249 001c 00       		.byte	0
- 250 001d 00       		.byte	0
- 251 001e 03       		.uleb128 0x3
- 252 001f 16       		.uleb128 0x16
- 253 0020 00       		.byte	0
- 254 0021 03       		.uleb128 0x3
- 255 0022 0E       		.uleb128 0xe
- 256 0023 3A       		.uleb128 0x3a
- 257 0024 0B       		.uleb128 0xb
- 258 0025 3B       		.uleb128 0x3b
- 259 0026 0B       		.uleb128 0xb
- 260 0027 49       		.uleb128 0x49
- 261 0028 13       		.uleb128 0x13
- 262 0029 00       		.byte	0
- 263 002a 00       		.byte	0
- 264 002b 04       		.uleb128 0x4
- 265 002c 24       		.uleb128 0x24
- 266 002d 00       		.byte	0
- 267 002e 0B       		.uleb128 0xb
- 268 002f 0B       		.uleb128 0xb
- 269 0030 3E       		.uleb128 0x3e
- 270 0031 0B       		.uleb128 0xb
- 271 0032 03       		.uleb128 0x3
- 272 0033 08       		.uleb128 0x8
- 273 0034 00       		.byte	0
- 274 0035 00       		.byte	0
- 275 0036 05       		.uleb128 0x5
- 276 0037 16       		.uleb128 0x16
- 277 0038 00       		.byte	0
- 278 0039 03       		.uleb128 0x3
- 279 003a 0E       		.uleb128 0xe
- 280 003b 3A       		.uleb128 0x3a
- 281 003c 0B       		.uleb128 0xb
- 282 003d 3B       		.uleb128 0x3b
- 283 003e 05       		.uleb128 0x5
- 284 003f 49       		.uleb128 0x49
- 285 0040 13       		.uleb128 0x13
- 286 0041 00       		.byte	0
- 287 0042 00       		.byte	0
- 288 0043 06       		.uleb128 0x6
- 289 0044 2E       		.uleb128 0x2e
- 290 0045 01       		.byte	0x1
- 291 0046 3F       		.uleb128 0x3f
- 292 0047 19       		.uleb128 0x19
- 293 0048 03       		.uleb128 0x3
- 294 0049 0E       		.uleb128 0xe
- 295 004a 3A       		.uleb128 0x3a
- 296 004b 0B       		.uleb128 0xb
- 297 004c 3B       		.uleb128 0x3b
- 298 004d 0B       		.uleb128 0xb
- 299 004e 27       		.uleb128 0x27
- 300 004f 19       		.uleb128 0x19
- 301 0050 11       		.uleb128 0x11
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 7
+ 191:.\source\rte/sc_adc.h **** 
+ 192:.\source\rte/sc_adc.h **** /**
+ 193:.\source\rte/sc_adc.h ****  *  Sets a new signal status of the passed signal instance by passing the new status.
+ 194:.\source\rte/sc_adc.h ****  *
+ 195:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object
+ 196:.\source\rte/sc_adc.h ****  * @param  const sig_status_t status: New signal status
+ 197:.\source\rte/sc_adc.h ****  * @return RC_t: standard return code, currently only RC_SUCCESS
+ 198:.\source\rte/sc_adc.h ****  *
+ 199:.\source\rte/sc_adc.h ****  */
+ 200:.\source\rte/sc_adc.h **** inline RC_t RTE_SC_ADC_setStatus( SC_ADC_t * const signal, const RTE_signalStatus_t status )
+ 201:.\source\rte/sc_adc.h **** {
+ 202:.\source\rte/sc_adc.h ****    signal->status = status;
+ 203:.\source\rte/sc_adc.h ****    size_t taskNum=0;
+ 204:.\source\rte/sc_adc.h ****    
+ 205:.\source\rte/sc_adc.h ****    //Fire error events in case of invalid state
+ 206:.\source\rte/sc_adc.h ****    if (signal->status == RTE_SIGNALSTATUS_INVALID)
+ 207:.\source\rte/sc_adc.h ****    {
+ 208:.\source\rte/sc_adc.h **** 	    //Pointer to the Taskarray, containing the tasks receiving the onUpdate events
+ 209:.\source\rte/sc_adc.h **** 		TaskTypeArray* pTaskArray = signal->pSigCfg->onErrorTasks;
+ 210:.\source\rte/sc_adc.h **** 
+ 211:.\source\rte/sc_adc.h **** 		if (NULL!=signal->pSigCfg->evOnError && NULL != pTaskArray){
+ 212:.\source\rte/sc_adc.h **** 			for( taskNum=0 ; taskNum < signal->pSigCfg->onErrorTaskCount ;taskNum++){
+ 213:.\source\rte/sc_adc.h **** 				TaskType task = (*pTaskArray)[taskNum];
+ 214:.\source\rte/sc_adc.h **** 				SetEvent( task, signal->pSigCfg->evOnError);
+ 215:.\source\rte/sc_adc.h **** 			}
+ 216:.\source\rte/sc_adc.h **** 		}
+ 217:.\source\rte/sc_adc.h ****    }
+ 218:.\source\rte/sc_adc.h ****    
+ 219:.\source\rte/sc_adc.h ****    return RC_SUCCESS;
+ 220:.\source\rte/sc_adc.h **** }
+ 221:.\source\rte/sc_adc.h **** 
+ 222:.\source\rte/sc_adc.h **** 
+ 223:.\source\rte/sc_adc.h **** /**
+ 224:.\source\rte/sc_adc.h ****  * Returns the count of refreshing trials (refresh, set or set_raw) that failed.
+ 225:.\source\rte/sc_adc.h ****  * Prerquisite: The signal is refreshed cyclically
+ 226:.\source\rte/sc_adc.h ****  *
+ 227:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object
+ 228:.\source\rte/sc_adc.h ****  * @return uint32_t: Number of cycles since the signal has been updated for the last time
+ 229:.\source\rte/sc_adc.h ****  */
+ 230:.\source\rte/sc_adc.h **** inline uint32_t RTE_SC_ADC_getAge( const SC_ADC_t * const signal )
+ 231:.\source\rte/sc_adc.h **** {
+ 232:.\source\rte/sc_adc.h ****    return signal->age;
+ 233:.\source\rte/sc_adc.h **** }
+ 234:.\source\rte/sc_adc.h **** 
+ 235:.\source\rte/sc_adc.h **** /**
+ 236:.\source\rte/sc_adc.h ****  * Should be called by application or driver if no new value can be provided.
+ 237:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object
+ 238:.\source\rte/sc_adc.h ****  * @param uint32_t increment: incrementvalue, typically in [ms]
+ 239:.\source\rte/sc_adc.h ****  * @return void
+ 240:.\source\rte/sc_adc.h ****  */
+ 241:.\source\rte/sc_adc.h **** inline void RTE_SC_ADC_incAge(  SC_ADC_t * const signal , uint32_t increment)
+ 242:.\source\rte/sc_adc.h **** {
+ 243:.\source\rte/sc_adc.h **** 	   //Hack....
+ 244:.\source\rte/sc_adc.h **** 	   if ( 0xFFFF0000 > (signal->age + increment) )
+ 245:.\source\rte/sc_adc.h **** 	   {
+ 246:.\source\rte/sc_adc.h **** 	      signal->age += increment;
+ 247:.\source\rte/sc_adc.h **** 	   }
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 7
 
 
- 302 0051 01       		.uleb128 0x1
- 303 0052 12       		.uleb128 0x12
- 304 0053 06       		.uleb128 0x6
- 305 0054 40       		.uleb128 0x40
- 306 0055 18       		.uleb128 0x18
- 307 0056 9742     		.uleb128 0x2117
- 308 0058 19       		.uleb128 0x19
- 309 0059 01       		.uleb128 0x1
- 310 005a 13       		.uleb128 0x13
- 311 005b 00       		.byte	0
- 312 005c 00       		.byte	0
- 313 005d 07       		.uleb128 0x7
- 314 005e 05       		.uleb128 0x5
- 315 005f 00       		.byte	0
- 316 0060 03       		.uleb128 0x3
- 317 0061 08       		.uleb128 0x8
- 318 0062 3A       		.uleb128 0x3a
- 319 0063 0B       		.uleb128 0xb
- 320 0064 3B       		.uleb128 0x3b
- 321 0065 0B       		.uleb128 0xb
- 322 0066 49       		.uleb128 0x49
- 323 0067 13       		.uleb128 0x13
- 324 0068 02       		.uleb128 0x2
- 325 0069 18       		.uleb128 0x18
- 326 006a 00       		.byte	0
- 327 006b 00       		.byte	0
- 328 006c 08       		.uleb128 0x8
- 329 006d 34       		.uleb128 0x34
- 330 006e 00       		.byte	0
- 331 006f 03       		.uleb128 0x3
- 332 0070 0E       		.uleb128 0xe
- 333 0071 3A       		.uleb128 0x3a
- 334 0072 0B       		.uleb128 0xb
- 335 0073 3B       		.uleb128 0x3b
- 336 0074 0B       		.uleb128 0xb
- 337 0075 49       		.uleb128 0x49
- 338 0076 13       		.uleb128 0x13
- 339 0077 3F       		.uleb128 0x3f
- 340 0078 19       		.uleb128 0x19
- 341 0079 3C       		.uleb128 0x3c
- 342 007a 19       		.uleb128 0x19
- 343 007b 00       		.byte	0
- 344 007c 00       		.byte	0
- 345 007d 09       		.uleb128 0x9
- 346 007e 34       		.uleb128 0x34
- 347 007f 00       		.byte	0
- 348 0080 03       		.uleb128 0x3
- 349 0081 0E       		.uleb128 0xe
- 350 0082 3A       		.uleb128 0x3a
- 351 0083 0B       		.uleb128 0xb
- 352 0084 3B       		.uleb128 0x3b
- 353 0085 05       		.uleb128 0x5
- 354 0086 49       		.uleb128 0x49
- 355 0087 13       		.uleb128 0x13
- 356 0088 3F       		.uleb128 0x3f
- 357 0089 19       		.uleb128 0x19
- 358 008a 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 8
+ 248:.\source\rte/sc_adc.h **** }
+ 249:.\source\rte/sc_adc.h **** 
+ 250:.\source\rte/sc_adc.h **** 
+ 251:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 252:.\source\rte/sc_adc.h **** /* Application Data read/write Interface																			*/
+ 253:.\source\rte/sc_adc.h **** /**************************************************************************************************
+ 254:.\source\rte/sc_adc.h **** 
+ 255:.\source\rte/sc_adc.h **** /**
+ 256:.\source\rte/sc_adc.h ****  * Returns the current application value of the passed signal instance.
+ 257:.\source\rte/sc_adc.h ****  *
+ 258:.\source\rte/sc_adc.h ****  * @param  SC_ADC_t * const signal: Pointer to the signal object
+ 259:.\source\rte/sc_adc.h ****  * @return sc_adc_data_t: current value of the application data buffer
+ 260:.\source\rte/sc_adc.h ****  *
+ 261:.\source\rte/sc_adc.h ****  **/
+ 262:.\source\rte/sc_adc.h **** inline SC_ADC_data_t RTE_SC_ADC_get( const SC_ADC_t * const signal )
+ 263:.\source\rte/sc_adc.h **** {               
+ 264:.\source\rte/sc_adc.h ****    //Todo: Critical region cannot be protected using return values																						
+ 265:.\source\rte/sc_adc.h ****    return signal->value;                                                                           
+  51              		.loc 2 265 0
+  52 000e 1C4B     		ldr	r3, .L10
+  53 0010 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  54              	.LVL3:
+  55              	.LBE10:
+  56              	.LBE9:
+  57              	.LBB11:
+  58              	.LBB12:
+ 188:.\source\rte/sc_adc.h **** }
+  59              		.loc 2 188 0
+  60 0012 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+  61              	.LVL4:
+  62              	.LBE12:
+  63              	.LBE11:
+  46:source\asw/swc_control.c ****     
+  47:source\asw/swc_control.c ****     SC_ADC_data_t adc_t;
+  48:source\asw/swc_control.c ****     SC_SPEED_data_t speedSignal_t;
+  49:source\asw/swc_control.c ****     
+  50:source\asw/swc_control.c ****     //Get joystick value and status
+  51:source\asw/swc_control.c ****     adc_t = RTE_SC_ADC_get(&SO_JOYSTICK_signal);
+  52:source\asw/swc_control.c ****     RTE_signalStatus_t adcSignalStatus = RTE_SC_ADC_getStatus(&SO_JOYSTICK_signal);
+  53:source\asw/swc_control.c **** 
+  54:source\asw/swc_control.c ****     //Check validity of the signal
+  55:source\asw/swc_control.c ****     if(RTE_SIGNALSTATUS_VALID == adcSignalStatus)
+  64              		.loc 1 55 0
+  65 0014 022B     		cmp	r3, #2
+  66 0016 07D1     		bne	.L2
+  56:source\asw/swc_control.c ****     {
+  57:source\asw/swc_control.c ****         //If value is out of bounds
+  58:source\asw/swc_control.c ****         if((adc_t.adc_output < ADC_OUTPUT_MIN) || (adc_t.adc_output > ADC_OUTPUT_MAX))
+  67              		.loc 1 58 0
+  68 0018 52B2     		sxtb	r2, r2
+  69 001a 002A     		cmp	r2, #0
+  70 001c 02DA     		bge	.L3
+  59:source\asw/swc_control.c ****         {
+  60:source\asw/swc_control.c ****             speedSignal_t.speed = 0; 
+  71              		.loc 1 60 0
+  72 001e 4FF00006 		mov	r6, #0
+  73              	.LVL5:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 8
 
 
- 359 008b 19       		.uleb128 0x19
- 360 008c 00       		.byte	0
- 361 008d 00       		.byte	0
- 362 008e 0A       		.uleb128 0xa
- 363 008f 35       		.uleb128 0x35
- 364 0090 00       		.byte	0
- 365 0091 49       		.uleb128 0x49
- 366 0092 13       		.uleb128 0x13
- 367 0093 00       		.byte	0
- 368 0094 00       		.byte	0
- 369 0095 00       		.byte	0
- 370              		.section	.debug_aranges,"",%progbits
- 371 0000 1C000000 		.4byte	0x1c
- 372 0004 0200     		.2byte	0x2
- 373 0006 00000000 		.4byte	.Ldebug_info0
- 374 000a 04       		.byte	0x4
- 375 000b 00       		.byte	0
- 376 000c 0000     		.2byte	0
- 377 000e 0000     		.2byte	0
- 378 0010 00000000 		.4byte	.LFB150
- 379 0014 02000000 		.4byte	.LFE150-.LFB150
- 380 0018 00000000 		.4byte	0
- 381 001c 00000000 		.4byte	0
- 382              		.section	.debug_ranges,"",%progbits
- 383              	.Ldebug_ranges0:
- 384 0000 00000000 		.4byte	.LFB150
- 385 0004 02000000 		.4byte	.LFE150
- 386 0008 00000000 		.4byte	0
- 387 000c 00000000 		.4byte	0
- 388              		.section	.debug_line,"",%progbits
- 389              	.Ldebug_line0:
- 390 0000 4E020000 		.section	.debug_str,"MS",%progbits,1
- 390      02003902 
- 390      00000201 
- 390      FB0E0D00 
- 390      01010101 
- 391              	.LASF9:
- 392 0000 5F5F696E 		.ascii	"__int32_t\000"
- 392      7433325F 
- 392      7400
- 393              	.LASF20:
- 394 000a 4576656E 		.ascii	"EventMaskType\000"
- 394      744D6173 
- 394      6B547970 
- 394      6500
- 395              	.LASF12:
- 396 0018 646F7562 		.ascii	"double\000"
- 396      6C6500
- 397              	.LASF24:
- 398 001f 45455F6F 		.ascii	"EE_oo_IRQ_suspend_status\000"
- 398      6F5F4952 
- 398      515F7375 
- 398      7370656E 
- 398      645F7374 
- 399              	.LASF19:
- 400 0038 45455F54 		.ascii	"EE_TID\000"
- 400      494400
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 9
+  74 0022 04E0     		b	.L4
+  75              	.L3:
+  61:source\asw/swc_control.c ****         }
+  62:source\asw/swc_control.c ****         else
+  63:source\asw/swc_control.c ****         {
+  64:source\asw/swc_control.c ****             speedSignal_t.speed = 2*(adc_t.adc_output);
+  76              		.loc 1 64 0
+  77 0024 5600     		lsls	r6, r2, #1
+  78 0026 02E0     		b	.L4
+  79              	.L2:
+  65:source\asw/swc_control.c ****         }
+  66:source\asw/swc_control.c ****     }
+  67:source\asw/swc_control.c ****     else
+  68:source\asw/swc_control.c ****     {
+  69:source\asw/swc_control.c ****         UART_Log_Tx("Invalid ADC signal");
+  80              		.loc 1 69 0
+  81 0028 1648     		ldr	r0, .L10+4
+  82 002a FFF7FEFF 		bl	UART_Log_Tx
+  83              	.LVL6:
+  84              	.L4:
+  85              	.LBB13:
+  86              	.LBB14:
+  87              		.file 3 ".\\source\\rte/sc_speed.h"
+   1:.\source\rte/sc_speed.h **** 
+   2:.\source\rte/sc_speed.h **** 
+   3:.\source\rte/sc_speed.h **** /**
+   4:.\source\rte/sc_speed.h **** *  file    SC_SPEED_signal.h
+   5:.\source\rte/sc_speed.h **** *
+   6:.\source\rte/sc_speed.h **** *  brief   signal base class for signal sc_speed
+   7:.\source\rte/sc_speed.h **** *
+   8:.\source\rte/sc_speed.h **** *  author  Autogenerated, Peter Fromm       <peter.fromm@h-da.de>
+   9:.\source\rte/sc_speed.h **** *
+  10:.\source\rte/sc_speed.h **** *
+  11:.\source\rte/sc_speed.h **** */
+  12:.\source\rte/sc_speed.h **** 
+  13:.\source\rte/sc_speed.h **** /*
+  14:.\source\rte/sc_speed.h **** * description: Speed data type
+  15:.\source\rte/sc_speed.h **** * name: sc_speed
+  16:.\source\rte/sc_speed.h **** * shortname: speed
+  17:.\source\rte/sc_speed.h **** */
+  18:.\source\rte/sc_speed.h **** 
+  19:.\source\rte/sc_speed.h **** #ifndef SC_SPEED_SIGNAL_H_INCLUDED
+  20:.\source\rte/sc_speed.h **** #define SC_SPEED_SIGNAL_H_INCLUDED
+  21:.\source\rte/sc_speed.h **** 
+  22:.\source\rte/sc_speed.h **** /*================================================[ public includes  ]=============================
+  23:.\source\rte/sc_speed.h **** #include "global.h"
+  24:.\source\rte/sc_speed.h **** #include "project.h"
+  25:.\source\rte/sc_speed.h **** #include "rte.h"
+  26:.\source\rte/sc_speed.h **** #include "rte_types.h"
+  27:.\source\rte/sc_speed.h **** 
+  28:.\source\rte/sc_speed.h **** #include "sc_speed_type.h"
+  29:.\source\rte/sc_speed.h **** 
+  30:.\source\rte/sc_speed.h **** 
+  31:.\source\rte/sc_speed.h **** /**************************************************************************************************
+  32:.\source\rte/sc_speed.h **** /* The driver API block																						*/
+  33:.\source\rte/sc_speed.h **** /**************************************************************************************************
+  34:.\source\rte/sc_speed.h ****                                                                                                    
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 9
 
 
- 401              	.LASF11:
- 402 003f 666C6F61 		.ascii	"float\000"
- 402      7400
- 403              	.LASF1:
- 404 0045 756E7369 		.ascii	"unsigned char\000"
- 404      676E6564 
- 404      20636861 
- 404      7200
- 405              	.LASF29:
- 406 0053 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 406      43313120 
- 406      352E342E 
- 406      31203230 
- 406      31363036 
- 407 0086 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 407      20726576 
- 407      6973696F 
- 407      6E203233 
- 407      37373135 
- 408 00b9 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 408      66756E63 
- 408      74696F6E 
- 408      2D736563 
- 408      74696F6E 
- 409              	.LASF15:
- 410 00e1 45455F49 		.ascii	"EE_INT32\000"
- 410      4E543332 
- 410      00
- 411              	.LASF5:
- 412 00ea 6C6F6E67 		.ascii	"long unsigned int\000"
- 412      20756E73 
- 412      69676E65 
- 412      6420696E 
- 412      7400
- 413              	.LASF3:
- 414 00fc 73686F72 		.ascii	"short unsigned int\000"
- 414      7420756E 
- 414      7369676E 
- 414      65642069 
- 414      6E7400
- 415              	.LASF23:
- 416 010f 45455F6F 		.ascii	"EE_oo_IRQ_disable_count\000"
- 416      6F5F4952 
- 416      515F6469 
- 416      7361626C 
- 416      655F636F 
- 417              	.LASF28:
- 418 0127 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 418      52784275 
- 418      66666572 
- 418      00
- 419              	.LASF22:
- 420 0134 5254455F 		.ascii	"RTE_event\000"
- 420      6576656E 
- 420      7400
- 421              	.LASF26:
- 422 013e 45455F73 		.ascii	"EE_std_endcycle_next_tid\000"
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 10
+  35:.\source\rte/sc_speed.h **** /**
+  36:.\source\rte/sc_speed.h ****  *  Definition of function types for driver interfaces.
+  37:.\source\rte/sc_speed.h ****  *  I-Port
+  38:.\source\rte/sc_speed.h ****  */
+  39:.\source\rte/sc_speed.h **** typedef RC_t (*SC_SPEED_driverIn_t)(SC_SPEED_data_t * const);
+  40:.\source\rte/sc_speed.h **** 
+  41:.\source\rte/sc_speed.h **** /**
+  42:.\source\rte/sc_speed.h ****  *  Definition of function types for driver interfaces.
+  43:.\source\rte/sc_speed.h ****  *  O-Port
+  44:.\source\rte/sc_speed.h ****  */
+  45:.\source\rte/sc_speed.h **** typedef RC_t (*SC_SPEED_driverOut_t)( const SC_SPEED_data_t * const);
+  46:.\source\rte/sc_speed.h **** 
+  47:.\source\rte/sc_speed.h **** 
+  48:.\source\rte/sc_speed.h **** /**************************************************************************************************
+  49:.\source\rte/sc_speed.h **** /* The signal configuration API block																				*/
+  50:.\source\rte/sc_speed.h **** /**************************************************************************************************
+  51:.\source\rte/sc_speed.h **** 
+  52:.\source\rte/sc_speed.h **** /**
+  53:.\source\rte/sc_speed.h ****  * Instances of the struct SC_SPEED_cfg_t represent the signal object configuration.
+  54:.\source\rte/sc_speed.h ****  */
+  55:.\source\rte/sc_speed.h **** struct SC_SPEED_cfg_s
+  56:.\source\rte/sc_speed.h **** {
+  57:.\source\rte/sc_speed.h ****     /**
+  58:.\source\rte/sc_speed.h ****      * Function pointer to the input driver
+  59:.\source\rte/sc_speed.h ****      */
+  60:.\source\rte/sc_speed.h ****     SC_SPEED_driverIn_t const inDriver;
+  61:.\source\rte/sc_speed.h **** 
+  62:.\source\rte/sc_speed.h ****     /**
+  63:.\source\rte/sc_speed.h ****      * Function pointer to the output driver table
+  64:.\source\rte/sc_speed.h ****      */
+  65:.\source\rte/sc_speed.h ****    SC_SPEED_driverOut_t const outDriver;
+  66:.\source\rte/sc_speed.h ****    
+  67:.\source\rte/sc_speed.h ****     /**
+  68:.\source\rte/sc_speed.h ****      * Event onUpdate
+  69:.\source\rte/sc_speed.h ****      */
+  70:.\source\rte/sc_speed.h ****     EventMaskType const evOnUpdate;
+  71:.\source\rte/sc_speed.h ****     
+  72:.\source\rte/sc_speed.h ****     
+  73:.\source\rte/sc_speed.h ****     /**
+  74:.\source\rte/sc_speed.h ****      * Event onError
+  75:.\source\rte/sc_speed.h ****      */
+  76:.\source\rte/sc_speed.h ****     EventMaskType const evOnError;
+  77:.\source\rte/sc_speed.h ****     
+  78:.\source\rte/sc_speed.h ****     /**
+  79:.\source\rte/sc_speed.h ****      * Task Count onUpdate
+  80:.\source\rte/sc_speed.h ****      */
+  81:.\source\rte/sc_speed.h ****     size_t const onUpdateTaskCount;
+  82:.\source\rte/sc_speed.h **** 
+  83:.\source\rte/sc_speed.h ****     /**
+  84:.\source\rte/sc_speed.h ****      * Task List onUpdate
+  85:.\source\rte/sc_speed.h ****      */
+  86:.\source\rte/sc_speed.h ****     TaskTypeArray* const onUpdateTasks;
+  87:.\source\rte/sc_speed.h ****     
+  88:.\source\rte/sc_speed.h ****     /**
+  89:.\source\rte/sc_speed.h ****      * Task Count onError
+  90:.\source\rte/sc_speed.h ****      */
+  91:.\source\rte/sc_speed.h ****     size_t const onErrorTaskCount;
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 10
 
 
- 422      74645F65 
- 422      6E646379 
- 422      636C655F 
- 422      6E657874 
- 423              	.LASF8:
- 424 0157 756E7369 		.ascii	"unsigned int\000"
- 424      676E6564 
- 424      20696E74 
- 424      00
- 425              	.LASF18:
- 426 0164 45455F46 		.ascii	"EE_FREG\000"
- 426      52454700 
- 427              	.LASF16:
- 428 016c 45455F55 		.ascii	"EE_UINT32\000"
- 428      494E5433 
- 428      3200
- 429              	.LASF7:
- 430 0176 6C6F6E67 		.ascii	"long long unsigned int\000"
- 430      206C6F6E 
- 430      6720756E 
- 430      7369676E 
- 430      65642069 
- 431              	.LASF25:
- 432 018d 45455F41 		.ascii	"EE_ApplicationMode\000"
- 432      70706C69 
- 432      63617469 
- 432      6F6E4D6F 
- 432      646500
- 433              	.LASF10:
- 434 01a0 696E7433 		.ascii	"int32_t\000"
- 434      325F7400 
- 435              	.LASF21:
- 436 01a8 73697A65 		.ascii	"sizetype\000"
- 436      74797065 
- 436      00
- 437              	.LASF6:
- 438 01b1 6C6F6E67 		.ascii	"long long int\000"
- 438      206C6F6E 
- 438      6720696E 
- 438      7400
- 439              	.LASF13:
- 440 01bf 63686172 		.ascii	"char\000"
- 440      00
- 441              	.LASF32:
- 442 01c4 434F4E54 		.ascii	"CONTROL_calcControl_run\000"
- 442      524F4C5F 
- 442      63616C63 
- 442      436F6E74 
- 442      726F6C5F 
- 443              	.LASF17:
- 444 01dc 45455F55 		.ascii	"EE_UREG\000"
- 444      52454700 
- 445              	.LASF27:
- 446 01e4 45455F49 		.ascii	"EE_IRQ_nesting_level\000"
- 446      52515F6E 
- 446      65737469 
- 446      6E675F6C 
-ARM GAS  C:\Users\aditi\AppData\Local\Temp\cc0njjya.s 			page 11
+  92:.\source\rte/sc_speed.h **** 
+  93:.\source\rte/sc_speed.h ****     /**
+  94:.\source\rte/sc_speed.h ****      * Task List onError
+  95:.\source\rte/sc_speed.h ****      */
+  96:.\source\rte/sc_speed.h ****     TaskTypeArray* const onErrorTasks;
+  97:.\source\rte/sc_speed.h **** 	
+  98:.\source\rte/sc_speed.h **** 	
+  99:.\source\rte/sc_speed.h **** 	/**
+ 100:.\source\rte/sc_speed.h **** 	 * Ressourse is active? We need an additional boolean as a ressource value 0 is valid.
+ 101:.\source\rte/sc_speed.h **** 	 */
+ 102:.\source\rte/sc_speed.h **** 	 boolean_t const resourceActive;
+ 103:.\source\rte/sc_speed.h **** 	 
+ 104:.\source\rte/sc_speed.h **** 	/**
+ 105:.\source\rte/sc_speed.h **** 	 * Ressourse 
+ 106:.\source\rte/sc_speed.h **** 	 */
+ 107:.\source\rte/sc_speed.h **** 	 ResourceType const resource;
+ 108:.\source\rte/sc_speed.h **** 
+ 109:.\source\rte/sc_speed.h **** };                                                                                                 
+ 110:.\source\rte/sc_speed.h **** typedef const struct SC_SPEED_cfg_s SC_SPEED_cfg_t;
+ 111:.\source\rte/sc_speed.h ****                               
+ 112:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 113:.\source\rte/sc_speed.h **** /* The data interface block																							*/
+ 114:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 115:.\source\rte/sc_speed.h **** 
+ 116:.\source\rte/sc_speed.h ****                                                                                                    
+ 117:.\source\rte/sc_speed.h **** 							  
+ 118:.\source\rte/sc_speed.h **** /**
+ 119:.\source\rte/sc_speed.h ****  * Instances of the struct SC_SPEED_t represent the signal objects.
+ 120:.\source\rte/sc_speed.h ****  * A signal object contains the current application value 'value' as well as relevant meta data.
+ 121:.\source\rte/sc_speed.h ****  */
+ 122:.\source\rte/sc_speed.h **** struct SC_SPEED_s
+ 123:.\source\rte/sc_speed.h **** {                                                                                                  
+ 124:.\source\rte/sc_speed.h **** 
+ 125:.\source\rte/sc_speed.h **** 	/**
+ 126:.\source\rte/sc_speed.h **** 	 * Data buffer for the application value
+ 127:.\source\rte/sc_speed.h **** 	 */
+ 128:.\source\rte/sc_speed.h ****     SC_SPEED_data_t value;
+ 129:.\source\rte/sc_speed.h **** 
+ 130:.\source\rte/sc_speed.h ****     /**
+ 131:.\source\rte/sc_speed.h ****      * Current signal status
+ 132:.\source\rte/sc_speed.h ****      */
+ 133:.\source\rte/sc_speed.h ****     RTE_signalStatus_t status;
+ 134:.\source\rte/sc_speed.h **** 
+ 135:.\source\rte/sc_speed.h ****     /**
+ 136:.\source\rte/sc_speed.h ****      * Current age of the signal (in calling cycles)
+ 137:.\source\rte/sc_speed.h ****      */
+ 138:.\source\rte/sc_speed.h ****     uint32_t age;
+ 139:.\source\rte/sc_speed.h **** 
+ 140:.\source\rte/sc_speed.h ****     /**
+ 141:.\source\rte/sc_speed.h ****      * Pointer to the signal configuration
+ 142:.\source\rte/sc_speed.h ****      */
+ 143:.\source\rte/sc_speed.h **** 	const SC_SPEED_cfg_t * const    pSigCfg;
+ 144:.\source\rte/sc_speed.h **** 
+ 145:.\source\rte/sc_speed.h **** };                                                                                                 
+ 146:.\source\rte/sc_speed.h **** typedef struct SC_SPEED_s SC_SPEED_t;
+ 147:.\source\rte/sc_speed.h **** 
+ 148:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 11
 
 
- 446      6576656C 
- 447              	.LASF30:
- 448 01f9 736F7572 		.ascii	"source\\asw\\swc_control.c\000"
- 448      63655C61 
- 448      73775C73 
- 448      77635F63 
- 448      6F6E7472 
- 449              	.LASF2:
- 450 0212 73686F72 		.ascii	"short int\000"
- 450      7420696E 
- 450      7400
- 451              	.LASF4:
- 452 021c 6C6F6E67 		.ascii	"long int\000"
- 452      20696E74 
- 452      00
- 453              	.LASF14:
- 454 0225 6C6F6E67 		.ascii	"long double\000"
- 454      20646F75 
- 454      626C6500 
- 455              	.LASF0:
- 456 0231 7369676E 		.ascii	"signed char\000"
- 456      65642063 
- 456      68617200 
- 457              	.LASF31:
- 458 023d 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
- 458      61726D73 
- 458      74616474 
- 458      5C536563 
- 458      6F6E6453 
- 459 026a 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
- 459      69634761 
- 459      73506564 
- 459      616C2E63 
- 459      7964736E 
- 460              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 149:.\source\rte/sc_speed.h **** /* Signal initialisation   																							*/
+ 150:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 151:.\source\rte/sc_speed.h **** 
+ 152:.\source\rte/sc_speed.h **** /**
+ 153:.\source\rte/sc_speed.h ****  * Initializes a signal instance with a passed init value.
+ 154:.\source\rte/sc_speed.h ****  * Depending on the configured conversion or scaling function the raw_value will be calculated.
+ 155:.\source\rte/sc_speed.h ****  * Signal status will change from RTE_SIGNALSTATUS_STARTUP to RTE_SIGNALSTATUS_INITIALIZED.
+ 156:.\source\rte/sc_speed.h ****  *
+ 157:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object which will be initialised
+ 158:.\source\rte/sc_speed.h ****  * @param const sc_speed_data_t * const value: Pointer to initial value of the application data
+ 159:.\source\rte/sc_speed.h ****  * @return RC_t: standard return code, currently only RC_SUCCESS
+ 160:.\source\rte/sc_speed.h ****  *
+ 161:.\source\rte/sc_speed.h ****  **/
+ 162:.\source\rte/sc_speed.h **** inline RC_t RTE_SC_SPEED_init( SC_SPEED_t * const signal, const SC_SPEED_data_t * const value )
+ 163:.\source\rte/sc_speed.h **** {                                                                                                  
+ 164:.\source\rte/sc_speed.h **** 
+ 165:.\source\rte/sc_speed.h ****    RC_t ret = RC_SUCCESS;
+ 166:.\source\rte/sc_speed.h **** 
+ 167:.\source\rte/sc_speed.h ****    //Set value and raw value
+ 168:.\source\rte/sc_speed.h ****    signal->value  = *value;
+ 169:.\source\rte/sc_speed.h ****    signal->age    = 0;
+ 170:.\source\rte/sc_speed.h ****    signal->status = RTE_SIGNALSTATUS_INITIALIZED;
+ 171:.\source\rte/sc_speed.h **** 
+ 172:.\source\rte/sc_speed.h ****    return ret;
+ 173:.\source\rte/sc_speed.h **** }
+ 174:.\source\rte/sc_speed.h **** 
+ 175:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 176:.\source\rte/sc_speed.h **** /* Status and timeout control																						*/
+ 177:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 178:.\source\rte/sc_speed.h **** 
+ 179:.\source\rte/sc_speed.h **** /**
+ 180:.\source\rte/sc_speed.h ****  *  Returns the current signal status of the passed signal instance.
+ 181:.\source\rte/sc_speed.h ****  *
+ 182:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 183:.\source\rte/sc_speed.h ****  * @return  sig_status_t: The current signal status
+ 184:.\source\rte/sc_speed.h ****  *
+ 185:.\source\rte/sc_speed.h ****  **/
+ 186:.\source\rte/sc_speed.h **** inline RTE_signalStatus_t RTE_SC_SPEED_getStatus( const SC_SPEED_t * const signal )
+ 187:.\source\rte/sc_speed.h **** {
+ 188:.\source\rte/sc_speed.h ****    return signal->status;
+ 189:.\source\rte/sc_speed.h **** }
+ 190:.\source\rte/sc_speed.h **** 
+ 191:.\source\rte/sc_speed.h **** 
+ 192:.\source\rte/sc_speed.h **** /**
+ 193:.\source\rte/sc_speed.h ****  *  Sets a new signal status of the passed signal instance by passing the new status.
+ 194:.\source\rte/sc_speed.h ****  *
+ 195:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 196:.\source\rte/sc_speed.h ****  * @param  const sig_status_t status: New signal status
+ 197:.\source\rte/sc_speed.h ****  * @return RC_t: standard return code, currently only RC_SUCCESS
+ 198:.\source\rte/sc_speed.h ****  *
+ 199:.\source\rte/sc_speed.h ****  */
+ 200:.\source\rte/sc_speed.h **** inline RC_t RTE_SC_SPEED_setStatus( SC_SPEED_t * const signal, const RTE_signalStatus_t status )
+ 201:.\source\rte/sc_speed.h **** {
+ 202:.\source\rte/sc_speed.h ****    signal->status = status;
+ 203:.\source\rte/sc_speed.h ****    size_t taskNum=0;
+ 204:.\source\rte/sc_speed.h ****    
+ 205:.\source\rte/sc_speed.h ****    //Fire error events in case of invalid state
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 12
+
+
+ 206:.\source\rte/sc_speed.h ****    if (signal->status == RTE_SIGNALSTATUS_INVALID)
+ 207:.\source\rte/sc_speed.h ****    {
+ 208:.\source\rte/sc_speed.h **** 	    //Pointer to the Taskarray, containing the tasks receiving the onUpdate events
+ 209:.\source\rte/sc_speed.h **** 		TaskTypeArray* pTaskArray = signal->pSigCfg->onErrorTasks;
+ 210:.\source\rte/sc_speed.h **** 
+ 211:.\source\rte/sc_speed.h **** 		if (NULL!=signal->pSigCfg->evOnError && NULL != pTaskArray){
+ 212:.\source\rte/sc_speed.h **** 			for( taskNum=0 ; taskNum < signal->pSigCfg->onErrorTaskCount ;taskNum++){
+ 213:.\source\rte/sc_speed.h **** 				TaskType task = (*pTaskArray)[taskNum];
+ 214:.\source\rte/sc_speed.h **** 				SetEvent( task, signal->pSigCfg->evOnError);
+ 215:.\source\rte/sc_speed.h **** 			}
+ 216:.\source\rte/sc_speed.h **** 		}
+ 217:.\source\rte/sc_speed.h ****    }
+ 218:.\source\rte/sc_speed.h ****    
+ 219:.\source\rte/sc_speed.h ****    return RC_SUCCESS;
+ 220:.\source\rte/sc_speed.h **** }
+ 221:.\source\rte/sc_speed.h **** 
+ 222:.\source\rte/sc_speed.h **** 
+ 223:.\source\rte/sc_speed.h **** /**
+ 224:.\source\rte/sc_speed.h ****  * Returns the count of refreshing trials (refresh, set or set_raw) that failed.
+ 225:.\source\rte/sc_speed.h ****  * Prerquisite: The signal is refreshed cyclically
+ 226:.\source\rte/sc_speed.h ****  *
+ 227:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 228:.\source\rte/sc_speed.h ****  * @return uint32_t: Number of cycles since the signal has been updated for the last time
+ 229:.\source\rte/sc_speed.h ****  */
+ 230:.\source\rte/sc_speed.h **** inline uint32_t RTE_SC_SPEED_getAge( const SC_SPEED_t * const signal )
+ 231:.\source\rte/sc_speed.h **** {
+ 232:.\source\rte/sc_speed.h ****    return signal->age;
+ 233:.\source\rte/sc_speed.h **** }
+ 234:.\source\rte/sc_speed.h **** 
+ 235:.\source\rte/sc_speed.h **** /**
+ 236:.\source\rte/sc_speed.h ****  * Should be called by application or driver if no new value can be provided.
+ 237:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 238:.\source\rte/sc_speed.h ****  * @param uint32_t increment: incrementvalue, typically in [ms]
+ 239:.\source\rte/sc_speed.h ****  * @return void
+ 240:.\source\rte/sc_speed.h ****  */
+ 241:.\source\rte/sc_speed.h **** inline void RTE_SC_SPEED_incAge(  SC_SPEED_t * const signal , uint32_t increment)
+ 242:.\source\rte/sc_speed.h **** {
+ 243:.\source\rte/sc_speed.h **** 	   //Hack....
+ 244:.\source\rte/sc_speed.h **** 	   if ( 0xFFFF0000 > (signal->age + increment) )
+ 245:.\source\rte/sc_speed.h **** 	   {
+ 246:.\source\rte/sc_speed.h **** 	      signal->age += increment;
+ 247:.\source\rte/sc_speed.h **** 	   }
+ 248:.\source\rte/sc_speed.h **** }
+ 249:.\source\rte/sc_speed.h **** 
+ 250:.\source\rte/sc_speed.h **** 
+ 251:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 252:.\source\rte/sc_speed.h **** /* Application Data read/write Interface																			*/
+ 253:.\source\rte/sc_speed.h **** /**************************************************************************************************
+ 254:.\source\rte/sc_speed.h **** 
+ 255:.\source\rte/sc_speed.h **** /**
+ 256:.\source\rte/sc_speed.h ****  * Returns the current application value of the passed signal instance.
+ 257:.\source\rte/sc_speed.h ****  *
+ 258:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 259:.\source\rte/sc_speed.h ****  * @return sc_speed_data_t: current value of the application data buffer
+ 260:.\source\rte/sc_speed.h ****  *
+ 261:.\source\rte/sc_speed.h ****  **/
+ 262:.\source\rte/sc_speed.h **** inline SC_SPEED_data_t RTE_SC_SPEED_get( const SC_SPEED_t * const signal )
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 13
+
+
+ 263:.\source\rte/sc_speed.h **** {               
+ 264:.\source\rte/sc_speed.h ****    //Todo: Critical region cannot be protected using return values																						
+ 265:.\source\rte/sc_speed.h ****    return signal->value;                                                                           
+ 266:.\source\rte/sc_speed.h **** }                                                                                                  
+ 267:.\source\rte/sc_speed.h ****                                                                                                    
+ 268:.\source\rte/sc_speed.h **** /**
+ 269:.\source\rte/sc_speed.h ****  * Returns the current application value of the passed signal instance threadsafe.
+ 270:.\source\rte/sc_speed.h ****  *
+ 271:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 272:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_data_t* data: Pointer to the return data Pointer to the signal object
+ 273:.\source\rte/sc_speed.h ****  * @return RC_SUCCESS
+ 274:.\source\rte/sc_speed.h ****  *
+ 275:.\source\rte/sc_speed.h ****  **/
+ 276:.\source\rte/sc_speed.h **** inline RC_t RTE_SC_SPEED_getThreadSafe( const SC_SPEED_t * const signal, SC_SPEED_data_t * const da
+ 277:.\source\rte/sc_speed.h **** {    
+ 278:.\source\rte/sc_speed.h ****    if (TRUE == signal->pSigCfg->resourceActive) GetResource(signal->pSigCfg->resource);
+ 279:.\source\rte/sc_speed.h ****    *data = signal->value;
+ 280:.\source\rte/sc_speed.h ****    if (TRUE == signal->pSigCfg->resourceActive) ReleaseResource(signal->pSigCfg->resource);        
+ 281:.\source\rte/sc_speed.h **** 
+ 282:.\source\rte/sc_speed.h ****    return RC_SUCCESS;                                                                   
+ 283:.\source\rte/sc_speed.h ****    
+ 284:.\source\rte/sc_speed.h **** }                                                                                                  
+ 285:.\source\rte/sc_speed.h ****                                                                                                    
+ 286:.\source\rte/sc_speed.h **** /**
+ 287:.\source\rte/sc_speed.h ****  * Sets a new application value to the passed signal instance by passing the new value.
+ 288:.\source\rte/sc_speed.h ****  * The corresponding driver raw value will be calculated immediately by using the default conversio
+ 289:.\source\rte/sc_speed.h ****  * signal specific scaling function.
+ 290:.\source\rte/sc_speed.h ****  * The signal age will be set to 0 and the new status will be 'RTE_SIGNALSTATUS_VALID'.
+ 291:.\source\rte/sc_speed.h ****  *
+ 292:.\source\rte/sc_speed.h ****  * @param  SC_SPEED_t * const signal: Pointer to the signal object
+ 293:.\source\rte/sc_speed.h ****  * @param  sc_speed_data_t const value: value for the application data buffer
+ 294:.\source\rte/sc_speed.h ****  * @return RC_t: standard return code, currently only RC_SUCCESS
+ 295:.\source\rte/sc_speed.h ****  *
+ 296:.\source\rte/sc_speed.h ****  **/
+ 297:.\source\rte/sc_speed.h **** inline RC_t RTE_SC_SPEED_set(SC_SPEED_t * const signal, const SC_SPEED_data_t value  )
+ 298:.\source\rte/sc_speed.h **** {
+ 299:.\source\rte/sc_speed.h **** 
+ 300:.\source\rte/sc_speed.h ****    RC_t ret = RC_SUCCESS;
+ 301:.\source\rte/sc_speed.h ****    size_t taskNum=0;
+ 302:.\source\rte/sc_speed.h **** 
+ 303:.\source\rte/sc_speed.h **** 
+ 304:.\source\rte/sc_speed.h ****    if (TRUE == signal->pSigCfg->resourceActive) GetResource(signal->pSigCfg->resource);
+  88              		.loc 3 304 0
+  89 002e 164B     		ldr	r3, .L10+8
+  90 0030 9A68     		ldr	r2, [r3, #8]
+  91              	.LVL7:
+ 305:.\source\rte/sc_speed.h ****    signal->value  = value;
+  92              		.loc 3 305 0
+  93 0032 1E70     		strb	r6, [r3]
+ 306:.\source\rte/sc_speed.h ****    signal->age    = 0;
+  94              		.loc 3 306 0
+  95 0034 0021     		movs	r1, #0
+  96 0036 5960     		str	r1, [r3, #4]
+ 307:.\source\rte/sc_speed.h ****    signal->status = RTE_SIGNALSTATUS_VALID;
+  97              		.loc 3 307 0
+  98 0038 0221     		movs	r1, #2
+  99 003a 5970     		strb	r1, [r3, #1]
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 14
+
+
+ 308:.\source\rte/sc_speed.h ****    if (TRUE == signal->pSigCfg->resourceActive) ReleaseResource(signal->pSigCfg->resource);
+ 309:.\source\rte/sc_speed.h **** 
+ 310:.\source\rte/sc_speed.h ****    //Pointer to the Taskarray, containing the tasks receiving the onUpdate events
+ 311:.\source\rte/sc_speed.h ****    TaskTypeArray* pTaskArray = signal->pSigCfg->onUpdateTasks;
+ 100              		.loc 3 311 0
+ 101 003c 5569     		ldr	r5, [r2, #20]
+ 102              	.LVL8:
+ 312:.\source\rte/sc_speed.h **** 
+ 313:.\source\rte/sc_speed.h ****    if (NULL!=signal->pSigCfg->evOnUpdate && NULL != pTaskArray){
+ 103              		.loc 3 313 0
+ 104 003e 9368     		ldr	r3, [r2, #8]
+ 105 0040 73B1     		cbz	r3, .L5
+ 106 0042 3DB9     		cbnz	r5, .L8
+ 107 0044 0CE0     		b	.L5
+ 108              	.LVL9:
+ 109              	.L7:
+ 110              	.LBB15:
+ 314:.\source\rte/sc_speed.h ****       for( taskNum=0 ; taskNum < signal->pSigCfg->onUpdateTaskCount ;taskNum++){
+ 315:.\source\rte/sc_speed.h **** 		  
+ 316:.\source\rte/sc_speed.h ****           TaskType task = (*pTaskArray)[taskNum];
+ 317:.\source\rte/sc_speed.h **** 	      SetEvent( task, signal->pSigCfg->evOnUpdate);
+ 111              		.loc 3 317 0
+ 112 0046 9968     		ldr	r1, [r3, #8]
+ 113 0048 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 114 004c FFF7FEFF 		bl	EE_oo_SetEvent
+ 115              	.LVL10:
+ 116              	.LBE15:
+ 314:.\source\rte/sc_speed.h ****       for( taskNum=0 ; taskNum < signal->pSigCfg->onUpdateTaskCount ;taskNum++){
+ 117              		.loc 3 314 0
+ 118 0050 0134     		adds	r4, r4, #1
+ 119              	.LVL11:
+ 120 0052 00E0     		b	.L6
+ 121              	.LVL12:
+ 122              	.L8:
+ 313:.\source\rte/sc_speed.h ****       for( taskNum=0 ; taskNum < signal->pSigCfg->onUpdateTaskCount ;taskNum++){
+ 123              		.loc 3 313 0
+ 124 0054 0024     		movs	r4, #0
+ 125              	.LVL13:
+ 126              	.L6:
+ 314:.\source\rte/sc_speed.h ****       for( taskNum=0 ; taskNum < signal->pSigCfg->onUpdateTaskCount ;taskNum++){
+ 127              		.loc 3 314 0
+ 128 0056 0C4B     		ldr	r3, .L10+8
+ 129 0058 9B68     		ldr	r3, [r3, #8]
+ 130 005a 1A69     		ldr	r2, [r3, #16]
+ 131 005c 9442     		cmp	r4, r2
+ 132 005e F2D3     		bcc	.L7
+ 133              	.LVL14:
+ 134              	.L5:
+ 135              	.LBE14:
+ 136              	.LBE13:
+  70:source\asw/swc_control.c ****     }
+  71:source\asw/swc_control.c ****     
+  72:source\asw/swc_control.c ****     //Set the speed value and print
+  73:source\asw/swc_control.c ****     if(RC_SUCCESS == RTE_SC_SPEED_set(&SO_SPEED_signal, speedSignal_t))
+  74:source\asw/swc_control.c ****     {    
+  75:source\asw/swc_control.c ****         sprintf(speedString, "%d", speedSignal_t.speed);
+ 137              		.loc 1 75 0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 15
+
+
+ 138 0060 F2B2     		uxtb	r2, r6
+ 139 0062 0A49     		ldr	r1, .L10+12
+ 140 0064 01A8     		add	r0, sp, #4
+ 141 0066 FFF7FEFF 		bl	sprintf
+ 142              	.LVL15:
+  76:source\asw/swc_control.c ****     
+  77:source\asw/swc_control.c ****         UART_Log_Tx("Speed values");
+ 143              		.loc 1 77 0
+ 144 006a 0948     		ldr	r0, .L10+16
+ 145 006c FFF7FEFF 		bl	UART_Log_Tx
+ 146              	.LVL16:
+  78:source\asw/swc_control.c ****         UART_Log_Tx(speedString);
+ 147              		.loc 1 78 0
+ 148 0070 01A8     		add	r0, sp, #4
+ 149 0072 FFF7FEFF 		bl	UART_Log_Tx
+ 150              	.LVL17:
+  79:source\asw/swc_control.c ****     }
+  80:source\asw/swc_control.c ****     else
+  81:source\asw/swc_control.c ****     {
+  82:source\asw/swc_control.c ****         UART_Log_Tx("Unable to set Speed signal");
+  83:source\asw/swc_control.c ****     }
+  84:source\asw/swc_control.c ****     
+  85:source\asw/swc_control.c ****     //Report Alive Status to Watchdog timer
+  86:source\asw/swc_control.c ****     WD_Alive(WDG_ALIVE_STATUS_CONTROL);
+ 151              		.loc 1 86 0
+ 152 0076 0220     		movs	r0, #2
+ 153 0078 FFF7FEFF 		bl	WD_Alive
+ 154              	.LVL18:
+  87:source\asw/swc_control.c ****     
+  88:source\asw/swc_control.c ****     /* USER CODE END CONTROL_calcControl_run */
+  89:source\asw/swc_control.c **** }
+ 155              		.loc 1 89 0
+ 156 007c 0EB0     		add	sp, sp, #56
+ 157              		.cfi_def_cfa_offset 16
+ 158              		@ sp needed
+ 159 007e 70BD     		pop	{r4, r5, r6, pc}
+ 160              	.LVL19:
+ 161              	.L11:
+ 162              		.align	2
+ 163              	.L10:
+ 164 0080 00000000 		.word	SO_JOYSTICK_signal
+ 165 0084 00000000 		.word	.LC0
+ 166 0088 00000000 		.word	SO_SPEED_signal
+ 167 008c 14000000 		.word	.LC1
+ 168 0090 18000000 		.word	.LC2
+ 169              		.cfi_endproc
+ 170              	.LFE151:
+ 171              		.size	CONTROL_calcControl_run, .-CONTROL_calcControl_run
+ 172              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 173              		.align	2
+ 174              	.LC0:
+ 175 0000 496E7661 		.ascii	"Invalid ADC signal\000"
+ 175      6C696420 
+ 175      41444320 
+ 175      7369676E 
+ 175      616C00
+ 176 0013 00       		.space	1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 16
+
+
+ 177              	.LC1:
+ 178 0014 256400   		.ascii	"%d\000"
+ 179 0017 00       		.space	1
+ 180              	.LC2:
+ 181 0018 53706565 		.ascii	"Speed values\000"
+ 181      64207661 
+ 181      6C756573 
+ 181      00
+ 182              		.text
+ 183              	.Letext0:
+ 184              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 185              		.file 5 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 186              		.file 6 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 187              		.file 7 "Generated_Source\\PSoC5/ErikaOS_common_ee_types.inc"
+ 188              		.file 8 "Generated_Source\\PSoC5/ErikaOS_cortex_mx_ee_cpu.inc"
+ 189              		.file 9 "Generated_Source\\PSoC5/ErikaOS_ee_oo_common.inc"
+ 190              		.file 10 ".\\source\\bsw/global.h"
+ 191              		.file 11 ".\\source\\rte/rte_types.h"
+ 192              		.file 12 ".\\source\\rte/rte.h"
+ 193              		.file 13 ".\\source\\rte/sc_adc_type.h"
+ 194              		.file 14 ".\\source\\rte/sc_speed_type.h"
+ 195              		.file 15 "Generated_Source\\PSoC5/ErikaOS_ee_oo_intfunc.inc"
+ 196              		.file 16 "Generated_Source\\PSoC5/ErikaOS_cortex_mx_ee_context.inc"
+ 197              		.file 17 "Generated_Source\\PSoC5/ErikaOS_common_ee_primitives.inc"
+ 198              		.file 18 "Generated_Source\\PSoC5/core_cm3.h"
+ 199              		.file 19 ".\\source\\rte/sp_common.h"
+ 200              		.file 20 "Generated_Source\\PSoC5/ErikaOS_ee_oo_kernel.inc"
+ 201              		.file 21 ".\\source\\bsw/uart.h"
+ 202              		.file 22 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4
+ 203              		.file 23 ".\\source\\bsw/watchdog.h"
+ 204              		.section	.debug_info,"",%progbits
+ 205              	.Ldebug_info0:
+ 206 0000 1A080000 		.4byte	0x81a
+ 207 0004 0400     		.2byte	0x4
+ 208 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 209 000a 04       		.byte	0x4
+ 210 000b 01       		.uleb128 0x1
+ 211 000c 03050000 		.4byte	.LASF117
+ 212 0010 0C       		.byte	0xc
+ 213 0011 CB010000 		.4byte	.LASF118
+ 214 0015 A3020000 		.4byte	.LASF119
+ 215 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 216 001d 00000000 		.4byte	0
+ 217 0021 00000000 		.4byte	.Ldebug_line0
+ 218 0025 02       		.uleb128 0x2
+ 219 0026 01       		.byte	0x1
+ 220 0027 06       		.byte	0x6
+ 221 0028 09010000 		.4byte	.LASF0
+ 222 002c 03       		.uleb128 0x3
+ 223 002d 51000000 		.4byte	.LASF4
+ 224 0031 04       		.byte	0x4
+ 225 0032 1D       		.byte	0x1d
+ 226 0033 37000000 		.4byte	0x37
+ 227 0037 02       		.uleb128 0x2
+ 228 0038 01       		.byte	0x1
+ 229 0039 08       		.byte	0x8
+ 230 003a BA060000 		.4byte	.LASF1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 17
+
+
+ 231 003e 02       		.uleb128 0x2
+ 232 003f 02       		.byte	0x2
+ 233 0040 05       		.byte	0x5
+ 234 0041 CD040000 		.4byte	.LASF2
+ 235 0045 02       		.uleb128 0x2
+ 236 0046 02       		.byte	0x2
+ 237 0047 07       		.byte	0x7
+ 238 0048 A7060000 		.4byte	.LASF3
+ 239 004c 03       		.uleb128 0x3
+ 240 004d 4B060000 		.4byte	.LASF5
+ 241 0051 04       		.byte	0x4
+ 242 0052 3F       		.byte	0x3f
+ 243 0053 57000000 		.4byte	0x57
+ 244 0057 02       		.uleb128 0x2
+ 245 0058 04       		.byte	0x4
+ 246 0059 05       		.byte	0x5
+ 247 005a 44010000 		.4byte	.LASF6
+ 248 005e 03       		.uleb128 0x3
+ 249 005f B4010000 		.4byte	.LASF7
+ 250 0063 04       		.byte	0x4
+ 251 0064 41       		.byte	0x41
+ 252 0065 69000000 		.4byte	0x69
+ 253 0069 02       		.uleb128 0x2
+ 254 006a 04       		.byte	0x4
+ 255 006b 07       		.byte	0x7
+ 256 006c 65020000 		.4byte	.LASF8
+ 257 0070 02       		.uleb128 0x2
+ 258 0071 08       		.byte	0x8
+ 259 0072 05       		.byte	0x5
+ 260 0073 FB000000 		.4byte	.LASF9
+ 261 0077 02       		.uleb128 0x2
+ 262 0078 08       		.byte	0x8
+ 263 0079 07       		.byte	0x7
+ 264 007a 60000000 		.4byte	.LASF10
+ 265 007e 04       		.uleb128 0x4
+ 266 007f 04       		.byte	0x4
+ 267 0080 05       		.byte	0x5
+ 268 0081 696E7400 		.ascii	"int\000"
+ 269 0085 02       		.uleb128 0x2
+ 270 0086 04       		.byte	0x4
+ 271 0087 07       		.byte	0x7
+ 272 0088 07020000 		.4byte	.LASF11
+ 273 008c 03       		.uleb128 0x3
+ 274 008d 37070000 		.4byte	.LASF12
+ 275 0091 05       		.byte	0x5
+ 276 0092 18       		.byte	0x18
+ 277 0093 2C000000 		.4byte	0x2c
+ 278 0097 03       		.uleb128 0x3
+ 279 0098 B5040000 		.4byte	.LASF13
+ 280 009c 05       		.byte	0x5
+ 281 009d 2C       		.byte	0x2c
+ 282 009e 4C000000 		.4byte	0x4c
+ 283 00a2 03       		.uleb128 0x3
+ 284 00a3 C6050000 		.4byte	.LASF14
+ 285 00a7 05       		.byte	0x5
+ 286 00a8 30       		.byte	0x30
+ 287 00a9 5E000000 		.4byte	0x5e
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 18
+
+
+ 288 00ad 02       		.uleb128 0x2
+ 289 00ae 04       		.byte	0x4
+ 290 00af 04       		.byte	0x4
+ 291 00b0 7C040000 		.4byte	.LASF15
+ 292 00b4 02       		.uleb128 0x2
+ 293 00b5 08       		.byte	0x8
+ 294 00b6 04       		.byte	0x4
+ 295 00b7 52070000 		.4byte	.LASF16
+ 296 00bb 02       		.uleb128 0x2
+ 297 00bc 01       		.byte	0x1
+ 298 00bd 08       		.byte	0x8
+ 299 00be 05060000 		.4byte	.LASF17
+ 300 00c2 03       		.uleb128 0x3
+ 301 00c3 32000000 		.4byte	.LASF18
+ 302 00c7 06       		.byte	0x6
+ 303 00c8 D8       		.byte	0xd8
+ 304 00c9 85000000 		.4byte	0x85
+ 305 00cd 02       		.uleb128 0x2
+ 306 00ce 08       		.byte	0x8
+ 307 00cf 04       		.byte	0x4
+ 308 00d0 F9050000 		.4byte	.LASF19
+ 309 00d4 03       		.uleb128 0x3
+ 310 00d5 2E070000 		.4byte	.LASF20
+ 311 00d9 07       		.byte	0x7
+ 312 00da 53       		.byte	0x53
+ 313 00db 7E000000 		.4byte	0x7e
+ 314 00df 03       		.uleb128 0x3
+ 315 00e0 15070000 		.4byte	.LASF21
+ 316 00e4 07       		.byte	0x7
+ 317 00e5 54       		.byte	0x54
+ 318 00e6 85000000 		.4byte	0x85
+ 319 00ea 03       		.uleb128 0x3
+ 320 00eb 41020000 		.4byte	.LASF22
+ 321 00ef 08       		.byte	0x8
+ 322 00f0 4D       		.byte	0x4d
+ 323 00f1 DF000000 		.4byte	0xdf
+ 324 00f5 03       		.uleb128 0x3
+ 325 00f6 59070000 		.4byte	.LASF23
+ 326 00fa 08       		.byte	0x8
+ 327 00fb 4F       		.byte	0x4f
+ 328 00fc DF000000 		.4byte	0xdf
+ 329 0100 03       		.uleb128 0x3
+ 330 0101 E4010000 		.4byte	.LASF24
+ 331 0105 08       		.byte	0x8
+ 332 0106 78       		.byte	0x78
+ 333 0107 D4000000 		.4byte	0xd4
+ 334 010b 05       		.uleb128 0x5
+ 335 010c 9A020000 		.4byte	.LASF25
+ 336 0110 09       		.byte	0x9
+ 337 0111 F701     		.2byte	0x1f7
+ 338 0113 00010000 		.4byte	0x100
+ 339 0117 05       		.uleb128 0x5
+ 340 0118 15010000 		.4byte	.LASF26
+ 341 011c 09       		.byte	0x9
+ 342 011d 2C02     		.2byte	0x22c
+ 343 011f EA000000 		.4byte	0xea
+ 344 0123 02       		.uleb128 0x2
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 19
+
+
+ 345 0124 04       		.byte	0x4
+ 346 0125 07       		.byte	0x7
+ 347 0126 A7030000 		.4byte	.LASF27
+ 348 012a 03       		.uleb128 0x3
+ 349 012b F1060000 		.4byte	.LASF28
+ 350 012f 0A       		.byte	0xa
+ 351 0130 90       		.byte	0x90
+ 352 0131 25000000 		.4byte	0x25
+ 353 0135 03       		.uleb128 0x3
+ 354 0136 C9030000 		.4byte	.LASF29
+ 355 013a 0A       		.byte	0xa
+ 356 013b 9C       		.byte	0x9c
+ 357 013c 37000000 		.4byte	0x37
+ 358 0140 06       		.uleb128 0x6
+ 359 0141 01       		.byte	0x1
+ 360 0142 25000000 		.4byte	0x25
+ 361 0146 0A       		.byte	0xa
+ 362 0147 CF       		.byte	0xcf
+ 363 0148 E9010000 		.4byte	0x1e9
+ 364 014c 07       		.uleb128 0x7
+ 365 014d 8F020000 		.4byte	.LASF30
+ 366 0151 00       		.byte	0
+ 367 0152 08       		.uleb128 0x8
+ 368 0153 73040000 		.4byte	.LASF31
+ 369 0157 7F       		.sleb128 -1
+ 370 0158 08       		.uleb128 0x8
+ 371 0159 77020000 		.4byte	.LASF32
+ 372 015d 7E       		.sleb128 -2
+ 373 015e 08       		.uleb128 0x8
+ 374 015f E5040000 		.4byte	.LASF33
+ 375 0163 7D       		.sleb128 -3
+ 376 0164 08       		.uleb128 0x8
+ 377 0165 97060000 		.4byte	.LASF34
+ 378 0169 7C       		.sleb128 -4
+ 379 016a 08       		.uleb128 0x8
+ 380 016b 1F070000 		.4byte	.LASF35
+ 381 016f 7B       		.sleb128 -5
+ 382 0170 08       		.uleb128 0x8
+ 383 0171 6E060000 		.4byte	.LASF36
+ 384 0175 7A       		.sleb128 -6
+ 385 0176 08       		.uleb128 0x8
+ 386 0177 31040000 		.4byte	.LASF37
+ 387 017b 79       		.sleb128 -7
+ 388 017c 08       		.uleb128 0x8
+ 389 017d E5020000 		.4byte	.LASF38
+ 390 0181 78       		.sleb128 -8
+ 391 0182 08       		.uleb128 0x8
+ 392 0183 2E010000 		.4byte	.LASF39
+ 393 0187 77       		.sleb128 -9
+ 394 0188 08       		.uleb128 0x8
+ 395 0189 82040000 		.4byte	.LASF40
+ 396 018d 76       		.sleb128 -10
+ 397 018e 08       		.uleb128 0x8
+ 398 018f 00000000 		.4byte	.LASF41
+ 399 0193 75       		.sleb128 -11
+ 400 0194 08       		.uleb128 0x8
+ 401 0195 4D010000 		.4byte	.LASF42
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 20
+
+
+ 402 0199 74       		.sleb128 -12
+ 403 019a 08       		.uleb128 0x8
+ 404 019b 53020000 		.4byte	.LASF43
+ 405 019f 73       		.sleb128 -13
+ 406 01a0 08       		.uleb128 0x8
+ 407 01a1 E6050000 		.4byte	.LASF44
+ 408 01a5 72       		.sleb128 -14
+ 409 01a6 08       		.uleb128 0x8
+ 410 01a7 A1040000 		.4byte	.LASF45
+ 411 01ab 71       		.sleb128 -15
+ 412 01ac 08       		.uleb128 0x8
+ 413 01ad EC030000 		.4byte	.LASF46
+ 414 01b1 70       		.sleb128 -16
+ 415 01b2 08       		.uleb128 0x8
+ 416 01b3 43040000 		.4byte	.LASF47
+ 417 01b7 6F       		.sleb128 -17
+ 418 01b8 08       		.uleb128 0x8
+ 419 01b9 FA020000 		.4byte	.LASF48
+ 420 01bd 6E       		.sleb128 -18
+ 421 01be 08       		.uleb128 0x8
+ 422 01bf 50030000 		.4byte	.LASF49
+ 423 01c3 6D       		.sleb128 -19
+ 424 01c4 08       		.uleb128 0x8
+ 425 01c5 3D030000 		.4byte	.LASF50
+ 426 01c9 6C       		.sleb128 -20
+ 427 01ca 08       		.uleb128 0x8
+ 428 01cb 86000000 		.4byte	.LASF51
+ 429 01cf 6B       		.sleb128 -21
+ 430 01d0 08       		.uleb128 0x8
+ 431 01d1 1F040000 		.4byte	.LASF52
+ 432 01d5 6A       		.sleb128 -22
+ 433 01d6 08       		.uleb128 0x8
+ 434 01d7 1B000000 		.4byte	.LASF53
+ 435 01db 69       		.sleb128 -23
+ 436 01dc 08       		.uleb128 0x8
+ 437 01dd 30020000 		.4byte	.LASF54
+ 438 01e1 68       		.sleb128 -24
+ 439 01e2 08       		.uleb128 0x8
+ 440 01e3 55060000 		.4byte	.LASF55
+ 441 01e7 67       		.sleb128 -25
+ 442 01e8 00       		.byte	0
+ 443 01e9 03       		.uleb128 0x3
+ 444 01ea 5B000000 		.4byte	.LASF56
+ 445 01ee 0A       		.byte	0xa
+ 446 01ef EA       		.byte	0xea
+ 447 01f0 40010000 		.4byte	0x140
+ 448 01f4 03       		.uleb128 0x3
+ 449 01f5 C8060000 		.4byte	.LASF57
+ 450 01f9 0B       		.byte	0xb
+ 451 01fa 19       		.byte	0x19
+ 452 01fb FF010000 		.4byte	0x1ff
+ 453 01ff 09       		.uleb128 0x9
+ 454 0200 0B010000 		.4byte	0x10b
+ 455 0204 0A020000 		.4byte	0x20a
+ 456 0208 0A       		.uleb128 0xa
+ 457 0209 00       		.byte	0
+ 458 020a 03       		.uleb128 0x3
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 21
+
+
+ 459 020b 85020000 		.4byte	.LASF58
+ 460 020f 0B       		.byte	0xb
+ 461 0210 21       		.byte	0x21
+ 462 0211 17010000 		.4byte	0x117
+ 463 0215 03       		.uleb128 0x3
+ 464 0216 44000000 		.4byte	.LASF59
+ 465 021a 0B       		.byte	0xb
+ 466 021b 2D       		.byte	0x2d
+ 467 021c A2000000 		.4byte	0xa2
+ 468 0220 06       		.uleb128 0x6
+ 469 0221 01       		.byte	0x1
+ 470 0222 37000000 		.4byte	0x37
+ 471 0226 0C       		.byte	0xc
+ 472 0227 59       		.byte	0x59
+ 473 0228 45020000 		.4byte	0x245
+ 474 022c 07       		.uleb128 0x7
+ 475 022d 1C030000 		.4byte	.LASF60
+ 476 0231 00       		.byte	0
+ 477 0232 07       		.uleb128 0x7
+ 478 0233 0A060000 		.4byte	.LASF61
+ 479 0237 01       		.byte	0x1
+ 480 0238 07       		.uleb128 0x7
+ 481 0239 72010000 		.4byte	.LASF62
+ 482 023d 02       		.byte	0x2
+ 483 023e 07       		.uleb128 0x7
+ 484 023f B0030000 		.4byte	.LASF63
+ 485 0243 03       		.byte	0x3
+ 486 0244 00       		.byte	0
+ 487 0245 03       		.uleb128 0x3
+ 488 0246 84060000 		.4byte	.LASF64
+ 489 024a 0C       		.byte	0xc
+ 490 024b 5E       		.byte	0x5e
+ 491 024c 20020000 		.4byte	0x220
+ 492 0250 0B       		.uleb128 0xb
+ 493 0251 01       		.byte	0x1
+ 494 0252 0D       		.byte	0xd
+ 495 0253 1F       		.byte	0x1f
+ 496 0254 65020000 		.4byte	0x265
+ 497 0258 0C       		.uleb128 0xc
+ 498 0259 B3050000 		.4byte	.LASF68
+ 499 025d 0D       		.byte	0xd
+ 500 025e 21       		.byte	0x21
+ 501 025f 2A010000 		.4byte	0x12a
+ 502 0263 00       		.byte	0
+ 503 0264 00       		.byte	0
+ 504 0265 03       		.uleb128 0x3
+ 505 0266 BD000000 		.4byte	.LASF65
+ 506 026a 0D       		.byte	0xd
+ 507 026b 24       		.byte	0x24
+ 508 026c 50020000 		.4byte	0x250
+ 509 0270 03       		.uleb128 0x3
+ 510 0271 CB000000 		.4byte	.LASF66
+ 511 0275 02       		.byte	0x2
+ 512 0276 27       		.byte	0x27
+ 513 0277 7B020000 		.4byte	0x27b
+ 514 027b 0D       		.uleb128 0xd
+ 515 027c 04       		.byte	0x4
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 22
+
+
+ 516 027d 81020000 		.4byte	0x281
+ 517 0281 0E       		.uleb128 0xe
+ 518 0282 E9010000 		.4byte	0x1e9
+ 519 0286 90020000 		.4byte	0x290
+ 520 028a 0F       		.uleb128 0xf
+ 521 028b 96020000 		.4byte	0x296
+ 522 028f 00       		.byte	0
+ 523 0290 0D       		.uleb128 0xd
+ 524 0291 04       		.byte	0x4
+ 525 0292 65020000 		.4byte	0x265
+ 526 0296 10       		.uleb128 0x10
+ 527 0297 90020000 		.4byte	0x290
+ 528 029b 03       		.uleb128 0x3
+ 529 029c 57040000 		.4byte	.LASF67
+ 530 02a0 02       		.byte	0x2
+ 531 02a1 2D       		.byte	0x2d
+ 532 02a2 A6020000 		.4byte	0x2a6
+ 533 02a6 0D       		.uleb128 0xd
+ 534 02a7 04       		.byte	0x4
+ 535 02a8 AC020000 		.4byte	0x2ac
+ 536 02ac 0E       		.uleb128 0xe
+ 537 02ad E9010000 		.4byte	0x1e9
+ 538 02b1 BB020000 		.4byte	0x2bb
+ 539 02b5 0F       		.uleb128 0xf
+ 540 02b6 C6020000 		.4byte	0x2c6
+ 541 02ba 00       		.byte	0
+ 542 02bb 0D       		.uleb128 0xd
+ 543 02bc 04       		.byte	0x4
+ 544 02bd C1020000 		.4byte	0x2c1
+ 545 02c1 10       		.uleb128 0x10
+ 546 02c2 65020000 		.4byte	0x265
+ 547 02c6 10       		.uleb128 0x10
+ 548 02c7 BB020000 		.4byte	0x2bb
+ 549 02cb 11       		.uleb128 0x11
+ 550 02cc 0F030000 		.4byte	.LASF80
+ 551 02d0 28       		.byte	0x28
+ 552 02d1 02       		.byte	0x2
+ 553 02d2 37       		.byte	0x37
+ 554 02d3 50030000 		.4byte	0x350
+ 555 02d7 0C       		.uleb128 0xc
+ 556 02d8 6A040000 		.4byte	.LASF69
+ 557 02dc 02       		.byte	0x2
+ 558 02dd 3C       		.byte	0x3c
+ 559 02de 50030000 		.4byte	0x350
+ 560 02e2 00       		.byte	0
+ 561 02e3 0C       		.uleb128 0xc
+ 562 02e4 49020000 		.4byte	.LASF70
+ 563 02e8 02       		.byte	0x2
+ 564 02e9 41       		.byte	0x41
+ 565 02ea 55030000 		.4byte	0x355
+ 566 02ee 04       		.byte	0x4
+ 567 02ef 0C       		.uleb128 0xc
+ 568 02f0 23010000 		.4byte	.LASF71
+ 569 02f4 02       		.byte	0x2
+ 570 02f5 46       		.byte	0x46
+ 571 02f6 5A030000 		.4byte	0x35a
+ 572 02fa 08       		.byte	0x8
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 23
+
+
+ 573 02fb 0C       		.uleb128 0xc
+ 574 02fc A9050000 		.4byte	.LASF72
+ 575 0300 02       		.byte	0x2
+ 576 0301 4C       		.byte	0x4c
+ 577 0302 5A030000 		.4byte	0x35a
+ 578 0306 0C       		.byte	0xc
+ 579 0307 0C       		.uleb128 0xc
+ 580 0308 89010000 		.4byte	.LASF73
+ 581 030c 02       		.byte	0x2
+ 582 030d 51       		.byte	0x51
+ 583 030e 5F030000 		.4byte	0x35f
+ 584 0312 10       		.byte	0x10
+ 585 0313 0C       		.uleb128 0xc
+ 586 0314 D7040000 		.4byte	.LASF74
+ 587 0318 02       		.byte	0x2
+ 588 0319 56       		.byte	0x56
+ 589 031a 6A030000 		.4byte	0x36a
+ 590 031e 14       		.byte	0x14
+ 591 031f 0C       		.uleb128 0xc
+ 592 0320 90040000 		.4byte	.LASF75
+ 593 0324 02       		.byte	0x2
+ 594 0325 5B       		.byte	0x5b
+ 595 0326 5F030000 		.4byte	0x35f
+ 596 032a 18       		.byte	0x18
+ 597 032b 0C       		.uleb128 0xc
+ 598 032c 45070000 		.4byte	.LASF76
+ 599 0330 02       		.byte	0x2
+ 600 0331 60       		.byte	0x60
+ 601 0332 6A030000 		.4byte	0x36a
+ 602 0336 1C       		.byte	0x1c
+ 603 0337 0C       		.uleb128 0xc
+ 604 0338 3C060000 		.4byte	.LASF77
+ 605 033c 02       		.byte	0x2
+ 606 033d 66       		.byte	0x66
+ 607 033e 6F030000 		.4byte	0x36f
+ 608 0342 20       		.byte	0x20
+ 609 0343 0C       		.uleb128 0xc
+ 610 0344 12000000 		.4byte	.LASF78
+ 611 0348 02       		.byte	0x2
+ 612 0349 6B       		.byte	0x6b
+ 613 034a 74030000 		.4byte	0x374
+ 614 034e 24       		.byte	0x24
+ 615 034f 00       		.byte	0
+ 616 0350 10       		.uleb128 0x10
+ 617 0351 70020000 		.4byte	0x270
+ 618 0355 10       		.uleb128 0x10
+ 619 0356 9B020000 		.4byte	0x29b
+ 620 035a 10       		.uleb128 0x10
+ 621 035b 17010000 		.4byte	0x117
+ 622 035f 10       		.uleb128 0x10
+ 623 0360 C2000000 		.4byte	0xc2
+ 624 0364 0D       		.uleb128 0xd
+ 625 0365 04       		.byte	0x4
+ 626 0366 F4010000 		.4byte	0x1f4
+ 627 036a 10       		.uleb128 0x10
+ 628 036b 64030000 		.4byte	0x364
+ 629 036f 10       		.uleb128 0x10
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 24
+
+
+ 630 0370 35010000 		.4byte	0x135
+ 631 0374 10       		.uleb128 0x10
+ 632 0375 15020000 		.4byte	0x215
+ 633 0379 03       		.uleb128 0x3
+ 634 037a 86030000 		.4byte	.LASF79
+ 635 037e 02       		.byte	0x2
+ 636 037f 6E       		.byte	0x6e
+ 637 0380 84030000 		.4byte	0x384
+ 638 0384 10       		.uleb128 0x10
+ 639 0385 CB020000 		.4byte	0x2cb
+ 640 0389 11       		.uleb128 0x11
+ 641 038a 61070000 		.4byte	.LASF81
+ 642 038e 0C       		.byte	0xc
+ 643 038f 02       		.byte	0x2
+ 644 0390 7A       		.byte	0x7a
+ 645 0391 C6030000 		.4byte	0x3c6
+ 646 0395 0C       		.uleb128 0xc
+ 647 0396 EB010000 		.4byte	.LASF82
+ 648 039a 02       		.byte	0x2
+ 649 039b 80       		.byte	0x80
+ 650 039c 65020000 		.4byte	0x265
+ 651 03a0 00       		.byte	0
+ 652 03a1 0C       		.uleb128 0xc
+ 653 03a2 F9060000 		.4byte	.LASF83
+ 654 03a6 02       		.byte	0x2
+ 655 03a7 85       		.byte	0x85
+ 656 03a8 45020000 		.4byte	0x245
+ 657 03ac 01       		.byte	0x1
+ 658 03ad 12       		.uleb128 0x12
+ 659 03ae 61676500 		.ascii	"age\000"
+ 660 03b2 02       		.byte	0x2
+ 661 03b3 8A       		.byte	0x8a
+ 662 03b4 A2000000 		.4byte	0xa2
+ 663 03b8 04       		.byte	0x4
+ 664 03b9 0C       		.uleb128 0xc
+ 665 03ba BE050000 		.4byte	.LASF84
+ 666 03be 02       		.byte	0x2
+ 667 03bf 8F       		.byte	0x8f
+ 668 03c0 CC030000 		.4byte	0x3cc
+ 669 03c4 08       		.byte	0x8
+ 670 03c5 00       		.byte	0
+ 671 03c6 0D       		.uleb128 0xd
+ 672 03c7 04       		.byte	0x4
+ 673 03c8 79030000 		.4byte	0x379
+ 674 03cc 10       		.uleb128 0x10
+ 675 03cd C6030000 		.4byte	0x3c6
+ 676 03d1 03       		.uleb128 0x3
+ 677 03d2 6A070000 		.4byte	.LASF85
+ 678 03d6 02       		.byte	0x2
+ 679 03d7 92       		.byte	0x92
+ 680 03d8 89030000 		.4byte	0x389
+ 681 03dc 0B       		.uleb128 0xb
+ 682 03dd 01       		.byte	0x1
+ 683 03de 0E       		.byte	0xe
+ 684 03df 1F       		.byte	0x1f
+ 685 03e0 F1030000 		.4byte	0x3f1
+ 686 03e4 0C       		.uleb128 0xc
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 25
+
+
+ 687 03e5 3F070000 		.4byte	.LASF86
+ 688 03e9 0E       		.byte	0xe
+ 689 03ea 21       		.byte	0x21
+ 690 03eb 8C000000 		.4byte	0x8c
+ 691 03ef 00       		.byte	0
+ 692 03f0 00       		.byte	0
+ 693 03f1 03       		.uleb128 0x3
+ 694 03f2 D6050000 		.4byte	.LASF87
+ 695 03f6 0E       		.byte	0xe
+ 696 03f7 24       		.byte	0x24
+ 697 03f8 DC030000 		.4byte	0x3dc
+ 698 03fc 03       		.uleb128 0x3
+ 699 03fd 93030000 		.4byte	.LASF88
+ 700 0401 03       		.byte	0x3
+ 701 0402 27       		.byte	0x27
+ 702 0403 07040000 		.4byte	0x407
+ 703 0407 0D       		.uleb128 0xd
+ 704 0408 04       		.byte	0x4
+ 705 0409 0D040000 		.4byte	0x40d
+ 706 040d 0E       		.uleb128 0xe
+ 707 040e E9010000 		.4byte	0x1e9
+ 708 0412 1C040000 		.4byte	0x41c
+ 709 0416 0F       		.uleb128 0xf
+ 710 0417 22040000 		.4byte	0x422
+ 711 041b 00       		.byte	0
+ 712 041c 0D       		.uleb128 0xd
+ 713 041d 04       		.byte	0x4
+ 714 041e F1030000 		.4byte	0x3f1
+ 715 0422 10       		.uleb128 0x10
+ 716 0423 1C040000 		.4byte	0x41c
+ 717 0427 03       		.uleb128 0x3
+ 718 0428 71030000 		.4byte	.LASF89
+ 719 042c 03       		.byte	0x3
+ 720 042d 2D       		.byte	0x2d
+ 721 042e 32040000 		.4byte	0x432
+ 722 0432 0D       		.uleb128 0xd
+ 723 0433 04       		.byte	0x4
+ 724 0434 38040000 		.4byte	0x438
+ 725 0438 0E       		.uleb128 0xe
+ 726 0439 E9010000 		.4byte	0x1e9
+ 727 043d 47040000 		.4byte	0x447
+ 728 0441 0F       		.uleb128 0xf
+ 729 0442 52040000 		.4byte	0x452
+ 730 0446 00       		.byte	0
+ 731 0447 0D       		.uleb128 0xd
+ 732 0448 04       		.byte	0x4
+ 733 0449 4D040000 		.4byte	0x44d
+ 734 044d 10       		.uleb128 0x10
+ 735 044e F1030000 		.4byte	0x3f1
+ 736 0452 10       		.uleb128 0x10
+ 737 0453 47040000 		.4byte	0x447
+ 738 0457 11       		.uleb128 0x11
+ 739 0458 DD000000 		.4byte	.LASF90
+ 740 045c 28       		.byte	0x28
+ 741 045d 03       		.byte	0x3
+ 742 045e 37       		.byte	0x37
+ 743 045f DC040000 		.4byte	0x4dc
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 26
+
+
+ 744 0463 0C       		.uleb128 0xc
+ 745 0464 6A040000 		.4byte	.LASF69
+ 746 0468 03       		.byte	0x3
+ 747 0469 3C       		.byte	0x3c
+ 748 046a DC040000 		.4byte	0x4dc
+ 749 046e 00       		.byte	0
+ 750 046f 0C       		.uleb128 0xc
+ 751 0470 49020000 		.4byte	.LASF70
+ 752 0474 03       		.byte	0x3
+ 753 0475 41       		.byte	0x41
+ 754 0476 E1040000 		.4byte	0x4e1
+ 755 047a 04       		.byte	0x4
+ 756 047b 0C       		.uleb128 0xc
+ 757 047c 23010000 		.4byte	.LASF71
+ 758 0480 03       		.byte	0x3
+ 759 0481 46       		.byte	0x46
+ 760 0482 5A030000 		.4byte	0x35a
+ 761 0486 08       		.byte	0x8
+ 762 0487 0C       		.uleb128 0xc
+ 763 0488 A9050000 		.4byte	.LASF72
+ 764 048c 03       		.byte	0x3
+ 765 048d 4C       		.byte	0x4c
+ 766 048e 5A030000 		.4byte	0x35a
+ 767 0492 0C       		.byte	0xc
+ 768 0493 0C       		.uleb128 0xc
+ 769 0494 89010000 		.4byte	.LASF73
+ 770 0498 03       		.byte	0x3
+ 771 0499 51       		.byte	0x51
+ 772 049a 5F030000 		.4byte	0x35f
+ 773 049e 10       		.byte	0x10
+ 774 049f 0C       		.uleb128 0xc
+ 775 04a0 D7040000 		.4byte	.LASF74
+ 776 04a4 03       		.byte	0x3
+ 777 04a5 56       		.byte	0x56
+ 778 04a6 6A030000 		.4byte	0x36a
+ 779 04aa 14       		.byte	0x14
+ 780 04ab 0C       		.uleb128 0xc
+ 781 04ac 90040000 		.4byte	.LASF75
+ 782 04b0 03       		.byte	0x3
+ 783 04b1 5B       		.byte	0x5b
+ 784 04b2 5F030000 		.4byte	0x35f
+ 785 04b6 18       		.byte	0x18
+ 786 04b7 0C       		.uleb128 0xc
+ 787 04b8 45070000 		.4byte	.LASF76
+ 788 04bc 03       		.byte	0x3
+ 789 04bd 60       		.byte	0x60
+ 790 04be 6A030000 		.4byte	0x36a
+ 791 04c2 1C       		.byte	0x1c
+ 792 04c3 0C       		.uleb128 0xc
+ 793 04c4 3C060000 		.4byte	.LASF77
+ 794 04c8 03       		.byte	0x3
+ 795 04c9 66       		.byte	0x66
+ 796 04ca 6F030000 		.4byte	0x36f
+ 797 04ce 20       		.byte	0x20
+ 798 04cf 0C       		.uleb128 0xc
+ 799 04d0 12000000 		.4byte	.LASF78
+ 800 04d4 03       		.byte	0x3
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 27
+
+
+ 801 04d5 6B       		.byte	0x6b
+ 802 04d6 74030000 		.4byte	0x374
+ 803 04da 24       		.byte	0x24
+ 804 04db 00       		.byte	0
+ 805 04dc 10       		.uleb128 0x10
+ 806 04dd FC030000 		.4byte	0x3fc
+ 807 04e1 10       		.uleb128 0x10
+ 808 04e2 27040000 		.4byte	0x427
+ 809 04e6 03       		.uleb128 0x3
+ 810 04e7 EC000000 		.4byte	.LASF91
+ 811 04eb 03       		.byte	0x3
+ 812 04ec 6E       		.byte	0x6e
+ 813 04ed F1040000 		.4byte	0x4f1
+ 814 04f1 10       		.uleb128 0x10
+ 815 04f2 57040000 		.4byte	0x457
+ 816 04f6 11       		.uleb128 0x11
+ 817 04f7 F1010000 		.4byte	.LASF92
+ 818 04fb 0C       		.byte	0xc
+ 819 04fc 03       		.byte	0x3
+ 820 04fd 7A       		.byte	0x7a
+ 821 04fe 33050000 		.4byte	0x533
+ 822 0502 0C       		.uleb128 0xc
+ 823 0503 EB010000 		.4byte	.LASF82
+ 824 0507 03       		.byte	0x3
+ 825 0508 80       		.byte	0x80
+ 826 0509 F1030000 		.4byte	0x3f1
+ 827 050d 00       		.byte	0
+ 828 050e 0C       		.uleb128 0xc
+ 829 050f F9060000 		.4byte	.LASF83
+ 830 0513 03       		.byte	0x3
+ 831 0514 85       		.byte	0x85
+ 832 0515 45020000 		.4byte	0x245
+ 833 0519 01       		.byte	0x1
+ 834 051a 12       		.uleb128 0x12
+ 835 051b 61676500 		.ascii	"age\000"
+ 836 051f 03       		.byte	0x3
+ 837 0520 8A       		.byte	0x8a
+ 838 0521 A2000000 		.4byte	0xa2
+ 839 0525 04       		.byte	0x4
+ 840 0526 0C       		.uleb128 0xc
+ 841 0527 BE050000 		.4byte	.LASF84
+ 842 052b 03       		.byte	0x3
+ 843 052c 8F       		.byte	0x8f
+ 844 052d 39050000 		.4byte	0x539
+ 845 0531 08       		.byte	0x8
+ 846 0532 00       		.byte	0
+ 847 0533 0D       		.uleb128 0xd
+ 848 0534 04       		.byte	0x4
+ 849 0535 E6040000 		.4byte	0x4e6
+ 850 0539 10       		.uleb128 0x10
+ 851 053a 33050000 		.4byte	0x533
+ 852 053e 03       		.uleb128 0x3
+ 853 053f FC010000 		.4byte	.LASF93
+ 854 0543 03       		.byte	0x3
+ 855 0544 92       		.byte	0x92
+ 856 0545 F6040000 		.4byte	0x4f6
+ 857 0549 13       		.uleb128 0x13
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 28
+
+
+ 858 054a 27060000 		.4byte	.LASF94
+ 859 054e 02       		.byte	0x2
+ 860 054f BA       		.byte	0xba
+ 861 0550 45020000 		.4byte	0x245
+ 862 0554 03       		.byte	0x3
+ 863 0555 65050000 		.4byte	0x565
+ 864 0559 14       		.uleb128 0x14
+ 865 055a CF050000 		.4byte	.LASF96
+ 866 055e 02       		.byte	0x2
+ 867 055f BA       		.byte	0xba
+ 868 0560 70050000 		.4byte	0x570
+ 869 0564 00       		.byte	0
+ 870 0565 0D       		.uleb128 0xd
+ 871 0566 04       		.byte	0x4
+ 872 0567 6B050000 		.4byte	0x56b
+ 873 056b 10       		.uleb128 0x10
+ 874 056c D1030000 		.4byte	0x3d1
+ 875 0570 10       		.uleb128 0x10
+ 876 0571 65050000 		.4byte	0x565
+ 877 0575 15       		.uleb128 0x15
+ 878 0576 10040000 		.4byte	.LASF95
+ 879 057a 02       		.byte	0x2
+ 880 057b 0601     		.2byte	0x106
+ 881 057d 65020000 		.4byte	0x265
+ 882 0581 03       		.byte	0x3
+ 883 0582 93050000 		.4byte	0x593
+ 884 0586 16       		.uleb128 0x16
+ 885 0587 CF050000 		.4byte	.LASF96
+ 886 058b 02       		.byte	0x2
+ 887 058c 0601     		.2byte	0x106
+ 888 058e 70050000 		.4byte	0x570
+ 889 0592 00       		.byte	0
+ 890 0593 15       		.uleb128 0x15
+ 891 0594 61010000 		.4byte	.LASF97
+ 892 0598 03       		.byte	0x3
+ 893 0599 2901     		.2byte	0x129
+ 894 059b E9010000 		.4byte	0x1e9
+ 895 059f 03       		.byte	0x3
+ 896 05a0 EF050000 		.4byte	0x5ef
+ 897 05a4 16       		.uleb128 0x16
+ 898 05a5 CF050000 		.4byte	.LASF96
+ 899 05a9 03       		.byte	0x3
+ 900 05aa 2901     		.2byte	0x129
+ 901 05ac F5050000 		.4byte	0x5f5
+ 902 05b0 16       		.uleb128 0x16
+ 903 05b1 EB010000 		.4byte	.LASF82
+ 904 05b5 03       		.byte	0x3
+ 905 05b6 2901     		.2byte	0x129
+ 906 05b8 4D040000 		.4byte	0x44d
+ 907 05bc 17       		.uleb128 0x17
+ 908 05bd 72657400 		.ascii	"ret\000"
+ 909 05c1 03       		.byte	0x3
+ 910 05c2 2C01     		.2byte	0x12c
+ 911 05c4 E9010000 		.4byte	0x1e9
+ 912 05c8 18       		.uleb128 0x18
+ 913 05c9 D6060000 		.4byte	.LASF98
+ 914 05cd 03       		.byte	0x3
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 29
+
+
+ 915 05ce 2D01     		.2byte	0x12d
+ 916 05d0 C2000000 		.4byte	0xc2
+ 917 05d4 18       		.uleb128 0x18
+ 918 05d5 39000000 		.4byte	.LASF99
+ 919 05d9 03       		.byte	0x3
+ 920 05da 3701     		.2byte	0x137
+ 921 05dc 64030000 		.4byte	0x364
+ 922 05e0 19       		.uleb128 0x19
+ 923 05e1 18       		.uleb128 0x18
+ 924 05e2 7F060000 		.4byte	.LASF100
+ 925 05e6 03       		.byte	0x3
+ 926 05e7 3C01     		.2byte	0x13c
+ 927 05e9 0B010000 		.4byte	0x10b
+ 928 05ed 00       		.byte	0
+ 929 05ee 00       		.byte	0
+ 930 05ef 0D       		.uleb128 0xd
+ 931 05f0 04       		.byte	0x4
+ 932 05f1 3E050000 		.4byte	0x53e
+ 933 05f5 10       		.uleb128 0x10
+ 934 05f6 EF050000 		.4byte	0x5ef
+ 935 05fa 1A       		.uleb128 0x1a
+ 936 05fb 91050000 		.4byte	.LASF120
+ 937 05ff 01       		.byte	0x1
+ 938 0600 28       		.byte	0x28
+ 939 0601 00000000 		.4byte	.LFB151
+ 940 0605 94000000 		.4byte	.LFE151-.LFB151
+ 941 0609 01       		.uleb128 0x1
+ 942 060a 9C       		.byte	0x9c
+ 943 060b 79070000 		.4byte	0x779
+ 944 060f 1B       		.uleb128 0x1b
+ 945 0610 657600   		.ascii	"ev\000"
+ 946 0613 01       		.byte	0x1
+ 947 0614 28       		.byte	0x28
+ 948 0615 0A020000 		.4byte	0x20a
+ 949 0619 00000000 		.4byte	.LLST0
+ 950 061d 1C       		.uleb128 0x1c
+ 951 061e DE060000 		.4byte	.LASF102
+ 952 0622 01       		.byte	0x1
+ 953 0623 2D       		.byte	0x2d
+ 954 0624 79070000 		.4byte	0x779
+ 955 0628 03       		.uleb128 0x3
+ 956 0629 91       		.byte	0x91
+ 957 062a BC7F     		.sleb128 -68
+ 958 062c 1D       		.uleb128 0x1d
+ 959 062d 5B010000 		.4byte	.LASF101
+ 960 0631 01       		.byte	0x1
+ 961 0632 2F       		.byte	0x2f
+ 962 0633 65020000 		.4byte	0x265
+ 963 0637 1E       		.uleb128 0x1e
+ 964 0638 63030000 		.4byte	.LASF103
+ 965 063c 01       		.byte	0x1
+ 966 063d 30       		.byte	0x30
+ 967 063e F1030000 		.4byte	0x3f1
+ 968 0642 21000000 		.4byte	.LLST1
+ 969 0646 1D       		.uleb128 0x1d
+ 970 0647 BD040000 		.4byte	.LASF104
+ 971 064b 01       		.byte	0x1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 30
+
+
+ 972 064c 34       		.byte	0x34
+ 973 064d 45020000 		.4byte	0x245
+ 974 0651 1F       		.uleb128 0x1f
+ 975 0652 75050000 		.4byte	0x575
+ 976 0656 0E000000 		.4byte	.LBB9
+ 977 065a 04000000 		.4byte	.LBE9-.LBB9
+ 978 065e 01       		.byte	0x1
+ 979 065f 33       		.byte	0x33
+ 980 0660 6A060000 		.4byte	0x66a
+ 981 0664 20       		.uleb128 0x20
+ 982 0665 86050000 		.4byte	0x586
+ 983 0669 00       		.byte	0
+ 984 066a 1F       		.uleb128 0x1f
+ 985 066b 49050000 		.4byte	0x549
+ 986 066f 12000000 		.4byte	.LBB11
+ 987 0673 02000000 		.4byte	.LBE11-.LBB11
+ 988 0677 01       		.byte	0x1
+ 989 0678 34       		.byte	0x34
+ 990 0679 83060000 		.4byte	0x683
+ 991 067d 20       		.uleb128 0x20
+ 992 067e 59050000 		.4byte	0x559
+ 993 0682 00       		.byte	0
+ 994 0683 1F       		.uleb128 0x1f
+ 995 0684 93050000 		.4byte	0x593
+ 996 0688 2E000000 		.4byte	.LBB13
+ 997 068c 32000000 		.4byte	.LBE13-.LBB13
+ 998 0690 01       		.byte	0x1
+ 999 0691 49       		.byte	0x49
+ 1000 0692 DF060000 		.4byte	0x6df
+ 1001 0696 20       		.uleb128 0x20
+ 1002 0697 B0050000 		.4byte	0x5b0
+ 1003 069b 20       		.uleb128 0x20
+ 1004 069c A4050000 		.4byte	0x5a4
+ 1005 06a0 21       		.uleb128 0x21
+ 1006 06a1 2E000000 		.4byte	.LBB14
+ 1007 06a5 32000000 		.4byte	.LBE14-.LBB14
+ 1008 06a9 22       		.uleb128 0x22
+ 1009 06aa BC050000 		.4byte	0x5bc
+ 1010 06ae 00       		.byte	0
+ 1011 06af 23       		.uleb128 0x23
+ 1012 06b0 C8050000 		.4byte	0x5c8
+ 1013 06b4 34000000 		.4byte	.LLST2
+ 1014 06b8 23       		.uleb128 0x23
+ 1015 06b9 D4050000 		.4byte	0x5d4
+ 1016 06bd 6A000000 		.4byte	.LLST3
+ 1017 06c1 21       		.uleb128 0x21
+ 1018 06c2 46000000 		.4byte	.LBB15
+ 1019 06c6 0A000000 		.4byte	.LBE15-.LBB15
+ 1020 06ca 23       		.uleb128 0x23
+ 1021 06cb E1050000 		.4byte	0x5e1
+ 1022 06cf 7D000000 		.4byte	.LLST4
+ 1023 06d3 24       		.uleb128 0x24
+ 1024 06d4 50000000 		.4byte	.LVL10
+ 1025 06d8 E7070000 		.4byte	0x7e7
+ 1026 06dc 00       		.byte	0
+ 1027 06dd 00       		.byte	0
+ 1028 06de 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 31
+
+
+ 1029 06df 25       		.uleb128 0x25
+ 1030 06e0 0E000000 		.4byte	.LVL2
+ 1031 06e4 F3070000 		.4byte	0x7f3
+ 1032 06e8 FF060000 		.4byte	0x6ff
+ 1033 06ec 26       		.uleb128 0x26
+ 1034 06ed 01       		.uleb128 0x1
+ 1035 06ee 50       		.byte	0x50
+ 1036 06ef 03       		.uleb128 0x3
+ 1037 06f0 91       		.byte	0x91
+ 1038 06f1 BC7F     		.sleb128 -68
+ 1039 06f3 26       		.uleb128 0x26
+ 1040 06f4 01       		.uleb128 0x1
+ 1041 06f5 51       		.byte	0x51
+ 1042 06f6 01       		.uleb128 0x1
+ 1043 06f7 30       		.byte	0x30
+ 1044 06f8 26       		.uleb128 0x26
+ 1045 06f9 01       		.uleb128 0x1
+ 1046 06fa 52       		.byte	0x52
+ 1047 06fb 02       		.uleb128 0x2
+ 1048 06fc 08       		.byte	0x8
+ 1049 06fd 32       		.byte	0x32
+ 1050 06fe 00       		.byte	0
+ 1051 06ff 25       		.uleb128 0x25
+ 1052 0700 2E000000 		.4byte	.LVL6
+ 1053 0704 FC070000 		.4byte	0x7fc
+ 1054 0708 16070000 		.4byte	0x716
+ 1055 070c 26       		.uleb128 0x26
+ 1056 070d 01       		.uleb128 0x1
+ 1057 070e 50       		.byte	0x50
+ 1058 070f 05       		.uleb128 0x5
+ 1059 0710 03       		.byte	0x3
+ 1060 0711 00000000 		.4byte	.LC0
+ 1061 0715 00       		.byte	0
+ 1062 0716 25       		.uleb128 0x25
+ 1063 0717 6A000000 		.4byte	.LVL15
+ 1064 071b 07080000 		.4byte	0x807
+ 1065 071f 3D070000 		.4byte	0x73d
+ 1066 0723 26       		.uleb128 0x26
+ 1067 0724 01       		.uleb128 0x1
+ 1068 0725 50       		.byte	0x50
+ 1069 0726 03       		.uleb128 0x3
+ 1070 0727 91       		.byte	0x91
+ 1071 0728 BC7F     		.sleb128 -68
+ 1072 072a 26       		.uleb128 0x26
+ 1073 072b 01       		.uleb128 0x1
+ 1074 072c 51       		.byte	0x51
+ 1075 072d 05       		.uleb128 0x5
+ 1076 072e 03       		.byte	0x3
+ 1077 072f 14000000 		.4byte	.LC1
+ 1078 0733 26       		.uleb128 0x26
+ 1079 0734 01       		.uleb128 0x1
+ 1080 0735 52       		.byte	0x52
+ 1081 0736 05       		.uleb128 0x5
+ 1082 0737 76       		.byte	0x76
+ 1083 0738 00       		.sleb128 0
+ 1084 0739 08       		.byte	0x8
+ 1085 073a FF       		.byte	0xff
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 32
+
+
+ 1086 073b 1A       		.byte	0x1a
+ 1087 073c 00       		.byte	0
+ 1088 073d 25       		.uleb128 0x25
+ 1089 073e 70000000 		.4byte	.LVL16
+ 1090 0742 FC070000 		.4byte	0x7fc
+ 1091 0746 54070000 		.4byte	0x754
+ 1092 074a 26       		.uleb128 0x26
+ 1093 074b 01       		.uleb128 0x1
+ 1094 074c 50       		.byte	0x50
+ 1095 074d 05       		.uleb128 0x5
+ 1096 074e 03       		.byte	0x3
+ 1097 074f 18000000 		.4byte	.LC2
+ 1098 0753 00       		.byte	0
+ 1099 0754 25       		.uleb128 0x25
+ 1100 0755 76000000 		.4byte	.LVL17
+ 1101 0759 FC070000 		.4byte	0x7fc
+ 1102 075d 69070000 		.4byte	0x769
+ 1103 0761 26       		.uleb128 0x26
+ 1104 0762 01       		.uleb128 0x1
+ 1105 0763 50       		.byte	0x50
+ 1106 0764 03       		.uleb128 0x3
+ 1107 0765 91       		.byte	0x91
+ 1108 0766 BC7F     		.sleb128 -68
+ 1109 0768 00       		.byte	0
+ 1110 0769 27       		.uleb128 0x27
+ 1111 076a 7C000000 		.4byte	.LVL18
+ 1112 076e 12080000 		.4byte	0x812
+ 1113 0772 26       		.uleb128 0x26
+ 1114 0773 01       		.uleb128 0x1
+ 1115 0774 50       		.byte	0x50
+ 1116 0775 01       		.uleb128 0x1
+ 1117 0776 32       		.byte	0x32
+ 1118 0777 00       		.byte	0
+ 1119 0778 00       		.byte	0
+ 1120 0779 09       		.uleb128 0x9
+ 1121 077a BB000000 		.4byte	0xbb
+ 1122 077e 89070000 		.4byte	0x789
+ 1123 0782 28       		.uleb128 0x28
+ 1124 0783 23010000 		.4byte	0x123
+ 1125 0787 31       		.byte	0x31
+ 1126 0788 00       		.byte	0
+ 1127 0789 29       		.uleb128 0x29
+ 1128 078a 98000000 		.4byte	.LASF105
+ 1129 078e 0F       		.byte	0xf
+ 1130 078f 40       		.byte	0x40
+ 1131 0790 EA000000 		.4byte	0xea
+ 1132 0794 29       		.uleb128 0x29
+ 1133 0795 D3030000 		.4byte	.LASF106
+ 1134 0799 0F       		.byte	0xf
+ 1135 079a 47       		.byte	0x47
+ 1136 079b F5000000 		.4byte	0xf5
+ 1137 079f 29       		.uleb128 0x29
+ 1138 07a0 FD030000 		.4byte	.LASF107
+ 1139 07a4 0F       		.byte	0xf
+ 1140 07a5 4A       		.byte	0x4a
+ 1141 07a6 EA000000 		.4byte	0xea
+ 1142 07aa 29       		.uleb128 0x29
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 33
+
+
+ 1143 07ab 9B010000 		.4byte	.LASF108
+ 1144 07af 10       		.byte	0x10
+ 1145 07b0 48       		.byte	0x48
+ 1146 07b1 00010000 		.4byte	0x100
+ 1147 07b5 29       		.uleb128 0x29
+ 1148 07b6 00070000 		.4byte	.LASF109
+ 1149 07ba 11       		.byte	0x11
+ 1150 07bb 44       		.byte	0x44
+ 1151 07bc EA000000 		.4byte	0xea
+ 1152 07c0 2A       		.uleb128 0x2a
+ 1153 07c1 B0000000 		.4byte	.LASF110
+ 1154 07c5 12       		.byte	0x12
+ 1155 07c6 1207     		.2byte	0x712
+ 1156 07c8 CC070000 		.4byte	0x7cc
+ 1157 07cc 2B       		.uleb128 0x2b
+ 1158 07cd 97000000 		.4byte	0x97
+ 1159 07d1 29       		.uleb128 0x29
+ 1160 07d2 14020000 		.4byte	.LASF111
+ 1161 07d6 13       		.byte	0x13
+ 1162 07d7 28       		.byte	0x28
+ 1163 07d8 D1030000 		.4byte	0x3d1
+ 1164 07dc 29       		.uleb128 0x29
+ 1165 07dd F3040000 		.4byte	.LASF112
+ 1166 07e1 13       		.byte	0x13
+ 1167 07e2 37       		.byte	0x37
+ 1168 07e3 3E050000 		.4byte	0x53e
+ 1169 07e7 2C       		.uleb128 0x2c
+ 1170 07e8 77000000 		.4byte	.LASF113
+ 1171 07ec 77000000 		.4byte	.LASF113
+ 1172 07f0 14       		.byte	0x14
+ 1173 07f1 4A01     		.2byte	0x14a
+ 1174 07f3 2D       		.uleb128 0x2d
+ 1175 07f4 EA060000 		.4byte	.LASF121
+ 1176 07f8 EA060000 		.4byte	.LASF121
+ 1177 07fc 2E       		.uleb128 0x2e
+ 1178 07fd BF010000 		.4byte	.LASF114
+ 1179 0801 BF010000 		.4byte	.LASF114
+ 1180 0805 15       		.byte	0x15
+ 1181 0806 34       		.byte	0x34
+ 1182 0807 2E       		.uleb128 0x2e
+ 1183 0808 35030000 		.4byte	.LASF115
+ 1184 080c 35030000 		.4byte	.LASF115
+ 1185 0810 16       		.byte	0x16
+ 1186 0811 E7       		.byte	0xe7
+ 1187 0812 2E       		.uleb128 0x2e
+ 1188 0813 27020000 		.4byte	.LASF116
+ 1189 0817 27020000 		.4byte	.LASF116
+ 1190 081b 17       		.byte	0x17
+ 1191 081c 4E       		.byte	0x4e
+ 1192 081d 00       		.byte	0
+ 1193              		.section	.debug_abbrev,"",%progbits
+ 1194              	.Ldebug_abbrev0:
+ 1195 0000 01       		.uleb128 0x1
+ 1196 0001 11       		.uleb128 0x11
+ 1197 0002 01       		.byte	0x1
+ 1198 0003 25       		.uleb128 0x25
+ 1199 0004 0E       		.uleb128 0xe
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 34
+
+
+ 1200 0005 13       		.uleb128 0x13
+ 1201 0006 0B       		.uleb128 0xb
+ 1202 0007 03       		.uleb128 0x3
+ 1203 0008 0E       		.uleb128 0xe
+ 1204 0009 1B       		.uleb128 0x1b
+ 1205 000a 0E       		.uleb128 0xe
+ 1206 000b 55       		.uleb128 0x55
+ 1207 000c 17       		.uleb128 0x17
+ 1208 000d 11       		.uleb128 0x11
+ 1209 000e 01       		.uleb128 0x1
+ 1210 000f 10       		.uleb128 0x10
+ 1211 0010 17       		.uleb128 0x17
+ 1212 0011 00       		.byte	0
+ 1213 0012 00       		.byte	0
+ 1214 0013 02       		.uleb128 0x2
+ 1215 0014 24       		.uleb128 0x24
+ 1216 0015 00       		.byte	0
+ 1217 0016 0B       		.uleb128 0xb
+ 1218 0017 0B       		.uleb128 0xb
+ 1219 0018 3E       		.uleb128 0x3e
+ 1220 0019 0B       		.uleb128 0xb
+ 1221 001a 03       		.uleb128 0x3
+ 1222 001b 0E       		.uleb128 0xe
+ 1223 001c 00       		.byte	0
+ 1224 001d 00       		.byte	0
+ 1225 001e 03       		.uleb128 0x3
+ 1226 001f 16       		.uleb128 0x16
+ 1227 0020 00       		.byte	0
+ 1228 0021 03       		.uleb128 0x3
+ 1229 0022 0E       		.uleb128 0xe
+ 1230 0023 3A       		.uleb128 0x3a
+ 1231 0024 0B       		.uleb128 0xb
+ 1232 0025 3B       		.uleb128 0x3b
+ 1233 0026 0B       		.uleb128 0xb
+ 1234 0027 49       		.uleb128 0x49
+ 1235 0028 13       		.uleb128 0x13
+ 1236 0029 00       		.byte	0
+ 1237 002a 00       		.byte	0
+ 1238 002b 04       		.uleb128 0x4
+ 1239 002c 24       		.uleb128 0x24
+ 1240 002d 00       		.byte	0
+ 1241 002e 0B       		.uleb128 0xb
+ 1242 002f 0B       		.uleb128 0xb
+ 1243 0030 3E       		.uleb128 0x3e
+ 1244 0031 0B       		.uleb128 0xb
+ 1245 0032 03       		.uleb128 0x3
+ 1246 0033 08       		.uleb128 0x8
+ 1247 0034 00       		.byte	0
+ 1248 0035 00       		.byte	0
+ 1249 0036 05       		.uleb128 0x5
+ 1250 0037 16       		.uleb128 0x16
+ 1251 0038 00       		.byte	0
+ 1252 0039 03       		.uleb128 0x3
+ 1253 003a 0E       		.uleb128 0xe
+ 1254 003b 3A       		.uleb128 0x3a
+ 1255 003c 0B       		.uleb128 0xb
+ 1256 003d 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 35
+
+
+ 1257 003e 05       		.uleb128 0x5
+ 1258 003f 49       		.uleb128 0x49
+ 1259 0040 13       		.uleb128 0x13
+ 1260 0041 00       		.byte	0
+ 1261 0042 00       		.byte	0
+ 1262 0043 06       		.uleb128 0x6
+ 1263 0044 04       		.uleb128 0x4
+ 1264 0045 01       		.byte	0x1
+ 1265 0046 0B       		.uleb128 0xb
+ 1266 0047 0B       		.uleb128 0xb
+ 1267 0048 49       		.uleb128 0x49
+ 1268 0049 13       		.uleb128 0x13
+ 1269 004a 3A       		.uleb128 0x3a
+ 1270 004b 0B       		.uleb128 0xb
+ 1271 004c 3B       		.uleb128 0x3b
+ 1272 004d 0B       		.uleb128 0xb
+ 1273 004e 01       		.uleb128 0x1
+ 1274 004f 13       		.uleb128 0x13
+ 1275 0050 00       		.byte	0
+ 1276 0051 00       		.byte	0
+ 1277 0052 07       		.uleb128 0x7
+ 1278 0053 28       		.uleb128 0x28
+ 1279 0054 00       		.byte	0
+ 1280 0055 03       		.uleb128 0x3
+ 1281 0056 0E       		.uleb128 0xe
+ 1282 0057 1C       		.uleb128 0x1c
+ 1283 0058 0B       		.uleb128 0xb
+ 1284 0059 00       		.byte	0
+ 1285 005a 00       		.byte	0
+ 1286 005b 08       		.uleb128 0x8
+ 1287 005c 28       		.uleb128 0x28
+ 1288 005d 00       		.byte	0
+ 1289 005e 03       		.uleb128 0x3
+ 1290 005f 0E       		.uleb128 0xe
+ 1291 0060 1C       		.uleb128 0x1c
+ 1292 0061 0D       		.uleb128 0xd
+ 1293 0062 00       		.byte	0
+ 1294 0063 00       		.byte	0
+ 1295 0064 09       		.uleb128 0x9
+ 1296 0065 01       		.uleb128 0x1
+ 1297 0066 01       		.byte	0x1
+ 1298 0067 49       		.uleb128 0x49
+ 1299 0068 13       		.uleb128 0x13
+ 1300 0069 01       		.uleb128 0x1
+ 1301 006a 13       		.uleb128 0x13
+ 1302 006b 00       		.byte	0
+ 1303 006c 00       		.byte	0
+ 1304 006d 0A       		.uleb128 0xa
+ 1305 006e 21       		.uleb128 0x21
+ 1306 006f 00       		.byte	0
+ 1307 0070 00       		.byte	0
+ 1308 0071 00       		.byte	0
+ 1309 0072 0B       		.uleb128 0xb
+ 1310 0073 13       		.uleb128 0x13
+ 1311 0074 01       		.byte	0x1
+ 1312 0075 0B       		.uleb128 0xb
+ 1313 0076 0B       		.uleb128 0xb
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 36
+
+
+ 1314 0077 3A       		.uleb128 0x3a
+ 1315 0078 0B       		.uleb128 0xb
+ 1316 0079 3B       		.uleb128 0x3b
+ 1317 007a 0B       		.uleb128 0xb
+ 1318 007b 01       		.uleb128 0x1
+ 1319 007c 13       		.uleb128 0x13
+ 1320 007d 00       		.byte	0
+ 1321 007e 00       		.byte	0
+ 1322 007f 0C       		.uleb128 0xc
+ 1323 0080 0D       		.uleb128 0xd
+ 1324 0081 00       		.byte	0
+ 1325 0082 03       		.uleb128 0x3
+ 1326 0083 0E       		.uleb128 0xe
+ 1327 0084 3A       		.uleb128 0x3a
+ 1328 0085 0B       		.uleb128 0xb
+ 1329 0086 3B       		.uleb128 0x3b
+ 1330 0087 0B       		.uleb128 0xb
+ 1331 0088 49       		.uleb128 0x49
+ 1332 0089 13       		.uleb128 0x13
+ 1333 008a 38       		.uleb128 0x38
+ 1334 008b 0B       		.uleb128 0xb
+ 1335 008c 00       		.byte	0
+ 1336 008d 00       		.byte	0
+ 1337 008e 0D       		.uleb128 0xd
+ 1338 008f 0F       		.uleb128 0xf
+ 1339 0090 00       		.byte	0
+ 1340 0091 0B       		.uleb128 0xb
+ 1341 0092 0B       		.uleb128 0xb
+ 1342 0093 49       		.uleb128 0x49
+ 1343 0094 13       		.uleb128 0x13
+ 1344 0095 00       		.byte	0
+ 1345 0096 00       		.byte	0
+ 1346 0097 0E       		.uleb128 0xe
+ 1347 0098 15       		.uleb128 0x15
+ 1348 0099 01       		.byte	0x1
+ 1349 009a 27       		.uleb128 0x27
+ 1350 009b 19       		.uleb128 0x19
+ 1351 009c 49       		.uleb128 0x49
+ 1352 009d 13       		.uleb128 0x13
+ 1353 009e 01       		.uleb128 0x1
+ 1354 009f 13       		.uleb128 0x13
+ 1355 00a0 00       		.byte	0
+ 1356 00a1 00       		.byte	0
+ 1357 00a2 0F       		.uleb128 0xf
+ 1358 00a3 05       		.uleb128 0x5
+ 1359 00a4 00       		.byte	0
+ 1360 00a5 49       		.uleb128 0x49
+ 1361 00a6 13       		.uleb128 0x13
+ 1362 00a7 00       		.byte	0
+ 1363 00a8 00       		.byte	0
+ 1364 00a9 10       		.uleb128 0x10
+ 1365 00aa 26       		.uleb128 0x26
+ 1366 00ab 00       		.byte	0
+ 1367 00ac 49       		.uleb128 0x49
+ 1368 00ad 13       		.uleb128 0x13
+ 1369 00ae 00       		.byte	0
+ 1370 00af 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 37
+
+
+ 1371 00b0 11       		.uleb128 0x11
+ 1372 00b1 13       		.uleb128 0x13
+ 1373 00b2 01       		.byte	0x1
+ 1374 00b3 03       		.uleb128 0x3
+ 1375 00b4 0E       		.uleb128 0xe
+ 1376 00b5 0B       		.uleb128 0xb
+ 1377 00b6 0B       		.uleb128 0xb
+ 1378 00b7 3A       		.uleb128 0x3a
+ 1379 00b8 0B       		.uleb128 0xb
+ 1380 00b9 3B       		.uleb128 0x3b
+ 1381 00ba 0B       		.uleb128 0xb
+ 1382 00bb 01       		.uleb128 0x1
+ 1383 00bc 13       		.uleb128 0x13
+ 1384 00bd 00       		.byte	0
+ 1385 00be 00       		.byte	0
+ 1386 00bf 12       		.uleb128 0x12
+ 1387 00c0 0D       		.uleb128 0xd
+ 1388 00c1 00       		.byte	0
+ 1389 00c2 03       		.uleb128 0x3
+ 1390 00c3 08       		.uleb128 0x8
+ 1391 00c4 3A       		.uleb128 0x3a
+ 1392 00c5 0B       		.uleb128 0xb
+ 1393 00c6 3B       		.uleb128 0x3b
+ 1394 00c7 0B       		.uleb128 0xb
+ 1395 00c8 49       		.uleb128 0x49
+ 1396 00c9 13       		.uleb128 0x13
+ 1397 00ca 38       		.uleb128 0x38
+ 1398 00cb 0B       		.uleb128 0xb
+ 1399 00cc 00       		.byte	0
+ 1400 00cd 00       		.byte	0
+ 1401 00ce 13       		.uleb128 0x13
+ 1402 00cf 2E       		.uleb128 0x2e
+ 1403 00d0 01       		.byte	0x1
+ 1404 00d1 3F       		.uleb128 0x3f
+ 1405 00d2 19       		.uleb128 0x19
+ 1406 00d3 03       		.uleb128 0x3
+ 1407 00d4 0E       		.uleb128 0xe
+ 1408 00d5 3A       		.uleb128 0x3a
+ 1409 00d6 0B       		.uleb128 0xb
+ 1410 00d7 3B       		.uleb128 0x3b
+ 1411 00d8 0B       		.uleb128 0xb
+ 1412 00d9 27       		.uleb128 0x27
+ 1413 00da 19       		.uleb128 0x19
+ 1414 00db 49       		.uleb128 0x49
+ 1415 00dc 13       		.uleb128 0x13
+ 1416 00dd 20       		.uleb128 0x20
+ 1417 00de 0B       		.uleb128 0xb
+ 1418 00df 01       		.uleb128 0x1
+ 1419 00e0 13       		.uleb128 0x13
+ 1420 00e1 00       		.byte	0
+ 1421 00e2 00       		.byte	0
+ 1422 00e3 14       		.uleb128 0x14
+ 1423 00e4 05       		.uleb128 0x5
+ 1424 00e5 00       		.byte	0
+ 1425 00e6 03       		.uleb128 0x3
+ 1426 00e7 0E       		.uleb128 0xe
+ 1427 00e8 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 38
+
+
+ 1428 00e9 0B       		.uleb128 0xb
+ 1429 00ea 3B       		.uleb128 0x3b
+ 1430 00eb 0B       		.uleb128 0xb
+ 1431 00ec 49       		.uleb128 0x49
+ 1432 00ed 13       		.uleb128 0x13
+ 1433 00ee 00       		.byte	0
+ 1434 00ef 00       		.byte	0
+ 1435 00f0 15       		.uleb128 0x15
+ 1436 00f1 2E       		.uleb128 0x2e
+ 1437 00f2 01       		.byte	0x1
+ 1438 00f3 3F       		.uleb128 0x3f
+ 1439 00f4 19       		.uleb128 0x19
+ 1440 00f5 03       		.uleb128 0x3
+ 1441 00f6 0E       		.uleb128 0xe
+ 1442 00f7 3A       		.uleb128 0x3a
+ 1443 00f8 0B       		.uleb128 0xb
+ 1444 00f9 3B       		.uleb128 0x3b
+ 1445 00fa 05       		.uleb128 0x5
+ 1446 00fb 27       		.uleb128 0x27
+ 1447 00fc 19       		.uleb128 0x19
+ 1448 00fd 49       		.uleb128 0x49
+ 1449 00fe 13       		.uleb128 0x13
+ 1450 00ff 20       		.uleb128 0x20
+ 1451 0100 0B       		.uleb128 0xb
+ 1452 0101 01       		.uleb128 0x1
+ 1453 0102 13       		.uleb128 0x13
+ 1454 0103 00       		.byte	0
+ 1455 0104 00       		.byte	0
+ 1456 0105 16       		.uleb128 0x16
+ 1457 0106 05       		.uleb128 0x5
+ 1458 0107 00       		.byte	0
+ 1459 0108 03       		.uleb128 0x3
+ 1460 0109 0E       		.uleb128 0xe
+ 1461 010a 3A       		.uleb128 0x3a
+ 1462 010b 0B       		.uleb128 0xb
+ 1463 010c 3B       		.uleb128 0x3b
+ 1464 010d 05       		.uleb128 0x5
+ 1465 010e 49       		.uleb128 0x49
+ 1466 010f 13       		.uleb128 0x13
+ 1467 0110 00       		.byte	0
+ 1468 0111 00       		.byte	0
+ 1469 0112 17       		.uleb128 0x17
+ 1470 0113 34       		.uleb128 0x34
+ 1471 0114 00       		.byte	0
+ 1472 0115 03       		.uleb128 0x3
+ 1473 0116 08       		.uleb128 0x8
+ 1474 0117 3A       		.uleb128 0x3a
+ 1475 0118 0B       		.uleb128 0xb
+ 1476 0119 3B       		.uleb128 0x3b
+ 1477 011a 05       		.uleb128 0x5
+ 1478 011b 49       		.uleb128 0x49
+ 1479 011c 13       		.uleb128 0x13
+ 1480 011d 00       		.byte	0
+ 1481 011e 00       		.byte	0
+ 1482 011f 18       		.uleb128 0x18
+ 1483 0120 34       		.uleb128 0x34
+ 1484 0121 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 39
+
+
+ 1485 0122 03       		.uleb128 0x3
+ 1486 0123 0E       		.uleb128 0xe
+ 1487 0124 3A       		.uleb128 0x3a
+ 1488 0125 0B       		.uleb128 0xb
+ 1489 0126 3B       		.uleb128 0x3b
+ 1490 0127 05       		.uleb128 0x5
+ 1491 0128 49       		.uleb128 0x49
+ 1492 0129 13       		.uleb128 0x13
+ 1493 012a 00       		.byte	0
+ 1494 012b 00       		.byte	0
+ 1495 012c 19       		.uleb128 0x19
+ 1496 012d 0B       		.uleb128 0xb
+ 1497 012e 01       		.byte	0x1
+ 1498 012f 00       		.byte	0
+ 1499 0130 00       		.byte	0
+ 1500 0131 1A       		.uleb128 0x1a
+ 1501 0132 2E       		.uleb128 0x2e
+ 1502 0133 01       		.byte	0x1
+ 1503 0134 3F       		.uleb128 0x3f
+ 1504 0135 19       		.uleb128 0x19
+ 1505 0136 03       		.uleb128 0x3
+ 1506 0137 0E       		.uleb128 0xe
+ 1507 0138 3A       		.uleb128 0x3a
+ 1508 0139 0B       		.uleb128 0xb
+ 1509 013a 3B       		.uleb128 0x3b
+ 1510 013b 0B       		.uleb128 0xb
+ 1511 013c 27       		.uleb128 0x27
+ 1512 013d 19       		.uleb128 0x19
+ 1513 013e 11       		.uleb128 0x11
+ 1514 013f 01       		.uleb128 0x1
+ 1515 0140 12       		.uleb128 0x12
+ 1516 0141 06       		.uleb128 0x6
+ 1517 0142 40       		.uleb128 0x40
+ 1518 0143 18       		.uleb128 0x18
+ 1519 0144 9742     		.uleb128 0x2117
+ 1520 0146 19       		.uleb128 0x19
+ 1521 0147 01       		.uleb128 0x1
+ 1522 0148 13       		.uleb128 0x13
+ 1523 0149 00       		.byte	0
+ 1524 014a 00       		.byte	0
+ 1525 014b 1B       		.uleb128 0x1b
+ 1526 014c 05       		.uleb128 0x5
+ 1527 014d 00       		.byte	0
+ 1528 014e 03       		.uleb128 0x3
+ 1529 014f 08       		.uleb128 0x8
+ 1530 0150 3A       		.uleb128 0x3a
+ 1531 0151 0B       		.uleb128 0xb
+ 1532 0152 3B       		.uleb128 0x3b
+ 1533 0153 0B       		.uleb128 0xb
+ 1534 0154 49       		.uleb128 0x49
+ 1535 0155 13       		.uleb128 0x13
+ 1536 0156 02       		.uleb128 0x2
+ 1537 0157 17       		.uleb128 0x17
+ 1538 0158 00       		.byte	0
+ 1539 0159 00       		.byte	0
+ 1540 015a 1C       		.uleb128 0x1c
+ 1541 015b 34       		.uleb128 0x34
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 40
+
+
+ 1542 015c 00       		.byte	0
+ 1543 015d 03       		.uleb128 0x3
+ 1544 015e 0E       		.uleb128 0xe
+ 1545 015f 3A       		.uleb128 0x3a
+ 1546 0160 0B       		.uleb128 0xb
+ 1547 0161 3B       		.uleb128 0x3b
+ 1548 0162 0B       		.uleb128 0xb
+ 1549 0163 49       		.uleb128 0x49
+ 1550 0164 13       		.uleb128 0x13
+ 1551 0165 02       		.uleb128 0x2
+ 1552 0166 18       		.uleb128 0x18
+ 1553 0167 00       		.byte	0
+ 1554 0168 00       		.byte	0
+ 1555 0169 1D       		.uleb128 0x1d
+ 1556 016a 34       		.uleb128 0x34
+ 1557 016b 00       		.byte	0
+ 1558 016c 03       		.uleb128 0x3
+ 1559 016d 0E       		.uleb128 0xe
+ 1560 016e 3A       		.uleb128 0x3a
+ 1561 016f 0B       		.uleb128 0xb
+ 1562 0170 3B       		.uleb128 0x3b
+ 1563 0171 0B       		.uleb128 0xb
+ 1564 0172 49       		.uleb128 0x49
+ 1565 0173 13       		.uleb128 0x13
+ 1566 0174 00       		.byte	0
+ 1567 0175 00       		.byte	0
+ 1568 0176 1E       		.uleb128 0x1e
+ 1569 0177 34       		.uleb128 0x34
+ 1570 0178 00       		.byte	0
+ 1571 0179 03       		.uleb128 0x3
+ 1572 017a 0E       		.uleb128 0xe
+ 1573 017b 3A       		.uleb128 0x3a
+ 1574 017c 0B       		.uleb128 0xb
+ 1575 017d 3B       		.uleb128 0x3b
+ 1576 017e 0B       		.uleb128 0xb
+ 1577 017f 49       		.uleb128 0x49
+ 1578 0180 13       		.uleb128 0x13
+ 1579 0181 02       		.uleb128 0x2
+ 1580 0182 17       		.uleb128 0x17
+ 1581 0183 00       		.byte	0
+ 1582 0184 00       		.byte	0
+ 1583 0185 1F       		.uleb128 0x1f
+ 1584 0186 1D       		.uleb128 0x1d
+ 1585 0187 01       		.byte	0x1
+ 1586 0188 31       		.uleb128 0x31
+ 1587 0189 13       		.uleb128 0x13
+ 1588 018a 11       		.uleb128 0x11
+ 1589 018b 01       		.uleb128 0x1
+ 1590 018c 12       		.uleb128 0x12
+ 1591 018d 06       		.uleb128 0x6
+ 1592 018e 58       		.uleb128 0x58
+ 1593 018f 0B       		.uleb128 0xb
+ 1594 0190 59       		.uleb128 0x59
+ 1595 0191 0B       		.uleb128 0xb
+ 1596 0192 01       		.uleb128 0x1
+ 1597 0193 13       		.uleb128 0x13
+ 1598 0194 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 41
+
+
+ 1599 0195 00       		.byte	0
+ 1600 0196 20       		.uleb128 0x20
+ 1601 0197 05       		.uleb128 0x5
+ 1602 0198 00       		.byte	0
+ 1603 0199 31       		.uleb128 0x31
+ 1604 019a 13       		.uleb128 0x13
+ 1605 019b 00       		.byte	0
+ 1606 019c 00       		.byte	0
+ 1607 019d 21       		.uleb128 0x21
+ 1608 019e 0B       		.uleb128 0xb
+ 1609 019f 01       		.byte	0x1
+ 1610 01a0 11       		.uleb128 0x11
+ 1611 01a1 01       		.uleb128 0x1
+ 1612 01a2 12       		.uleb128 0x12
+ 1613 01a3 06       		.uleb128 0x6
+ 1614 01a4 00       		.byte	0
+ 1615 01a5 00       		.byte	0
+ 1616 01a6 22       		.uleb128 0x22
+ 1617 01a7 34       		.uleb128 0x34
+ 1618 01a8 00       		.byte	0
+ 1619 01a9 31       		.uleb128 0x31
+ 1620 01aa 13       		.uleb128 0x13
+ 1621 01ab 1C       		.uleb128 0x1c
+ 1622 01ac 0B       		.uleb128 0xb
+ 1623 01ad 00       		.byte	0
+ 1624 01ae 00       		.byte	0
+ 1625 01af 23       		.uleb128 0x23
+ 1626 01b0 34       		.uleb128 0x34
+ 1627 01b1 00       		.byte	0
+ 1628 01b2 31       		.uleb128 0x31
+ 1629 01b3 13       		.uleb128 0x13
+ 1630 01b4 02       		.uleb128 0x2
+ 1631 01b5 17       		.uleb128 0x17
+ 1632 01b6 00       		.byte	0
+ 1633 01b7 00       		.byte	0
+ 1634 01b8 24       		.uleb128 0x24
+ 1635 01b9 898201   		.uleb128 0x4109
+ 1636 01bc 00       		.byte	0
+ 1637 01bd 11       		.uleb128 0x11
+ 1638 01be 01       		.uleb128 0x1
+ 1639 01bf 31       		.uleb128 0x31
+ 1640 01c0 13       		.uleb128 0x13
+ 1641 01c1 00       		.byte	0
+ 1642 01c2 00       		.byte	0
+ 1643 01c3 25       		.uleb128 0x25
+ 1644 01c4 898201   		.uleb128 0x4109
+ 1645 01c7 01       		.byte	0x1
+ 1646 01c8 11       		.uleb128 0x11
+ 1647 01c9 01       		.uleb128 0x1
+ 1648 01ca 31       		.uleb128 0x31
+ 1649 01cb 13       		.uleb128 0x13
+ 1650 01cc 01       		.uleb128 0x1
+ 1651 01cd 13       		.uleb128 0x13
+ 1652 01ce 00       		.byte	0
+ 1653 01cf 00       		.byte	0
+ 1654 01d0 26       		.uleb128 0x26
+ 1655 01d1 8A8201   		.uleb128 0x410a
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 42
+
+
+ 1656 01d4 00       		.byte	0
+ 1657 01d5 02       		.uleb128 0x2
+ 1658 01d6 18       		.uleb128 0x18
+ 1659 01d7 9142     		.uleb128 0x2111
+ 1660 01d9 18       		.uleb128 0x18
+ 1661 01da 00       		.byte	0
+ 1662 01db 00       		.byte	0
+ 1663 01dc 27       		.uleb128 0x27
+ 1664 01dd 898201   		.uleb128 0x4109
+ 1665 01e0 01       		.byte	0x1
+ 1666 01e1 11       		.uleb128 0x11
+ 1667 01e2 01       		.uleb128 0x1
+ 1668 01e3 31       		.uleb128 0x31
+ 1669 01e4 13       		.uleb128 0x13
+ 1670 01e5 00       		.byte	0
+ 1671 01e6 00       		.byte	0
+ 1672 01e7 28       		.uleb128 0x28
+ 1673 01e8 21       		.uleb128 0x21
+ 1674 01e9 00       		.byte	0
+ 1675 01ea 49       		.uleb128 0x49
+ 1676 01eb 13       		.uleb128 0x13
+ 1677 01ec 2F       		.uleb128 0x2f
+ 1678 01ed 0B       		.uleb128 0xb
+ 1679 01ee 00       		.byte	0
+ 1680 01ef 00       		.byte	0
+ 1681 01f0 29       		.uleb128 0x29
+ 1682 01f1 34       		.uleb128 0x34
+ 1683 01f2 00       		.byte	0
+ 1684 01f3 03       		.uleb128 0x3
+ 1685 01f4 0E       		.uleb128 0xe
+ 1686 01f5 3A       		.uleb128 0x3a
+ 1687 01f6 0B       		.uleb128 0xb
+ 1688 01f7 3B       		.uleb128 0x3b
+ 1689 01f8 0B       		.uleb128 0xb
+ 1690 01f9 49       		.uleb128 0x49
+ 1691 01fa 13       		.uleb128 0x13
+ 1692 01fb 3F       		.uleb128 0x3f
+ 1693 01fc 19       		.uleb128 0x19
+ 1694 01fd 3C       		.uleb128 0x3c
+ 1695 01fe 19       		.uleb128 0x19
+ 1696 01ff 00       		.byte	0
+ 1697 0200 00       		.byte	0
+ 1698 0201 2A       		.uleb128 0x2a
+ 1699 0202 34       		.uleb128 0x34
+ 1700 0203 00       		.byte	0
+ 1701 0204 03       		.uleb128 0x3
+ 1702 0205 0E       		.uleb128 0xe
+ 1703 0206 3A       		.uleb128 0x3a
+ 1704 0207 0B       		.uleb128 0xb
+ 1705 0208 3B       		.uleb128 0x3b
+ 1706 0209 05       		.uleb128 0x5
+ 1707 020a 49       		.uleb128 0x49
+ 1708 020b 13       		.uleb128 0x13
+ 1709 020c 3F       		.uleb128 0x3f
+ 1710 020d 19       		.uleb128 0x19
+ 1711 020e 3C       		.uleb128 0x3c
+ 1712 020f 19       		.uleb128 0x19
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 43
+
+
+ 1713 0210 00       		.byte	0
+ 1714 0211 00       		.byte	0
+ 1715 0212 2B       		.uleb128 0x2b
+ 1716 0213 35       		.uleb128 0x35
+ 1717 0214 00       		.byte	0
+ 1718 0215 49       		.uleb128 0x49
+ 1719 0216 13       		.uleb128 0x13
+ 1720 0217 00       		.byte	0
+ 1721 0218 00       		.byte	0
+ 1722 0219 2C       		.uleb128 0x2c
+ 1723 021a 2E       		.uleb128 0x2e
+ 1724 021b 00       		.byte	0
+ 1725 021c 3F       		.uleb128 0x3f
+ 1726 021d 19       		.uleb128 0x19
+ 1727 021e 3C       		.uleb128 0x3c
+ 1728 021f 19       		.uleb128 0x19
+ 1729 0220 6E       		.uleb128 0x6e
+ 1730 0221 0E       		.uleb128 0xe
+ 1731 0222 03       		.uleb128 0x3
+ 1732 0223 0E       		.uleb128 0xe
+ 1733 0224 3A       		.uleb128 0x3a
+ 1734 0225 0B       		.uleb128 0xb
+ 1735 0226 3B       		.uleb128 0x3b
+ 1736 0227 05       		.uleb128 0x5
+ 1737 0228 00       		.byte	0
+ 1738 0229 00       		.byte	0
+ 1739 022a 2D       		.uleb128 0x2d
+ 1740 022b 2E       		.uleb128 0x2e
+ 1741 022c 00       		.byte	0
+ 1742 022d 3F       		.uleb128 0x3f
+ 1743 022e 19       		.uleb128 0x19
+ 1744 022f 3C       		.uleb128 0x3c
+ 1745 0230 19       		.uleb128 0x19
+ 1746 0231 6E       		.uleb128 0x6e
+ 1747 0232 0E       		.uleb128 0xe
+ 1748 0233 03       		.uleb128 0x3
+ 1749 0234 0E       		.uleb128 0xe
+ 1750 0235 00       		.byte	0
+ 1751 0236 00       		.byte	0
+ 1752 0237 2E       		.uleb128 0x2e
+ 1753 0238 2E       		.uleb128 0x2e
+ 1754 0239 00       		.byte	0
+ 1755 023a 3F       		.uleb128 0x3f
+ 1756 023b 19       		.uleb128 0x19
+ 1757 023c 3C       		.uleb128 0x3c
+ 1758 023d 19       		.uleb128 0x19
+ 1759 023e 6E       		.uleb128 0x6e
+ 1760 023f 0E       		.uleb128 0xe
+ 1761 0240 03       		.uleb128 0x3
+ 1762 0241 0E       		.uleb128 0xe
+ 1763 0242 3A       		.uleb128 0x3a
+ 1764 0243 0B       		.uleb128 0xb
+ 1765 0244 3B       		.uleb128 0x3b
+ 1766 0245 0B       		.uleb128 0xb
+ 1767 0246 00       		.byte	0
+ 1768 0247 00       		.byte	0
+ 1769 0248 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 44
+
+
+ 1770              		.section	.debug_loc,"",%progbits
+ 1771              	.Ldebug_loc0:
+ 1772              	.LLST0:
+ 1773 0000 00000000 		.4byte	.LVL0
+ 1774 0004 0A000000 		.4byte	.LVL1
+ 1775 0008 0100     		.2byte	0x1
+ 1776 000a 50       		.byte	0x50
+ 1777 000b 0A000000 		.4byte	.LVL1
+ 1778 000f 94000000 		.4byte	.LFE151
+ 1779 0013 0400     		.2byte	0x4
+ 1780 0015 F3       		.byte	0xf3
+ 1781 0016 01       		.uleb128 0x1
+ 1782 0017 50       		.byte	0x50
+ 1783 0018 9F       		.byte	0x9f
+ 1784 0019 00000000 		.4byte	0
+ 1785 001d 00000000 		.4byte	0
+ 1786              	.LLST1:
+ 1787 0021 32000000 		.4byte	.LVL7
+ 1788 0025 80000000 		.4byte	.LVL19
+ 1789 0029 0100     		.2byte	0x1
+ 1790 002b 56       		.byte	0x56
+ 1791 002c 00000000 		.4byte	0
+ 1792 0030 00000000 		.4byte	0
+ 1793              	.LLST2:
+ 1794 0034 2E000000 		.4byte	.LVL6
+ 1795 0038 46000000 		.4byte	.LVL9
+ 1796 003c 0200     		.2byte	0x2
+ 1797 003e 30       		.byte	0x30
+ 1798 003f 9F       		.byte	0x9f
+ 1799 0040 46000000 		.4byte	.LVL9
+ 1800 0044 54000000 		.4byte	.LVL12
+ 1801 0048 0100     		.2byte	0x1
+ 1802 004a 54       		.byte	0x54
+ 1803 004b 54000000 		.4byte	.LVL12
+ 1804 004f 56000000 		.4byte	.LVL13
+ 1805 0053 0200     		.2byte	0x2
+ 1806 0055 30       		.byte	0x30
+ 1807 0056 9F       		.byte	0x9f
+ 1808 0057 56000000 		.4byte	.LVL13
+ 1809 005b 60000000 		.4byte	.LVL14
+ 1810 005f 0100     		.2byte	0x1
+ 1811 0061 54       		.byte	0x54
+ 1812 0062 00000000 		.4byte	0
+ 1813 0066 00000000 		.4byte	0
+ 1814              	.LLST3:
+ 1815 006a 3E000000 		.4byte	.LVL8
+ 1816 006e 60000000 		.4byte	.LVL14
+ 1817 0072 0100     		.2byte	0x1
+ 1818 0074 55       		.byte	0x55
+ 1819 0075 00000000 		.4byte	0
+ 1820 0079 00000000 		.4byte	0
+ 1821              	.LLST4:
+ 1822 007d 46000000 		.4byte	.LVL9
+ 1823 0081 4F000000 		.4byte	.LVL10-1
+ 1824 0085 0700     		.2byte	0x7
+ 1825 0087 74       		.byte	0x74
+ 1826 0088 00       		.sleb128 0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 45
+
+
+ 1827 0089 32       		.byte	0x32
+ 1828 008a 24       		.byte	0x24
+ 1829 008b 75       		.byte	0x75
+ 1830 008c 00       		.sleb128 0
+ 1831 008d 22       		.byte	0x22
+ 1832 008e 00000000 		.4byte	0
+ 1833 0092 00000000 		.4byte	0
+ 1834              		.section	.debug_aranges,"",%progbits
+ 1835 0000 1C000000 		.4byte	0x1c
+ 1836 0004 0200     		.2byte	0x2
+ 1837 0006 00000000 		.4byte	.Ldebug_info0
+ 1838 000a 04       		.byte	0x4
+ 1839 000b 00       		.byte	0
+ 1840 000c 0000     		.2byte	0
+ 1841 000e 0000     		.2byte	0
+ 1842 0010 00000000 		.4byte	.LFB151
+ 1843 0014 94000000 		.4byte	.LFE151-.LFB151
+ 1844 0018 00000000 		.4byte	0
+ 1845 001c 00000000 		.4byte	0
+ 1846              		.section	.debug_ranges,"",%progbits
+ 1847              	.Ldebug_ranges0:
+ 1848 0000 00000000 		.4byte	.LFB151
+ 1849 0004 94000000 		.4byte	.LFE151
+ 1850 0008 00000000 		.4byte	0
+ 1851 000c 00000000 		.4byte	0
+ 1852              		.section	.debug_line,"",%progbits
+ 1853              	.Ldebug_line0:
+ 1854 0000 08040000 		.section	.debug_str,"MS",%progbits,1
+ 1854      0200C503 
+ 1854      00000201 
+ 1854      FB0E0D00 
+ 1854      01010101 
+ 1855              	.LASF41:
+ 1856 0000 52435F45 		.ascii	"RC_ERROR_TIME_OUT\000"
+ 1856      52524F52 
+ 1856      5F54494D 
+ 1856      455F4F55 
+ 1856      5400
+ 1857              	.LASF78:
+ 1858 0012 7265736F 		.ascii	"resource\000"
+ 1858      75726365 
+ 1858      00
+ 1859              	.LASF53:
+ 1860 001b 52435F45 		.ascii	"RC_ERROR_INVALID_STATE\000"
+ 1860      52524F52 
+ 1860      5F494E56 
+ 1860      414C4944 
+ 1860      5F535441 
+ 1861              	.LASF18:
+ 1862 0032 73697A65 		.ascii	"size_t\000"
+ 1862      5F7400
+ 1863              	.LASF99:
+ 1864 0039 70546173 		.ascii	"pTaskArray\000"
+ 1864      6B417272 
+ 1864      617900
+ 1865              	.LASF59:
+ 1866 0044 5265736F 		.ascii	"ResourceType\000"
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 46
+
+
+ 1866      75726365 
+ 1866      54797065 
+ 1866      00
+ 1867              	.LASF4:
+ 1868 0051 5F5F7569 		.ascii	"__uint8_t\000"
+ 1868      6E74385F 
+ 1868      7400
+ 1869              	.LASF56:
+ 1870 005b 52435F74 		.ascii	"RC_t\000"
+ 1870      00
+ 1871              	.LASF10:
+ 1872 0060 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1872      206C6F6E 
+ 1872      6720756E 
+ 1872      7369676E 
+ 1872      65642069 
+ 1873              	.LASF113:
+ 1874 0077 45455F6F 		.ascii	"EE_oo_SetEvent\000"
+ 1874      6F5F5365 
+ 1874      74457665 
+ 1874      6E7400
+ 1875              	.LASF51:
+ 1876 0086 52435F45 		.ascii	"RC_ERROR_BAD_DATA\000"
+ 1876      52524F52 
+ 1876      5F424144 
+ 1876      5F444154 
+ 1876      4100
+ 1877              	.LASF105:
+ 1878 0098 45455F6F 		.ascii	"EE_oo_IRQ_disable_count\000"
+ 1878      6F5F4952 
+ 1878      515F6469 
+ 1878      7361626C 
+ 1878      655F636F 
+ 1879              	.LASF110:
+ 1880 00b0 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1880      52784275 
+ 1880      66666572 
+ 1880      00
+ 1881              	.LASF65:
+ 1882 00bd 53435F41 		.ascii	"SC_ADC_data_t\000"
+ 1882      44435F64 
+ 1882      6174615F 
+ 1882      7400
+ 1883              	.LASF66:
+ 1884 00cb 53435F41 		.ascii	"SC_ADC_driverIn_t\000"
+ 1884      44435F64 
+ 1884      72697665 
+ 1884      72496E5F 
+ 1884      7400
+ 1885              	.LASF90:
+ 1886 00dd 53435F53 		.ascii	"SC_SPEED_cfg_s\000"
+ 1886      50454544 
+ 1886      5F636667 
+ 1886      5F7300
+ 1887              	.LASF91:
+ 1888 00ec 53435F53 		.ascii	"SC_SPEED_cfg_t\000"
+ 1888      50454544 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 47
+
+
+ 1888      5F636667 
+ 1888      5F7400
+ 1889              	.LASF9:
+ 1890 00fb 6C6F6E67 		.ascii	"long long int\000"
+ 1890      206C6F6E 
+ 1890      6720696E 
+ 1890      7400
+ 1891              	.LASF0:
+ 1892 0109 7369676E 		.ascii	"signed char\000"
+ 1892      65642063 
+ 1892      68617200 
+ 1893              	.LASF26:
+ 1894 0115 4576656E 		.ascii	"EventMaskType\000"
+ 1894      744D6173 
+ 1894      6B547970 
+ 1894      6500
+ 1895              	.LASF71:
+ 1896 0123 65764F6E 		.ascii	"evOnUpdate\000"
+ 1896      55706461 
+ 1896      746500
+ 1897              	.LASF39:
+ 1898 012e 52435F45 		.ascii	"RC_ERROR_BUFFER_EMTPY\000"
+ 1898      52524F52 
+ 1898      5F425546 
+ 1898      4645525F 
+ 1898      454D5450 
+ 1899              	.LASF6:
+ 1900 0144 6C6F6E67 		.ascii	"long int\000"
+ 1900      20696E74 
+ 1900      00
+ 1901              	.LASF42:
+ 1902 014d 52435F45 		.ascii	"RC_ERROR_OPEN\000"
+ 1902      52524F52 
+ 1902      5F4F5045 
+ 1902      4E00
+ 1903              	.LASF101:
+ 1904 015b 6164635F 		.ascii	"adc_t\000"
+ 1904      7400
+ 1905              	.LASF97:
+ 1906 0161 5254455F 		.ascii	"RTE_SC_SPEED_set\000"
+ 1906      53435F53 
+ 1906      50454544 
+ 1906      5F736574 
+ 1906      00
+ 1907              	.LASF62:
+ 1908 0172 5254455F 		.ascii	"RTE_SIGNALSTATUS_VALID\000"
+ 1908      5349474E 
+ 1908      414C5354 
+ 1908      41545553 
+ 1908      5F56414C 
+ 1909              	.LASF73:
+ 1910 0189 6F6E5570 		.ascii	"onUpdateTaskCount\000"
+ 1910      64617465 
+ 1910      5461736B 
+ 1910      436F756E 
+ 1910      7400
+ 1911              	.LASF108:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 48
+
+
+ 1912 019b 45455F73 		.ascii	"EE_std_endcycle_next_tid\000"
+ 1912      74645F65 
+ 1912      6E646379 
+ 1912      636C655F 
+ 1912      6E657874 
+ 1913              	.LASF7:
+ 1914 01b4 5F5F7569 		.ascii	"__uint32_t\000"
+ 1914      6E743332 
+ 1914      5F7400
+ 1915              	.LASF114:
+ 1916 01bf 55415254 		.ascii	"UART_Log_Tx\000"
+ 1916      5F4C6F67 
+ 1916      5F547800 
+ 1917              	.LASF118:
+ 1918 01cb 736F7572 		.ascii	"source\\asw\\swc_control.c\000"
+ 1918      63655C61 
+ 1918      73775C73 
+ 1918      77635F63 
+ 1918      6F6E7472 
+ 1919              	.LASF24:
+ 1920 01e4 45455F54 		.ascii	"EE_TID\000"
+ 1920      494400
+ 1921              	.LASF82:
+ 1922 01eb 76616C75 		.ascii	"value\000"
+ 1922      6500
+ 1923              	.LASF92:
+ 1924 01f1 53435F53 		.ascii	"SC_SPEED_s\000"
+ 1924      50454544 
+ 1924      5F7300
+ 1925              	.LASF93:
+ 1926 01fc 53435F53 		.ascii	"SC_SPEED_t\000"
+ 1926      50454544 
+ 1926      5F7400
+ 1927              	.LASF11:
+ 1928 0207 756E7369 		.ascii	"unsigned int\000"
+ 1928      676E6564 
+ 1928      20696E74 
+ 1928      00
+ 1929              	.LASF111:
+ 1930 0214 534F5F4A 		.ascii	"SO_JOYSTICK_signal\000"
+ 1930      4F595354 
+ 1930      49434B5F 
+ 1930      7369676E 
+ 1930      616C00
+ 1931              	.LASF116:
+ 1932 0227 57445F41 		.ascii	"WD_Alive\000"
+ 1932      6C697665 
+ 1932      00
+ 1933              	.LASF54:
+ 1934 0230 52435F45 		.ascii	"RC_ERROR_UNKNOWN\000"
+ 1934      52524F52 
+ 1934      5F554E4B 
+ 1934      4E4F574E 
+ 1934      00
+ 1935              	.LASF22:
+ 1936 0241 45455F55 		.ascii	"EE_UREG\000"
+ 1936      52454700 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 49
+
+
+ 1937              	.LASF70:
+ 1938 0249 6F757444 		.ascii	"outDriver\000"
+ 1938      72697665 
+ 1938      7200
+ 1939              	.LASF43:
+ 1940 0253 52435F45 		.ascii	"RC_ERROR_CHECKSUM\000"
+ 1940      52524F52 
+ 1940      5F434845 
+ 1940      434B5355 
+ 1940      4D00
+ 1941              	.LASF8:
+ 1942 0265 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1942      20756E73 
+ 1942      69676E65 
+ 1942      6420696E 
+ 1942      7400
+ 1943              	.LASF32:
+ 1944 0277 52435F45 		.ascii	"RC_ERROR_NULL\000"
+ 1944      52524F52 
+ 1944      5F4E554C 
+ 1944      4C00
+ 1945              	.LASF58:
+ 1946 0285 5254455F 		.ascii	"RTE_event\000"
+ 1946      6576656E 
+ 1946      7400
+ 1947              	.LASF30:
+ 1948 028f 52435F53 		.ascii	"RC_SUCCESS\000"
+ 1948      55434345 
+ 1948      535300
+ 1949              	.LASF25:
+ 1950 029a 5461736B 		.ascii	"TaskType\000"
+ 1950      54797065 
+ 1950      00
+ 1951              	.LASF119:
+ 1952 02a3 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
+ 1952      61726D73 
+ 1952      74616474 
+ 1952      5C536563 
+ 1952      6F6E6453 
+ 1953 02d0 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
+ 1953      69634761 
+ 1953      73506564 
+ 1953      616C2E63 
+ 1953      7964736E 
+ 1954              	.LASF38:
+ 1955 02e5 52435F45 		.ascii	"RC_ERROR_BUFFER_FULL\000"
+ 1955      52524F52 
+ 1955      5F425546 
+ 1955      4645525F 
+ 1955      46554C4C 
+ 1956              	.LASF48:
+ 1957 02fa 52435F45 		.ascii	"RC_ERROR_WRITE_FAILS\000"
+ 1957      52524F52 
+ 1957      5F575249 
+ 1957      54455F46 
+ 1957      41494C53 
+ 1958              	.LASF80:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 50
+
+
+ 1959 030f 53435F41 		.ascii	"SC_ADC_cfg_s\000"
+ 1959      44435F63 
+ 1959      66675F73 
+ 1959      00
+ 1960              	.LASF60:
+ 1961 031c 5254455F 		.ascii	"RTE_SIGNALSTATUS_STARTUP\000"
+ 1961      5349474E 
+ 1961      414C5354 
+ 1961      41545553 
+ 1961      5F535441 
+ 1962              	.LASF115:
+ 1963 0335 73707269 		.ascii	"sprintf\000"
+ 1963      6E746600 
+ 1964              	.LASF50:
+ 1965 033d 52435F45 		.ascii	"RC_ERROR_BAD_PARAM\000"
+ 1965      52524F52 
+ 1965      5F424144 
+ 1965      5F504152 
+ 1965      414D00
+ 1966              	.LASF49:
+ 1967 0350 52435F45 		.ascii	"RC_ERROR_NOT_MATCH\000"
+ 1967      52524F52 
+ 1967      5F4E4F54 
+ 1967      5F4D4154 
+ 1967      434800
+ 1968              	.LASF103:
+ 1969 0363 73706565 		.ascii	"speedSignal_t\000"
+ 1969      64536967 
+ 1969      6E616C5F 
+ 1969      7400
+ 1970              	.LASF89:
+ 1971 0371 53435F53 		.ascii	"SC_SPEED_driverOut_t\000"
+ 1971      50454544 
+ 1971      5F647269 
+ 1971      7665724F 
+ 1971      75745F74 
+ 1972              	.LASF79:
+ 1973 0386 53435F41 		.ascii	"SC_ADC_cfg_t\000"
+ 1973      44435F63 
+ 1973      66675F74 
+ 1973      00
+ 1974              	.LASF88:
+ 1975 0393 53435F53 		.ascii	"SC_SPEED_driverIn_t\000"
+ 1975      50454544 
+ 1975      5F647269 
+ 1975      76657249 
+ 1975      6E5F7400 
+ 1976              	.LASF27:
+ 1977 03a7 73697A65 		.ascii	"sizetype\000"
+ 1977      74797065 
+ 1977      00
+ 1978              	.LASF63:
+ 1979 03b0 5254455F 		.ascii	"RTE_SIGNALSTATUS_INVALID\000"
+ 1979      5349474E 
+ 1979      414C5354 
+ 1979      41545553 
+ 1979      5F494E56 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 51
+
+
+ 1980              	.LASF29:
+ 1981 03c9 626F6F6C 		.ascii	"boolean_t\000"
+ 1981      65616E5F 
+ 1981      7400
+ 1982              	.LASF106:
+ 1983 03d3 45455F6F 		.ascii	"EE_oo_IRQ_suspend_status\000"
+ 1983      6F5F4952 
+ 1983      515F7375 
+ 1983      7370656E 
+ 1983      645F7374 
+ 1984              	.LASF46:
+ 1985 03ec 52435F45 		.ascii	"RC_ERROR_INVALID\000"
+ 1985      52524F52 
+ 1985      5F494E56 
+ 1985      414C4944 
+ 1985      00
+ 1986              	.LASF107:
+ 1987 03fd 45455F41 		.ascii	"EE_ApplicationMode\000"
+ 1987      70706C69 
+ 1987      63617469 
+ 1987      6F6E4D6F 
+ 1987      646500
+ 1988              	.LASF95:
+ 1989 0410 5254455F 		.ascii	"RTE_SC_ADC_get\000"
+ 1989      53435F41 
+ 1989      44435F67 
+ 1989      657400
+ 1990              	.LASF52:
+ 1991 041f 52435F45 		.ascii	"RC_ERROR_CANCELED\000"
+ 1991      52524F52 
+ 1991      5F43414E 
+ 1991      43454C45 
+ 1991      4400
+ 1992              	.LASF37:
+ 1993 0431 52435F45 		.ascii	"RC_ERROR_UNDERRUN\000"
+ 1993      52524F52 
+ 1993      5F554E44 
+ 1993      45525255 
+ 1993      4E00
+ 1994              	.LASF47:
+ 1995 0443 52435F45 		.ascii	"RC_ERROR_READ_FAILS\000"
+ 1995      52524F52 
+ 1995      5F524541 
+ 1995      445F4641 
+ 1995      494C5300 
+ 1996              	.LASF67:
+ 1997 0457 53435F41 		.ascii	"SC_ADC_driverOut_t\000"
+ 1997      44435F64 
+ 1997      72697665 
+ 1997      724F7574 
+ 1997      5F7400
+ 1998              	.LASF69:
+ 1999 046a 696E4472 		.ascii	"inDriver\000"
+ 1999      69766572 
+ 1999      00
+ 2000              	.LASF31:
+ 2001 0473 52435F45 		.ascii	"RC_ERROR\000"
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 52
+
+
+ 2001      52524F52 
+ 2001      00
+ 2002              	.LASF15:
+ 2003 047c 666C6F61 		.ascii	"float\000"
+ 2003      7400
+ 2004              	.LASF40:
+ 2005 0482 52435F45 		.ascii	"RC_ERROR_BUSY\000"
+ 2005      52524F52 
+ 2005      5F425553 
+ 2005      5900
+ 2006              	.LASF75:
+ 2007 0490 6F6E4572 		.ascii	"onErrorTaskCount\000"
+ 2007      726F7254 
+ 2007      61736B43 
+ 2007      6F756E74 
+ 2007      00
+ 2008              	.LASF45:
+ 2009 04a1 52435F45 		.ascii	"RC_ERROR_WRITE_ONLY\000"
+ 2009      52524F52 
+ 2009      5F575249 
+ 2009      54455F4F 
+ 2009      4E4C5900 
+ 2010              	.LASF13:
+ 2011 04b5 696E7433 		.ascii	"int32_t\000"
+ 2011      325F7400 
+ 2012              	.LASF104:
+ 2013 04bd 61646353 		.ascii	"adcSignalStatus\000"
+ 2013      69676E61 
+ 2013      6C537461 
+ 2013      74757300 
+ 2014              	.LASF2:
+ 2015 04cd 73686F72 		.ascii	"short int\000"
+ 2015      7420696E 
+ 2015      7400
+ 2016              	.LASF74:
+ 2017 04d7 6F6E5570 		.ascii	"onUpdateTasks\000"
+ 2017      64617465 
+ 2017      5461736B 
+ 2017      7300
+ 2018              	.LASF33:
+ 2019 04e5 52435F45 		.ascii	"RC_ERROR_ZERO\000"
+ 2019      52524F52 
+ 2019      5F5A4552 
+ 2019      4F00
+ 2020              	.LASF112:
+ 2021 04f3 534F5F53 		.ascii	"SO_SPEED_signal\000"
+ 2021      50454544 
+ 2021      5F736967 
+ 2021      6E616C00 
+ 2022              	.LASF117:
+ 2023 0503 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2023      43313120 
+ 2023      352E342E 
+ 2023      31203230 
+ 2023      31363036 
+ 2024 0536 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2024      20726576 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 53
+
+
+ 2024      6973696F 
+ 2024      6E203233 
+ 2024      37373135 
+ 2025 0569 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2025      66756E63 
+ 2025      74696F6E 
+ 2025      2D736563 
+ 2025      74696F6E 
+ 2026              	.LASF120:
+ 2027 0591 434F4E54 		.ascii	"CONTROL_calcControl_run\000"
+ 2027      524F4C5F 
+ 2027      63616C63 
+ 2027      436F6E74 
+ 2027      726F6C5F 
+ 2028              	.LASF72:
+ 2029 05a9 65764F6E 		.ascii	"evOnError\000"
+ 2029      4572726F 
+ 2029      7200
+ 2030              	.LASF68:
+ 2031 05b3 6164635F 		.ascii	"adc_output\000"
+ 2031      6F757470 
+ 2031      757400
+ 2032              	.LASF84:
+ 2033 05be 70536967 		.ascii	"pSigCfg\000"
+ 2033      43666700 
+ 2034              	.LASF14:
+ 2035 05c6 75696E74 		.ascii	"uint32_t\000"
+ 2035      33325F74 
+ 2035      00
+ 2036              	.LASF96:
+ 2037 05cf 7369676E 		.ascii	"signal\000"
+ 2037      616C00
+ 2038              	.LASF87:
+ 2039 05d6 53435F53 		.ascii	"SC_SPEED_data_t\000"
+ 2039      50454544 
+ 2039      5F646174 
+ 2039      615F7400 
+ 2040              	.LASF44:
+ 2041 05e6 52435F45 		.ascii	"RC_ERROR_READ_ONLY\000"
+ 2041      52524F52 
+ 2041      5F524541 
+ 2041      445F4F4E 
+ 2041      4C5900
+ 2042              	.LASF19:
+ 2043 05f9 6C6F6E67 		.ascii	"long double\000"
+ 2043      20646F75 
+ 2043      626C6500 
+ 2044              	.LASF17:
+ 2045 0605 63686172 		.ascii	"char\000"
+ 2045      00
+ 2046              	.LASF61:
+ 2047 060a 5254455F 		.ascii	"RTE_SIGNALSTATUS_INITIALIZED\000"
+ 2047      5349474E 
+ 2047      414C5354 
+ 2047      41545553 
+ 2047      5F494E49 
+ 2048              	.LASF94:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 54
+
+
+ 2049 0627 5254455F 		.ascii	"RTE_SC_ADC_getStatus\000"
+ 2049      53435F41 
+ 2049      44435F67 
+ 2049      65745374 
+ 2049      61747573 
+ 2050              	.LASF77:
+ 2051 063c 7265736F 		.ascii	"resourceActive\000"
+ 2051      75726365 
+ 2051      41637469 
+ 2051      766500
+ 2052              	.LASF5:
+ 2053 064b 5F5F696E 		.ascii	"__int32_t\000"
+ 2053      7433325F 
+ 2053      7400
+ 2054              	.LASF55:
+ 2055 0655 52435F45 		.ascii	"RC_ERROR_NOT_IMPLEMENTED\000"
+ 2055      52524F52 
+ 2055      5F4E4F54 
+ 2055      5F494D50 
+ 2055      4C454D45 
+ 2056              	.LASF36:
+ 2057 066e 52435F45 		.ascii	"RC_ERROR_OVERRUN\000"
+ 2057      52524F52 
+ 2057      5F4F5645 
+ 2057      5252554E 
+ 2057      00
+ 2058              	.LASF100:
+ 2059 067f 7461736B 		.ascii	"task\000"
+ 2059      00
+ 2060              	.LASF64:
+ 2061 0684 5254455F 		.ascii	"RTE_signalStatus_t\000"
+ 2061      7369676E 
+ 2061      616C5374 
+ 2061      61747573 
+ 2061      5F7400
+ 2062              	.LASF34:
+ 2063 0697 52435F45 		.ascii	"RC_ERROR_MEMORY\000"
+ 2063      52524F52 
+ 2063      5F4D454D 
+ 2063      4F525900 
+ 2064              	.LASF3:
+ 2065 06a7 73686F72 		.ascii	"short unsigned int\000"
+ 2065      7420756E 
+ 2065      7369676E 
+ 2065      65642069 
+ 2065      6E7400
+ 2066              	.LASF1:
+ 2067 06ba 756E7369 		.ascii	"unsigned char\000"
+ 2067      676E6564 
+ 2067      20636861 
+ 2067      7200
+ 2068              	.LASF57:
+ 2069 06c8 5461736B 		.ascii	"TaskTypeArray\000"
+ 2069      54797065 
+ 2069      41727261 
+ 2069      7900
+ 2070              	.LASF98:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 55
+
+
+ 2071 06d6 7461736B 		.ascii	"taskNum\000"
+ 2071      4E756D00 
+ 2072              	.LASF102:
+ 2073 06de 73706565 		.ascii	"speedString\000"
+ 2073      64537472 
+ 2073      696E6700 
+ 2074              	.LASF121:
+ 2075 06ea 6D656D73 		.ascii	"memset\000"
+ 2075      657400
+ 2076              	.LASF28:
+ 2077 06f1 73696E74 		.ascii	"sint8_t\000"
+ 2077      385F7400 
+ 2078              	.LASF83:
+ 2079 06f9 73746174 		.ascii	"status\000"
+ 2079      757300
+ 2080              	.LASF109:
+ 2081 0700 45455F49 		.ascii	"EE_IRQ_nesting_level\000"
+ 2081      52515F6E 
+ 2081      65737469 
+ 2081      6E675F6C 
+ 2081      6576656C 
+ 2082              	.LASF21:
+ 2083 0715 45455F55 		.ascii	"EE_UINT32\000"
+ 2083      494E5433 
+ 2083      3200
+ 2084              	.LASF35:
+ 2085 071f 52435F45 		.ascii	"RC_ERROR_RANGE\000"
+ 2085      52524F52 
+ 2085      5F52414E 
+ 2085      474500
+ 2086              	.LASF20:
+ 2087 072e 45455F49 		.ascii	"EE_INT32\000"
+ 2087      4E543332 
+ 2087      00
+ 2088              	.LASF12:
+ 2089 0737 75696E74 		.ascii	"uint8_t\000"
+ 2089      385F7400 
+ 2090              	.LASF86:
+ 2091 073f 73706565 		.ascii	"speed\000"
+ 2091      6400
+ 2092              	.LASF76:
+ 2093 0745 6F6E4572 		.ascii	"onErrorTasks\000"
+ 2093      726F7254 
+ 2093      61736B73 
+ 2093      00
+ 2094              	.LASF16:
+ 2095 0752 646F7562 		.ascii	"double\000"
+ 2095      6C6500
+ 2096              	.LASF23:
+ 2097 0759 45455F46 		.ascii	"EE_FREG\000"
+ 2097      52454700 
+ 2098              	.LASF81:
+ 2099 0761 53435F41 		.ascii	"SC_ADC_s\000"
+ 2099      44435F73 
+ 2099      00
+ 2100              	.LASF85:
+ 2101 076a 53435F41 		.ascii	"SC_ADC_t\000"
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccYbPHS5.s 			page 56
+
+
+ 2101      44435F74 
+ 2101      00
+ 2102              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

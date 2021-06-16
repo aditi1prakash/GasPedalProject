@@ -50,12 +50,22 @@
           <File BuildType="BUILD" Toolchain="">source\asw\tsk_control.h</File>
           <File BuildType="BUILD" Toolchain="">source\asw\tsk_io.c</File>
           <File BuildType="BUILD" Toolchain="">source\asw\tsk_io.h</File>
+          <File BuildType="BUILD" Toolchain="">source\asw\tsk_system.c</File>
+          <File BuildType="BUILD" Toolchain="">source\asw\tsk_system.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Darmstadt\SecondSem\EAA\Lab1\GasPedal\ElectronicGasPedal.cydsn">
         <Files Root="C:\Darmstadt\SecondSem\EAA\Lab1\GasPedal\ElectronicGasPedal.cydsn">
           <File BuildType="BUILD" Toolchain="">source\bsw\derivate.h</File>
           <File BuildType="BUILD" Toolchain="">source\bsw\global.h</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\adc.h</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\pwm_rgb.h</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\uart.h</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\watchdog.h</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\adc.c</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\pwm_rgb.c</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\uart.c</File>
+          <File BuildType="BUILD" Toolchain="">source\bsw\watchdog.c</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Darmstadt\SecondSem\EAA\Lab1\GasPedal\ElectronicGasPedal.cydsn">
@@ -100,87 +110,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitteriar.inc</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitter.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cydisabledsheets.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_api.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_internal.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_irq.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_os.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_rtdruid_versions.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_api.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_common.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_inline.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_internal.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_intfunc.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_irq.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_oo_kernel.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_activate.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_alcancel.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_alget.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_algetbase.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_alsetabs.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_alsetrel.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_altick.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_chaintas.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_evclear.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_evget.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_evset.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_evwait.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_force_schedule.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_getcountervalue.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_getelapsedvalue.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gettaskid.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gettaskstate.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_iparam.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_irqendin.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_lockres.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_lookup.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_rq_exchg.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_rq_first.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_rq_inser.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_schedule.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_semgetvalue.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_sempost.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_semtrywait.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_semwait.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_shtdown.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_startos.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_terminat.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_thendin.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_tnterm.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_tstub.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_ulockallres.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_ulockres.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_context.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_cpu.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_internal.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_irq.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_irq_cng_cont.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_nvic.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_systick.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_context.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_system_timer.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_cortex_mx_ee_utils.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gnu_change_context_isr.s</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gnu_irq_stack.s</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gnu_multi_context.s</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_gnu_oo.s</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_compiler_gcc.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_hal_structs.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_primitives.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_types.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_irqstub.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_stdint.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_common_ee_hal_structs.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_as_kernel.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_as_timing_prot.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_as_internal.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_eecfg.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_eecfg.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_task_priorities.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_event_definition.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_resource_priorities.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ISR_definition.inc</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_1_ee_tracing.h</File>
           <File BuildType="BUILD" Toolchain="ARM GCC Generic">Generated_Source\PSoC5\cm3gcc.ld</File>
           <File BuildType="BUILD" Toolchain="ARM MDK Generic">Generated_Source\PSoC5\Cm3RealView.scat</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Cm3Start.c</File>
@@ -214,31 +143,12 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareimport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareexport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareimport.scat</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_INT.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_PM.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_IRQ.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_IRQ.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_theACLK.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_theACLK.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_Bypass_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_Bypass.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_x_Bypass.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_x_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_x.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_x.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_y_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_y.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Joystick_Pin_y.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_INT.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_PM.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_IRQ.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_IRQ.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_theACLK.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_y_theACLK.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_Joystick.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_Joystick.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_Joystick_PM.c</File>
@@ -254,6 +164,103 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RGB_Green_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RGB_Green.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RGB_Green.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RedLed_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RedLed.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_RedLed.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_INT.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_IRQ.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_IRQ.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_theACLK.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ADC_JoyStick_theACLK.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_api.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_internal.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_irq.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_os.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_rtdruid_versions.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_api.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_common.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_inline.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_internal.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_intfunc.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_irq.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_oo_kernel.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_activate.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_alcancel.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_alget.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_algetbase.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_alsetabs.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_alsetrel.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_altick.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_chaintas.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_evclear.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_evget.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_evset.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_evwait.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_force_schedule.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_getcountervalue.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_getelapsedvalue.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gettaskid.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gettaskstate.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_iparam.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_irqendin.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_lockres.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_lookup.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_rq_exchg.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_rq_first.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_rq_inser.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_schedule.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_semgetvalue.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_sempost.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_semtrywait.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_semwait.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_shtdown.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_startos.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_terminat.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_thendin.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_tnterm.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_tstub.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_ulockallres.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_ulockres.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_context.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_cpu.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_internal.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_irq.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_irq_cng_cont.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_nvic.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_systick.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_context.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_system_timer.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_cortex_mx_ee_utils.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gnu_change_context_isr.s</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gnu_irq_stack.s</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gnu_multi_context.s</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_gnu_oo.s</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_compiler_gcc.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_hal_structs.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_primitives.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_types.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_irqstub.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_stdint.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_common_ee_hal_structs.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_as_kernel.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_as_timing_prot.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_as_internal.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_eecfg.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_eecfg.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_task_priorities.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_event_definition.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_resource_priorities.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ISR_definition.inc</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\ErikaOS_ee_tracing.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_WDGButton_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_WDGButton.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Pin_WDGButton.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_wdgButton.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_wdgButton.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Darmstadt\SecondSem\EAA\Lab1\GasPedal\ElectronicGasPedal.cydsn\Export\ARM_GCC_Generic">

@@ -15,7 +15,8 @@
 
 
 /* USER CODE START SC_ADC_INCLUDE */
-
+#include "adc.h"
+#include "uart.h"
 /* USER CODE END SC_ADC_INCLUDE */
 
 
@@ -26,7 +27,8 @@
 */
 
 /* USER CODE START SC_ADC_USERDEFINITIONS */
-
+#define JOYSTICK_CALIBRATION_MAX        12
+#define JOYSTICK_CALIBRATION_MIN       -12
 /* USER CODE END SC_ADC_USERDEFINITIONS */
 
 
@@ -42,18 +44,29 @@
 inline RC_t SC_ADC_driverIn(SC_ADC_data_t *const data)
 {
 	/* USER CODE START driverInSC_ADC */
-    if(ADC_JoyStick_x_IsEndConversion(ADC_JoyStick_x_WAIT_FOR_RESULT))
+
+    //Temporary variable to correct the offset from Joystick
+    sint8_t adcOutput_t = 0;
+    
+    //Read data from the MCAL driver
+    if(RC_SUCCESS == ADC_getValue(&adcOutput_t))
     {
-        data->adc_output = ADC_JoyStick_x_GetResult8();
+    	//Scale it to the application type
+        //Software calibration for Joystick - discarding values between -12 and +12
+        if(adcOutput_t > JOYSTICK_CALIBRATION_MIN && adcOutput_t < JOYSTICK_CALIBRATION_MAX)
+        {
+            data->adc_output = 0;
+        }
+        else
+        {
+            data->adc_output = adcOutput_t;
+        }
     }
-
-	//Read data from the MCAL driver
-
-	//Scale it to the application type
-
+    else
+    {
+        UART_Log_Tx("Unable to get ADC value from Driver");
+    }
+    
 	return RC_SUCCESS;
 	/* USER CODE END driverInSC_ADC */
 }
-
-
-

@@ -276,7 +276,7 @@
         ,4U
     #endif
     #if EE_MAX_TASK > 3
-        ,4U
+        ,8U
     #endif
     #if EE_MAX_TASK > 4
         ,0U
@@ -391,7 +391,7 @@
         ,"ev_speed_onData"
     #endif
     #if EE_MAX_EVENT > 2
-        ,"Event_3"
+        ,"ev_tick_1ms"
     #endif
     #if EE_MAX_EVENT > 3
          ,"Event_4"
@@ -488,7 +488,7 @@
         ,ev_speed_onData
     #endif
     #if EE_MAX_EVENT > 2
-        ,Event_3
+        ,ev_tick_1ms
     #endif
     #if EE_MAX_EVENT > 3
         ,Event_4
@@ -602,7 +602,7 @@
     #endif
     #if EE_MAX_TASK > 3
         #if 1
-        ,4U
+        ,8U
         #else
         ,MAX_PRIORITY
         #endif
@@ -1020,7 +1020,7 @@
         #endif
     #endif
     #if EE_MAX_TASK > 2
-        #if 1
+        #if 2
         ,1U
         #else
         ,0U
@@ -1651,7 +1651,7 @@ const unsigned long EE_ALARM_ID[EE_MAX_ALARM]=
     };
 
 //Functions
-#if (EE_MAX_ALARM > 0) && (0 == 3)
+#if (EE_MAX_ALARM > 0) && (1 == 3)
     void alarm_callback_1(void);
 #endif
 #if (EE_MAX_ALARM > 1) && (0 == 3)
@@ -1721,18 +1721,18 @@ const unsigned long EE_ALARM_ID[EE_MAX_ALARM]=
 #if EE_ACTION_ROM_SIZE
     const EE_oo_action_ROM_type   EE_oo_action_ROM[EE_ACTION_ROM_SIZE] = {
     #if EE_ACTION_ROM_SIZE > 0
-        {0    , 
-            #if 0 != 3 
+        {1    , 
+            #if 1 != 3 
                 2,
             #else
                 0,
             #endif
-            #if 0 == 1
-                1U,
+            #if 1 == 1
+                4U,
             #else
                 0U,
             #endif
-            #if 0 != 3
+            #if 1 != 3
              (EE_VOID_CALLBACK)NULL,
             #else
                 alarm_callback_1,

@@ -20,13 +20,13 @@
 
 /*
 * description: This task will contain all IO operations, e.g: joystick, engine...
-* events: ev_speed_onData
+* events: ev_speed_onData|ev_tick_1ms
 * mode: Cyclic and Event
 * name: tsk_io
 * shortname: io
 * signalpoolsRO: sp_common
 * signalpoolsRW: sp_common
-* tickEvent: 0
+* tickEvent: ev_tick_1ms
 * timertickperiod: 1
 */
 DeclareTask(tsk_io);

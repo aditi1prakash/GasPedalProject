@@ -66,21 +66,21 @@
 #define TSK3_PRI 7U
 #endif
 
-#if (4 == 0x1)
+#if (8 == 0x1)
 #define TSK4_PRI 0U
-#elif (4 == 0x2)
+#elif (8 == 0x2)
 #define TSK4_PRI 1U
-#elif (4 == 0x4)
+#elif (8 == 0x4)
 #define TSK4_PRI 2U
-#elif (4 == 0x8)
+#elif (8 == 0x8)
 #define TSK4_PRI 3U
-#elif (4 == 0x10)
+#elif (8 == 0x10)
 #define TSK4_PRI 4U
-#elif (4 == 0x20)
+#elif (8 == 0x20)
 #define TSK4_PRI 5U
-#elif (4 == 0x40)
+#elif (8 == 0x40)
 #define TSK4_PRI 6U
-#elif (4 == 0x80)
+#elif (8 == 0x80)
 #define TSK4_PRI 7U
 #endif
 

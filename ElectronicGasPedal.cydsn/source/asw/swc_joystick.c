@@ -11,19 +11,19 @@
 #include "rte.h"
 #include "rte_types.h"
 #include "swc_joystick.h"
-
+#include "uart.h"
+#include "watchdog.h"
 
 
 /* USER CODE START SWC_JOYSTICK_INCLUDE */
 #include <stdio.h>
 /* USER CODE END SWC_JOYSTICK_INCLUDE */
 
-
 #include "sp_common.h"
 
 /* USER CODE START SWC_JOYSTICK_USERDEFINITIONS */
-SC_ADC_t adc_joystick_x;
-static sint8_t so_joystick = 0;
+#define WDG_ALIVE_STATUS_JOYSTICK       0x01
+
 static char joystickString[50] = {0};
 /* USER CODE END SWC_JOYSTICK_USERDEFINITIONS */
 
@@ -43,27 +43,20 @@ static char joystickString[50] = {0};
 void JOYSTICK_readJoystick_run(RTE_event ev){
 	
 	/* USER CODE START JOYSTICK_readJoystick_run */
+    if(RC_SUCCESS == RTE_SC_ADC_pullPort(&SO_JOYSTICK_signal))
+    {
+        //Convert data to string format and log the value on the terminal
+        sprintf(joystickString, "%d", SO_JOYSTICK_signal.value.adc_output); 
+        UART_Log_Tx(joystickString);
+    }
+    else
+    {
+        UART_Log_Tx("Could not fetch joystick data from port");
+    }
     
-    //UART_Joystick_x_PutString ("In joystick runnable");
+    //Report Alive Status to Watchdog timer
+    WD_Alive(WDG_ALIVE_STATUS_JOYSTICK);
 
-    ADC_JoyStick_x_StartConvert();
-    //UART_Joystick_x_PutString ("Started Conversion");
-    
-    RTE_SC_ADC_pullPort(&SO_JOYSTICK_signal);
-    
-    //if(0 == RTE_SC_ADC_pullPort(&adc_joystick_x))
-    //{
-        //so_joystick = ADC_JoyStick_x_GetResult8();  //adc_joystick_x.value.adc_output;
-    //}
-    
-    sprintf(joystickString, "%d", SO_JOYSTICK_signal.value.adc_output);
-        
-    UART_Joystick_PutString(joystickString);
-    UART_Joystick_PutString("\r\n");
-    CyDelay(500);
-    
-    //SetEvent(tsk_control, ev_joystick_onData);
-    
     /* USER CODE END JOYSTICK_readJoystick_run */
 }
 

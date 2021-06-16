@@ -1,0 +1,1294 @@
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"watchdog.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.WD_Start,"ax",%progbits
+  20              		.align	2
+  21              		.global	WD_Start
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	WD_Start, %function
+  25              	WD_Start:
+  26              	.LFB0:
+  27              		.file 1 "source\\bsw\\watchdog.c"
+   1:source\bsw/watchdog.c **** /**
+   2:source\bsw/watchdog.c **** * \file watchdog.c
+   3:source\bsw/watchdog.c **** * \author Aditi Prakash
+   4:source\bsw/watchdog.c **** * \date 29-05-2021
+   5:source\bsw/watchdog.c **** *
+   6:source\bsw/watchdog.c **** * \brief Source file Watchdog driver component in BSW
+   7:source\bsw/watchdog.c **** *
+   8:source\bsw/watchdog.c **** * \copyright Copyright ©2016
+   9:source\bsw/watchdog.c **** * Department of electrical engineering and information technology, Hochschule Darmstadt - Universit
+  10:source\bsw/watchdog.c **** * Permission to use, copy, modify, and distribute this software and its documentation for education
+  11:source\bsw/watchdog.c **** * (unless permitted by h_da) and official h_da projects, is hereby granted for enrolled students of
+  12:source\bsw/watchdog.c **** * this paragraph and the following paragraph appear in all copies, modifications, and distributions
+  13:source\bsw/watchdog.c **** * Contact Prof.Dr.-Ing. Peter Fromm, peter.fromm@h-da.de, Birkenweg 8 64295 Darmstadt - GERMANY for
+  14:source\bsw/watchdog.c **** *
+  15:source\bsw/watchdog.c **** * \warning This software is a PROTOTYPE version and is not designed or intended for use in producti
+  16:source\bsw/watchdog.c **** * The user represents and warrants that it will NOT use or redistribute the Software for such purpo
+  17:source\bsw/watchdog.c **** * This prototype is for research purposes only. This software is provided "AS IS," without a warran
+  18:source\bsw/watchdog.c **** */
+  19:source\bsw/watchdog.c **** 
+  20:source\bsw/watchdog.c **** /*****************************************************************************/
+  21:source\bsw/watchdog.c **** /* Include files                                                             */
+  22:source\bsw/watchdog.c **** /*****************************************************************************/
+  23:source\bsw/watchdog.c **** #include "watchdog.h"
+  24:source\bsw/watchdog.c **** #include "CyLib.h"
+  25:source\bsw/watchdog.c **** 
+  26:source\bsw/watchdog.c **** /*****************************************************************************/
+  27:source\bsw/watchdog.c **** /* Local pre-processor symbols/macros ('#define')                            */
+  28:source\bsw/watchdog.c **** /*****************************************************************************/
+  29:source\bsw/watchdog.c **** #define WATCHDOG_RST_REG_VALUE      0x08
+  30:source\bsw/watchdog.c **** /*****************************************************************************/
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 2
+
+
+  31:source\bsw/watchdog.c **** /* Global variable definitions (declared in header file with 'extern')       */
+  32:source\bsw/watchdog.c **** /*****************************************************************************/
+  33:source\bsw/watchdog.c **** uint8_t bitField = 0;
+  34:source\bsw/watchdog.c **** /*****************************************************************************/
+  35:source\bsw/watchdog.c **** /* Local type definitions ('typedef')                                        */
+  36:source\bsw/watchdog.c **** /*****************************************************************************/
+  37:source\bsw/watchdog.c **** typedef enum
+  38:source\bsw/watchdog.c **** {
+  39:source\bsw/watchdog.c ****     JOYSTICK_RUNNABLE,
+  40:source\bsw/watchdog.c ****     CONTROL_RUNNABLE,
+  41:source\bsw/watchdog.c ****     ENGINE_RUNNABLE,
+  42:source\bsw/watchdog.c ****     BRAKELIGHT_RUNNABLE
+  43:source\bsw/watchdog.c **** }runnableList;
+  44:source\bsw/watchdog.c **** /*****************************************************************************/
+  45:source\bsw/watchdog.c **** /* Local variable definitions ('static')                                     */
+  46:source\bsw/watchdog.c **** /*****************************************************************************/
+  47:source\bsw/watchdog.c **** 
+  48:source\bsw/watchdog.c **** /*****************************************************************************/
+  49:source\bsw/watchdog.c **** /* Local function prototypes ('static')                                      */
+  50:source\bsw/watchdog.c **** /*****************************************************************************/
+  51:source\bsw/watchdog.c **** 
+  52:source\bsw/watchdog.c **** 
+  53:source\bsw/watchdog.c **** /*****************************************************************************/
+  54:source\bsw/watchdog.c **** /* Function implementation - global ('extern') and local ('static')          */
+  55:source\bsw/watchdog.c **** /*****************************************************************************/
+  56:source\bsw/watchdog.c **** 
+  57:source\bsw/watchdog.c **** /**
+  58:source\bsw/watchdog.c ****  * \brief        : Activate the Watchdog Trigger
+  59:source\bsw/watchdog.c ****  * \param        : WDT_TimeOut_t timeout - [IN] Timeout Period
+  60:source\bsw/watchdog.c ****  * @return       : RC_SUCCESS
+  61:source\bsw/watchdog.c **** **/
+  62:source\bsw/watchdog.c **** RC_t WD_Start(WDT_TimeOut_t timeout)
+  63:source\bsw/watchdog.c **** {
+  28              		.loc 1 63 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  64:source\bsw/watchdog.c ****     CyWdtStart(timeout, WDT_LPMODE_NOCHANGE);
+  37              		.loc 1 64 0
+  38 0002 0021     		movs	r1, #0
+  39 0004 FFF7FEFF 		bl	CyWdtStart
+  40              	.LVL1:
+  65:source\bsw/watchdog.c ****     return RC_SUCCESS;
+  66:source\bsw/watchdog.c **** }
+  41              		.loc 1 66 0
+  42 0008 0020     		movs	r0, #0
+  43 000a 08BD     		pop	{r3, pc}
+  44              		.cfi_endproc
+  45              	.LFE0:
+  46              		.size	WD_Start, .-WD_Start
+  47              		.section	.text.WD_Trigger,"ax",%progbits
+  48              		.align	2
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 3
+
+
+  49              		.global	WD_Trigger
+  50              		.thumb
+  51              		.thumb_func
+  52              		.type	WD_Trigger, %function
+  53              	WD_Trigger:
+  54              	.LFB1:
+  67:source\bsw/watchdog.c **** 
+  68:source\bsw/watchdog.c **** /**
+  69:source\bsw/watchdog.c ****  * \brief        : Service the Watchdog Trigger
+  70:source\bsw/watchdog.c ****  * \param        : NONE
+  71:source\bsw/watchdog.c ****  * @return       : RC_SUCCESS
+  72:source\bsw/watchdog.c **** **/
+  73:source\bsw/watchdog.c **** RC_t WD_Trigger()
+  74:source\bsw/watchdog.c **** {
+  55              		.loc 1 74 0
+  56              		.cfi_startproc
+  57              		@ args = 0, pretend = 0, frame = 0
+  58              		@ frame_needed = 0, uses_anonymous_args = 0
+  59 0000 08B5     		push	{r3, lr}
+  60              		.cfi_def_cfa_offset 8
+  61              		.cfi_offset 3, -8
+  62              		.cfi_offset 14, -4
+  75:source\bsw/watchdog.c ****     //Clears the PM_WDT_CR register of the watchdog timer
+  76:source\bsw/watchdog.c ****     CyWdtClear();
+  63              		.loc 1 76 0
+  64 0002 FFF7FEFF 		bl	CyWdtClear
+  65              	.LVL2:
+  77:source\bsw/watchdog.c ****     return RC_SUCCESS;
+  78:source\bsw/watchdog.c **** }
+  66              		.loc 1 78 0
+  67 0006 0020     		movs	r0, #0
+  68 0008 08BD     		pop	{r3, pc}
+  69              		.cfi_endproc
+  70              	.LFE1:
+  71              		.size	WD_Trigger, .-WD_Trigger
+  72 000a 00BF     		.section	.text.WD_CheckResetBit,"ax",%progbits
+  73              		.align	2
+  74              		.global	WD_CheckResetBit
+  75              		.thumb
+  76              		.thumb_func
+  77              		.type	WD_CheckResetBit, %function
+  78              	WD_CheckResetBit:
+  79              	.LFB2:
+  79:source\bsw/watchdog.c **** 
+  80:source\bsw/watchdog.c **** /**
+  81:source\bsw/watchdog.c ****  * \brief        : Checks the watchdog bit
+  82:source\bsw/watchdog.c ****  * \param        : NONE
+  83:source\bsw/watchdog.c ****  * @return TRUE if watchdog reset bit was set
+  84:source\bsw/watchdog.c **** **/
+  85:source\bsw/watchdog.c **** boolean_t WD_CheckResetBit()
+  86:source\bsw/watchdog.c **** {
+  80              		.loc 1 86 0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  85              	.LVL3:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 4
+
+
+  87:source\bsw/watchdog.c ****     //Local variable to fetch the watchdog reset register value
+  88:source\bsw/watchdog.c ****     uint8_t wdgResetRegister = 0;
+  89:source\bsw/watchdog.c ****     
+  90:source\bsw/watchdog.c ****     //Fetch the value in the reset register using the system function
+  91:source\bsw/watchdog.c ****     // https://community.cypress.com/t5/PSoC-5-3-1-MCU/PSoC-5LP-WDT-Reset-Detection/m-p/230974
+  92:source\bsw/watchdog.c ****     wdgResetRegister = CY_GET_REG8(CYREG_PHUB_CFGMEM23_CFG1);//CYDEV_RESET_SR0);
+  86              		.loc 1 92 0
+  87 0000 044B     		ldr	r3, .L7
+  88 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  89              	.LVL4:
+  90 0004 03F00803 		and	r3, r3, #8
+  91              	.LVL5:
+  93:source\bsw/watchdog.c ****     
+  94:source\bsw/watchdog.c ****     /*
+  95:source\bsw/watchdog.c ****      * CYDEV_RESET_SR0[3] is set on the occurence of a watchdog reset
+  96:source\bsw/watchdog.c ****      * It remains set until cleared by the user, by reading or writing to the register
+  97:source\bsw/watchdog.c ****      * Or until a POR (Power ON Reset).
+  98:source\bsw/watchdog.c ****      */
+  99:source\bsw/watchdog.c ****     if ((wdgResetRegister & WATCHDOG_RST_REG_VALUE) == WATCHDOG_RST_REG_VALUE)
+  92              		.loc 1 99 0
+  93 0008 03F0FF00 		and	r0, r3, #255
+  94 000c 03B1     		cbz	r3, .L6
+ 100:source\bsw/watchdog.c ****     {
+ 101:source\bsw/watchdog.c ****         return TRUE;
+  95              		.loc 1 101 0
+  96 000e 0120     		movs	r0, #1
+  97              	.L6:
+ 102:source\bsw/watchdog.c ****     }
+ 103:source\bsw/watchdog.c ****     else
+ 104:source\bsw/watchdog.c ****     {
+ 105:source\bsw/watchdog.c ****         return FALSE;
+ 106:source\bsw/watchdog.c ****     }
+ 107:source\bsw/watchdog.c **** }
+  98              		.loc 1 107 0
+  99 0010 7047     		bx	lr
+ 100              	.L8:
+ 101 0012 00BF     		.align	2
+ 102              	.L7:
+ 103 0014 BC760040 		.word	1073772220
+ 104              		.cfi_endproc
+ 105              	.LFE2:
+ 106              		.size	WD_CheckResetBit, .-WD_CheckResetBit
+ 107              		.section	.text.WD_Alive,"ax",%progbits
+ 108              		.align	2
+ 109              		.global	WD_Alive
+ 110              		.thumb
+ 111              		.thumb_func
+ 112              		.type	WD_Alive, %function
+ 113              	WD_Alive:
+ 114              	.LFB3:
+ 108:source\bsw/watchdog.c **** 
+ 109:source\bsw/watchdog.c **** /**
+ 110:source\bsw/watchdog.c ****  * \brief        : Set the bit in corresponding bitposition of the bitfield
+ 111:source\bsw/watchdog.c ****  * \param [IN]   : uint8_t myBitPosition - bitPosition of individual runnables
+ 112:source\bsw/watchdog.c ****  * @return SUCCESS/FAILURE
+ 113:source\bsw/watchdog.c ****  */
+ 114:source\bsw/watchdog.c **** RC_t WD_Alive(uint8_t myBitPosition)
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 5
+
+
+ 115:source\bsw/watchdog.c **** {
+ 115              		.loc 1 115 0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 120              	.LVL6:
+ 116:source\bsw/watchdog.c ****     bitField = bitField | myBitPosition;
+ 121              		.loc 1 116 0
+ 122 0000 024A     		ldr	r2, .L10
+ 123 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 124 0004 1843     		orrs	r0, r0, r3
+ 125              	.LVL7:
+ 126 0006 1070     		strb	r0, [r2]
+ 117:source\bsw/watchdog.c ****     return RC_SUCCESS;    
+ 118:source\bsw/watchdog.c **** }
+ 127              		.loc 1 118 0
+ 128 0008 0020     		movs	r0, #0
+ 129 000a 7047     		bx	lr
+ 130              	.L11:
+ 131              		.align	2
+ 132              	.L10:
+ 133 000c 00000000 		.word	.LANCHOR0
+ 134              		.cfi_endproc
+ 135              	.LFE3:
+ 136              		.size	WD_Alive, .-WD_Alive
+ 137              		.global	bitField
+ 138              		.bss
+ 139              		.set	.LANCHOR0,. + 0
+ 140              		.type	bitField, %object
+ 141              		.size	bitField, 1
+ 142              	bitField:
+ 143 0000 00       		.space	1
+ 144              		.text
+ 145              	.Letext0:
+ 146              		.file 2 "source\\bsw\\global.h"
+ 147              		.file 3 "source\\bsw\\watchdog.h"
+ 148              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 149              		.file 5 "Generated_Source\\PSoC5/CyLib.h"
+ 150              		.section	.debug_info,"",%progbits
+ 151              	.Ldebug_info0:
+ 152 0000 76020000 		.4byte	0x276
+ 153 0004 0400     		.2byte	0x4
+ 154 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 155 000a 04       		.byte	0x4
+ 156 000b 01       		.uleb128 0x1
+ 157 000c C8020000 		.4byte	.LASF58
+ 158 0010 0C       		.byte	0xc
+ 159 0011 E3010000 		.4byte	.LASF59
+ 160 0015 2D010000 		.4byte	.LASF60
+ 161 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 162 001d 00000000 		.4byte	0
+ 163 0021 00000000 		.4byte	.Ldebug_line0
+ 164 0025 02       		.uleb128 0x2
+ 165 0026 01       		.byte	0x1
+ 166 0027 06       		.byte	0x6
+ 167 0028 4E000000 		.4byte	.LASF0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 6
+
+
+ 168 002c 03       		.uleb128 0x3
+ 169 002d E2030000 		.4byte	.LASF10
+ 170 0031 02       		.byte	0x2
+ 171 0032 91       		.byte	0x91
+ 172 0033 37000000 		.4byte	0x37
+ 173 0037 02       		.uleb128 0x2
+ 174 0038 01       		.byte	0x1
+ 175 0039 08       		.byte	0x8
+ 176 003a A2020000 		.4byte	.LASF1
+ 177 003e 02       		.uleb128 0x2
+ 178 003f 02       		.byte	0x2
+ 179 0040 05       		.byte	0x5
+ 180 0041 B0020000 		.4byte	.LASF2
+ 181 0045 02       		.uleb128 0x2
+ 182 0046 02       		.byte	0x2
+ 183 0047 07       		.byte	0x7
+ 184 0048 1A010000 		.4byte	.LASF3
+ 185 004c 02       		.uleb128 0x2
+ 186 004d 04       		.byte	0x4
+ 187 004e 05       		.byte	0x5
+ 188 004f 70000000 		.4byte	.LASF4
+ 189 0053 02       		.uleb128 0x2
+ 190 0054 04       		.byte	0x4
+ 191 0055 07       		.byte	0x7
+ 192 0056 EF000000 		.4byte	.LASF5
+ 193 005a 02       		.uleb128 0x2
+ 194 005b 04       		.byte	0x4
+ 195 005c 04       		.byte	0x4
+ 196 005d 64020000 		.4byte	.LASF6
+ 197 0061 02       		.uleb128 0x2
+ 198 0062 08       		.byte	0x8
+ 199 0063 04       		.byte	0x4
+ 200 0064 8D000000 		.4byte	.LASF7
+ 201 0068 02       		.uleb128 0x2
+ 202 0069 08       		.byte	0x8
+ 203 006a 05       		.byte	0x5
+ 204 006b 40000000 		.4byte	.LASF8
+ 205 006f 02       		.uleb128 0x2
+ 206 0070 08       		.byte	0x8
+ 207 0071 07       		.byte	0x7
+ 208 0072 17000000 		.4byte	.LASF9
+ 209 0076 03       		.uleb128 0x3
+ 210 0077 10020000 		.4byte	.LASF11
+ 211 007b 02       		.byte	0x2
+ 212 007c 9C       		.byte	0x9c
+ 213 007d 37000000 		.4byte	0x37
+ 214 0081 02       		.uleb128 0x2
+ 215 0082 01       		.byte	0x1
+ 216 0083 08       		.byte	0x8
+ 217 0084 93030000 		.4byte	.LASF12
+ 218 0088 04       		.uleb128 0x4
+ 219 0089 01       		.byte	0x1
+ 220 008a 25000000 		.4byte	0x25
+ 221 008e 02       		.byte	0x2
+ 222 008f CF       		.byte	0xcf
+ 223 0090 31010000 		.4byte	0x131
+ 224 0094 05       		.uleb128 0x5
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 7
+
+
+ 225 0095 0F010000 		.4byte	.LASF13
+ 226 0099 00       		.byte	0
+ 227 009a 06       		.uleb128 0x6
+ 228 009b 5B020000 		.4byte	.LASF14
+ 229 009f 7F       		.sleb128 -1
+ 230 00a0 06       		.uleb128 0x6
+ 231 00a1 01010000 		.4byte	.LASF15
+ 232 00a5 7E       		.sleb128 -2
+ 233 00a6 06       		.uleb128 0x6
+ 234 00a7 5F030000 		.4byte	.LASF16
+ 235 00ab 7D       		.sleb128 -3
+ 236 00ac 06       		.uleb128 0x6
+ 237 00ad D3010000 		.4byte	.LASF17
+ 238 00b1 7C       		.sleb128 -4
+ 239 00b2 06       		.uleb128 0x6
+ 240 00b3 D3030000 		.4byte	.LASF18
+ 241 00b7 7B       		.sleb128 -5
+ 242 00b8 06       		.uleb128 0x6
+ 243 00b9 B1030000 		.4byte	.LASF19
+ 244 00bd 7A       		.sleb128 -6
+ 245 00be 06       		.uleb128 0x6
+ 246 00bf 35020000 		.4byte	.LASF20
+ 247 00c3 79       		.sleb128 -7
+ 248 00c4 06       		.uleb128 0x6
+ 249 00c5 7A010000 		.4byte	.LASF21
+ 250 00c9 78       		.sleb128 -8
+ 251 00ca 06       		.uleb128 0x6
+ 252 00cb 5A000000 		.4byte	.LASF22
+ 253 00cf 77       		.sleb128 -9
+ 254 00d0 06       		.uleb128 0x6
+ 255 00d1 6A020000 		.4byte	.LASF23
+ 256 00d5 76       		.sleb128 -10
+ 257 00d6 06       		.uleb128 0x6
+ 258 00d7 00000000 		.4byte	.LASF24
+ 259 00db 75       		.sleb128 -11
+ 260 00dc 06       		.uleb128 0x6
+ 261 00dd 7F000000 		.4byte	.LASF25
+ 262 00e1 74       		.sleb128 -12
+ 263 00e2 06       		.uleb128 0x6
+ 264 00e3 DD000000 		.4byte	.LASF26
+ 265 00e7 73       		.sleb128 -13
+ 266 00e8 06       		.uleb128 0x6
+ 267 00e9 80030000 		.4byte	.LASF27
+ 268 00ed 72       		.sleb128 -14
+ 269 00ee 06       		.uleb128 0x6
+ 270 00ef 8E020000 		.4byte	.LASF28
+ 271 00f3 71       		.sleb128 -15
+ 272 00f4 06       		.uleb128 0x6
+ 273 00f5 C2030000 		.4byte	.LASF29
+ 274 00f9 70       		.sleb128 -16
+ 275 00fa 06       		.uleb128 0x6
+ 276 00fb 47020000 		.4byte	.LASF30
+ 277 00ff 6F       		.sleb128 -17
+ 278 0100 06       		.uleb128 0x6
+ 279 0101 8F010000 		.4byte	.LASF31
+ 280 0105 6E       		.sleb128 -18
+ 281 0106 06       		.uleb128 0x6
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 8
+
+
+ 282 0107 A4010000 		.4byte	.LASF32
+ 283 010b 6D       		.sleb128 -19
+ 284 010c 06       		.uleb128 0x6
+ 285 010d 6D030000 		.4byte	.LASF33
+ 286 0111 6C       		.sleb128 -20
+ 287 0112 06       		.uleb128 0x6
+ 288 0113 2E000000 		.4byte	.LASF34
+ 289 0117 6B       		.sleb128 -21
+ 290 0118 06       		.uleb128 0x6
+ 291 0119 23020000 		.4byte	.LASF35
+ 292 011d 6A       		.sleb128 -22
+ 293 011e 06       		.uleb128 0x6
+ 294 011f 9F000000 		.4byte	.LASF36
+ 295 0123 69       		.sleb128 -23
+ 296 0124 06       		.uleb128 0x6
+ 297 0125 CC000000 		.4byte	.LASF37
+ 298 0129 68       		.sleb128 -24
+ 299 012a 06       		.uleb128 0x6
+ 300 012b 98030000 		.4byte	.LASF38
+ 301 012f 67       		.sleb128 -25
+ 302 0130 00       		.byte	0
+ 303 0131 03       		.uleb128 0x3
+ 304 0132 12000000 		.4byte	.LASF39
+ 305 0136 02       		.byte	0x2
+ 306 0137 EA       		.byte	0xea
+ 307 0138 88000000 		.4byte	0x88
+ 308 013c 04       		.uleb128 0x4
+ 309 013d 01       		.byte	0x1
+ 310 013e 37000000 		.4byte	0x37
+ 311 0142 03       		.byte	0x3
+ 312 0143 23       		.byte	0x23
+ 313 0144 61010000 		.4byte	0x161
+ 314 0148 05       		.uleb128 0x5
+ 315 0149 04040000 		.4byte	.LASF40
+ 316 014d 00       		.byte	0
+ 317 014e 05       		.uleb128 0x5
+ 318 014f B7010000 		.4byte	.LASF41
+ 319 0153 01       		.byte	0x1
+ 320 0154 05       		.uleb128 0x5
+ 321 0155 BA020000 		.4byte	.LASF42
+ 322 0159 02       		.byte	0x2
+ 323 015a 05       		.uleb128 0x5
+ 324 015b C4010000 		.4byte	.LASF43
+ 325 015f 03       		.byte	0x3
+ 326 0160 00       		.byte	0
+ 327 0161 03       		.uleb128 0x3
+ 328 0162 26040000 		.4byte	.LASF44
+ 329 0166 03       		.byte	0x3
+ 330 0167 28       		.byte	0x28
+ 331 0168 3C010000 		.4byte	0x13c
+ 332 016c 07       		.uleb128 0x7
+ 333 016d 04       		.byte	0x4
+ 334 016e 05       		.byte	0x5
+ 335 016f 696E7400 		.ascii	"int\000"
+ 336 0173 02       		.uleb128 0x2
+ 337 0174 04       		.byte	0x4
+ 338 0175 07       		.byte	0x7
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 9
+
+
+ 339 0176 B6000000 		.4byte	.LASF45
+ 340 017a 02       		.uleb128 0x2
+ 341 017b 08       		.byte	0x8
+ 342 017c 04       		.byte	0x4
+ 343 017d F9010000 		.4byte	.LASF46
+ 344 0181 02       		.uleb128 0x2
+ 345 0182 04       		.byte	0x4
+ 346 0183 07       		.byte	0x7
+ 347 0184 FB030000 		.4byte	.LASF47
+ 348 0188 08       		.uleb128 0x8
+ 349 0189 79000000 		.4byte	.LASF48
+ 350 018d 04       		.byte	0x4
+ 351 018e E801     		.2byte	0x1e8
+ 352 0190 37000000 		.4byte	0x37
+ 353 0194 08       		.uleb128 0x8
+ 354 0195 89020000 		.4byte	.LASF49
+ 355 0199 04       		.byte	0x4
+ 356 019a 9202     		.2byte	0x292
+ 357 019c A0010000 		.4byte	0x1a0
+ 358 01a0 09       		.uleb128 0x9
+ 359 01a1 88010000 		.4byte	0x188
+ 360 01a5 0A       		.uleb128 0xa
+ 361 01a6 56030000 		.4byte	.LASF52
+ 362 01aa 01       		.byte	0x1
+ 363 01ab 3E       		.byte	0x3e
+ 364 01ac 31010000 		.4byte	0x131
+ 365 01b0 00000000 		.4byte	.LFB0
+ 366 01b4 0C000000 		.4byte	.LFE0-.LFB0
+ 367 01b8 01       		.uleb128 0x1
+ 368 01b9 9C       		.byte	0x9c
+ 369 01ba DD010000 		.4byte	0x1dd
+ 370 01be 0B       		.uleb128 0xb
+ 371 01bf 1E040000 		.4byte	.LASF54
+ 372 01c3 01       		.byte	0x1
+ 373 01c4 3E       		.byte	0x3e
+ 374 01c5 61010000 		.4byte	0x161
+ 375 01c9 00000000 		.4byte	.LLST0
+ 376 01cd 0C       		.uleb128 0xc
+ 377 01ce 08000000 		.4byte	.LVL1
+ 378 01d2 63020000 		.4byte	0x263
+ 379 01d6 0D       		.uleb128 0xd
+ 380 01d7 01       		.uleb128 0x1
+ 381 01d8 51       		.byte	0x51
+ 382 01d9 01       		.uleb128 0x1
+ 383 01da 30       		.byte	0x30
+ 384 01db 00       		.byte	0
+ 385 01dc 00       		.byte	0
+ 386 01dd 0E       		.uleb128 0xe
+ 387 01de 05020000 		.4byte	.LASF50
+ 388 01e2 01       		.byte	0x1
+ 389 01e3 49       		.byte	0x49
+ 390 01e4 31010000 		.4byte	0x131
+ 391 01e8 00000000 		.4byte	.LFB1
+ 392 01ec 0A000000 		.4byte	.LFE1-.LFB1
+ 393 01f0 01       		.uleb128 0x1
+ 394 01f1 9C       		.byte	0x9c
+ 395 01f2 00020000 		.4byte	0x200
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 10
+
+
+ 396 01f6 0F       		.uleb128 0xf
+ 397 01f7 06000000 		.4byte	.LVL2
+ 398 01fb 6E020000 		.4byte	0x26e
+ 399 01ff 00       		.byte	0
+ 400 0200 0E       		.uleb128 0xe
+ 401 0201 78020000 		.4byte	.LASF51
+ 402 0205 01       		.byte	0x1
+ 403 0206 55       		.byte	0x55
+ 404 0207 76000000 		.4byte	0x76
+ 405 020b 00000000 		.4byte	.LFB2
+ 406 020f 18000000 		.4byte	.LFE2-.LFB2
+ 407 0213 01       		.uleb128 0x1
+ 408 0214 9C       		.byte	0x9c
+ 409 0215 29020000 		.4byte	0x229
+ 410 0219 10       		.uleb128 0x10
+ 411 021a EA030000 		.4byte	.LASF61
+ 412 021e 01       		.byte	0x1
+ 413 021f 58       		.byte	0x58
+ 414 0220 2C000000 		.4byte	0x2c
+ 415 0224 21000000 		.4byte	.LLST1
+ 416 0228 00       		.byte	0
+ 417 0229 0A       		.uleb128 0xa
+ 418 022a C3000000 		.4byte	.LASF53
+ 419 022e 01       		.byte	0x1
+ 420 022f 72       		.byte	0x72
+ 421 0230 31010000 		.4byte	0x131
+ 422 0234 00000000 		.4byte	.LFB3
+ 423 0238 10000000 		.4byte	.LFE3-.LFB3
+ 424 023c 01       		.uleb128 0x1
+ 425 023d 9C       		.byte	0x9c
+ 426 023e 52020000 		.4byte	0x252
+ 427 0242 0B       		.uleb128 0xb
+ 428 0243 10040000 		.4byte	.LASF55
+ 429 0247 01       		.byte	0x1
+ 430 0248 72       		.byte	0x72
+ 431 0249 2C000000 		.4byte	0x2c
+ 432 024d 40000000 		.4byte	.LLST2
+ 433 0251 00       		.byte	0
+ 434 0252 11       		.uleb128 0x11
+ 435 0253 1A020000 		.4byte	.LASF62
+ 436 0257 01       		.byte	0x1
+ 437 0258 21       		.byte	0x21
+ 438 0259 2C000000 		.4byte	0x2c
+ 439 025d 05       		.uleb128 0x5
+ 440 025e 03       		.byte	0x3
+ 441 025f 00000000 		.4byte	bitField
+ 442 0263 12       		.uleb128 0x12
+ 443 0264 6F010000 		.4byte	.LASF56
+ 444 0268 6F010000 		.4byte	.LASF56
+ 445 026c 05       		.byte	0x5
+ 446 026d 72       		.byte	0x72
+ 447 026e 12       		.uleb128 0x12
+ 448 026f 94000000 		.4byte	.LASF57
+ 449 0273 94000000 		.4byte	.LASF57
+ 450 0277 05       		.byte	0x5
+ 451 0278 73       		.byte	0x73
+ 452 0279 00       		.byte	0
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 11
+
+
+ 453              		.section	.debug_abbrev,"",%progbits
+ 454              	.Ldebug_abbrev0:
+ 455 0000 01       		.uleb128 0x1
+ 456 0001 11       		.uleb128 0x11
+ 457 0002 01       		.byte	0x1
+ 458 0003 25       		.uleb128 0x25
+ 459 0004 0E       		.uleb128 0xe
+ 460 0005 13       		.uleb128 0x13
+ 461 0006 0B       		.uleb128 0xb
+ 462 0007 03       		.uleb128 0x3
+ 463 0008 0E       		.uleb128 0xe
+ 464 0009 1B       		.uleb128 0x1b
+ 465 000a 0E       		.uleb128 0xe
+ 466 000b 55       		.uleb128 0x55
+ 467 000c 17       		.uleb128 0x17
+ 468 000d 11       		.uleb128 0x11
+ 469 000e 01       		.uleb128 0x1
+ 470 000f 10       		.uleb128 0x10
+ 471 0010 17       		.uleb128 0x17
+ 472 0011 00       		.byte	0
+ 473 0012 00       		.byte	0
+ 474 0013 02       		.uleb128 0x2
+ 475 0014 24       		.uleb128 0x24
+ 476 0015 00       		.byte	0
+ 477 0016 0B       		.uleb128 0xb
+ 478 0017 0B       		.uleb128 0xb
+ 479 0018 3E       		.uleb128 0x3e
+ 480 0019 0B       		.uleb128 0xb
+ 481 001a 03       		.uleb128 0x3
+ 482 001b 0E       		.uleb128 0xe
+ 483 001c 00       		.byte	0
+ 484 001d 00       		.byte	0
+ 485 001e 03       		.uleb128 0x3
+ 486 001f 16       		.uleb128 0x16
+ 487 0020 00       		.byte	0
+ 488 0021 03       		.uleb128 0x3
+ 489 0022 0E       		.uleb128 0xe
+ 490 0023 3A       		.uleb128 0x3a
+ 491 0024 0B       		.uleb128 0xb
+ 492 0025 3B       		.uleb128 0x3b
+ 493 0026 0B       		.uleb128 0xb
+ 494 0027 49       		.uleb128 0x49
+ 495 0028 13       		.uleb128 0x13
+ 496 0029 00       		.byte	0
+ 497 002a 00       		.byte	0
+ 498 002b 04       		.uleb128 0x4
+ 499 002c 04       		.uleb128 0x4
+ 500 002d 01       		.byte	0x1
+ 501 002e 0B       		.uleb128 0xb
+ 502 002f 0B       		.uleb128 0xb
+ 503 0030 49       		.uleb128 0x49
+ 504 0031 13       		.uleb128 0x13
+ 505 0032 3A       		.uleb128 0x3a
+ 506 0033 0B       		.uleb128 0xb
+ 507 0034 3B       		.uleb128 0x3b
+ 508 0035 0B       		.uleb128 0xb
+ 509 0036 01       		.uleb128 0x1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 12
+
+
+ 510 0037 13       		.uleb128 0x13
+ 511 0038 00       		.byte	0
+ 512 0039 00       		.byte	0
+ 513 003a 05       		.uleb128 0x5
+ 514 003b 28       		.uleb128 0x28
+ 515 003c 00       		.byte	0
+ 516 003d 03       		.uleb128 0x3
+ 517 003e 0E       		.uleb128 0xe
+ 518 003f 1C       		.uleb128 0x1c
+ 519 0040 0B       		.uleb128 0xb
+ 520 0041 00       		.byte	0
+ 521 0042 00       		.byte	0
+ 522 0043 06       		.uleb128 0x6
+ 523 0044 28       		.uleb128 0x28
+ 524 0045 00       		.byte	0
+ 525 0046 03       		.uleb128 0x3
+ 526 0047 0E       		.uleb128 0xe
+ 527 0048 1C       		.uleb128 0x1c
+ 528 0049 0D       		.uleb128 0xd
+ 529 004a 00       		.byte	0
+ 530 004b 00       		.byte	0
+ 531 004c 07       		.uleb128 0x7
+ 532 004d 24       		.uleb128 0x24
+ 533 004e 00       		.byte	0
+ 534 004f 0B       		.uleb128 0xb
+ 535 0050 0B       		.uleb128 0xb
+ 536 0051 3E       		.uleb128 0x3e
+ 537 0052 0B       		.uleb128 0xb
+ 538 0053 03       		.uleb128 0x3
+ 539 0054 08       		.uleb128 0x8
+ 540 0055 00       		.byte	0
+ 541 0056 00       		.byte	0
+ 542 0057 08       		.uleb128 0x8
+ 543 0058 16       		.uleb128 0x16
+ 544 0059 00       		.byte	0
+ 545 005a 03       		.uleb128 0x3
+ 546 005b 0E       		.uleb128 0xe
+ 547 005c 3A       		.uleb128 0x3a
+ 548 005d 0B       		.uleb128 0xb
+ 549 005e 3B       		.uleb128 0x3b
+ 550 005f 05       		.uleb128 0x5
+ 551 0060 49       		.uleb128 0x49
+ 552 0061 13       		.uleb128 0x13
+ 553 0062 00       		.byte	0
+ 554 0063 00       		.byte	0
+ 555 0064 09       		.uleb128 0x9
+ 556 0065 35       		.uleb128 0x35
+ 557 0066 00       		.byte	0
+ 558 0067 49       		.uleb128 0x49
+ 559 0068 13       		.uleb128 0x13
+ 560 0069 00       		.byte	0
+ 561 006a 00       		.byte	0
+ 562 006b 0A       		.uleb128 0xa
+ 563 006c 2E       		.uleb128 0x2e
+ 564 006d 01       		.byte	0x1
+ 565 006e 3F       		.uleb128 0x3f
+ 566 006f 19       		.uleb128 0x19
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 13
+
+
+ 567 0070 03       		.uleb128 0x3
+ 568 0071 0E       		.uleb128 0xe
+ 569 0072 3A       		.uleb128 0x3a
+ 570 0073 0B       		.uleb128 0xb
+ 571 0074 3B       		.uleb128 0x3b
+ 572 0075 0B       		.uleb128 0xb
+ 573 0076 27       		.uleb128 0x27
+ 574 0077 19       		.uleb128 0x19
+ 575 0078 49       		.uleb128 0x49
+ 576 0079 13       		.uleb128 0x13
+ 577 007a 11       		.uleb128 0x11
+ 578 007b 01       		.uleb128 0x1
+ 579 007c 12       		.uleb128 0x12
+ 580 007d 06       		.uleb128 0x6
+ 581 007e 40       		.uleb128 0x40
+ 582 007f 18       		.uleb128 0x18
+ 583 0080 9742     		.uleb128 0x2117
+ 584 0082 19       		.uleb128 0x19
+ 585 0083 01       		.uleb128 0x1
+ 586 0084 13       		.uleb128 0x13
+ 587 0085 00       		.byte	0
+ 588 0086 00       		.byte	0
+ 589 0087 0B       		.uleb128 0xb
+ 590 0088 05       		.uleb128 0x5
+ 591 0089 00       		.byte	0
+ 592 008a 03       		.uleb128 0x3
+ 593 008b 0E       		.uleb128 0xe
+ 594 008c 3A       		.uleb128 0x3a
+ 595 008d 0B       		.uleb128 0xb
+ 596 008e 3B       		.uleb128 0x3b
+ 597 008f 0B       		.uleb128 0xb
+ 598 0090 49       		.uleb128 0x49
+ 599 0091 13       		.uleb128 0x13
+ 600 0092 02       		.uleb128 0x2
+ 601 0093 17       		.uleb128 0x17
+ 602 0094 00       		.byte	0
+ 603 0095 00       		.byte	0
+ 604 0096 0C       		.uleb128 0xc
+ 605 0097 898201   		.uleb128 0x4109
+ 606 009a 01       		.byte	0x1
+ 607 009b 11       		.uleb128 0x11
+ 608 009c 01       		.uleb128 0x1
+ 609 009d 31       		.uleb128 0x31
+ 610 009e 13       		.uleb128 0x13
+ 611 009f 00       		.byte	0
+ 612 00a0 00       		.byte	0
+ 613 00a1 0D       		.uleb128 0xd
+ 614 00a2 8A8201   		.uleb128 0x410a
+ 615 00a5 00       		.byte	0
+ 616 00a6 02       		.uleb128 0x2
+ 617 00a7 18       		.uleb128 0x18
+ 618 00a8 9142     		.uleb128 0x2111
+ 619 00aa 18       		.uleb128 0x18
+ 620 00ab 00       		.byte	0
+ 621 00ac 00       		.byte	0
+ 622 00ad 0E       		.uleb128 0xe
+ 623 00ae 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 14
+
+
+ 624 00af 01       		.byte	0x1
+ 625 00b0 3F       		.uleb128 0x3f
+ 626 00b1 19       		.uleb128 0x19
+ 627 00b2 03       		.uleb128 0x3
+ 628 00b3 0E       		.uleb128 0xe
+ 629 00b4 3A       		.uleb128 0x3a
+ 630 00b5 0B       		.uleb128 0xb
+ 631 00b6 3B       		.uleb128 0x3b
+ 632 00b7 0B       		.uleb128 0xb
+ 633 00b8 49       		.uleb128 0x49
+ 634 00b9 13       		.uleb128 0x13
+ 635 00ba 11       		.uleb128 0x11
+ 636 00bb 01       		.uleb128 0x1
+ 637 00bc 12       		.uleb128 0x12
+ 638 00bd 06       		.uleb128 0x6
+ 639 00be 40       		.uleb128 0x40
+ 640 00bf 18       		.uleb128 0x18
+ 641 00c0 9742     		.uleb128 0x2117
+ 642 00c2 19       		.uleb128 0x19
+ 643 00c3 01       		.uleb128 0x1
+ 644 00c4 13       		.uleb128 0x13
+ 645 00c5 00       		.byte	0
+ 646 00c6 00       		.byte	0
+ 647 00c7 0F       		.uleb128 0xf
+ 648 00c8 898201   		.uleb128 0x4109
+ 649 00cb 00       		.byte	0
+ 650 00cc 11       		.uleb128 0x11
+ 651 00cd 01       		.uleb128 0x1
+ 652 00ce 31       		.uleb128 0x31
+ 653 00cf 13       		.uleb128 0x13
+ 654 00d0 00       		.byte	0
+ 655 00d1 00       		.byte	0
+ 656 00d2 10       		.uleb128 0x10
+ 657 00d3 34       		.uleb128 0x34
+ 658 00d4 00       		.byte	0
+ 659 00d5 03       		.uleb128 0x3
+ 660 00d6 0E       		.uleb128 0xe
+ 661 00d7 3A       		.uleb128 0x3a
+ 662 00d8 0B       		.uleb128 0xb
+ 663 00d9 3B       		.uleb128 0x3b
+ 664 00da 0B       		.uleb128 0xb
+ 665 00db 49       		.uleb128 0x49
+ 666 00dc 13       		.uleb128 0x13
+ 667 00dd 02       		.uleb128 0x2
+ 668 00de 17       		.uleb128 0x17
+ 669 00df 00       		.byte	0
+ 670 00e0 00       		.byte	0
+ 671 00e1 11       		.uleb128 0x11
+ 672 00e2 34       		.uleb128 0x34
+ 673 00e3 00       		.byte	0
+ 674 00e4 03       		.uleb128 0x3
+ 675 00e5 0E       		.uleb128 0xe
+ 676 00e6 3A       		.uleb128 0x3a
+ 677 00e7 0B       		.uleb128 0xb
+ 678 00e8 3B       		.uleb128 0x3b
+ 679 00e9 0B       		.uleb128 0xb
+ 680 00ea 49       		.uleb128 0x49
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 15
+
+
+ 681 00eb 13       		.uleb128 0x13
+ 682 00ec 3F       		.uleb128 0x3f
+ 683 00ed 19       		.uleb128 0x19
+ 684 00ee 02       		.uleb128 0x2
+ 685 00ef 18       		.uleb128 0x18
+ 686 00f0 00       		.byte	0
+ 687 00f1 00       		.byte	0
+ 688 00f2 12       		.uleb128 0x12
+ 689 00f3 2E       		.uleb128 0x2e
+ 690 00f4 00       		.byte	0
+ 691 00f5 3F       		.uleb128 0x3f
+ 692 00f6 19       		.uleb128 0x19
+ 693 00f7 3C       		.uleb128 0x3c
+ 694 00f8 19       		.uleb128 0x19
+ 695 00f9 6E       		.uleb128 0x6e
+ 696 00fa 0E       		.uleb128 0xe
+ 697 00fb 03       		.uleb128 0x3
+ 698 00fc 0E       		.uleb128 0xe
+ 699 00fd 3A       		.uleb128 0x3a
+ 700 00fe 0B       		.uleb128 0xb
+ 701 00ff 3B       		.uleb128 0x3b
+ 702 0100 0B       		.uleb128 0xb
+ 703 0101 00       		.byte	0
+ 704 0102 00       		.byte	0
+ 705 0103 00       		.byte	0
+ 706              		.section	.debug_loc,"",%progbits
+ 707              	.Ldebug_loc0:
+ 708              	.LLST0:
+ 709 0000 00000000 		.4byte	.LVL0
+ 710 0004 07000000 		.4byte	.LVL1-1
+ 711 0008 0100     		.2byte	0x1
+ 712 000a 50       		.byte	0x50
+ 713 000b 07000000 		.4byte	.LVL1-1
+ 714 000f 0C000000 		.4byte	.LFE0
+ 715 0013 0400     		.2byte	0x4
+ 716 0015 F3       		.byte	0xf3
+ 717 0016 01       		.uleb128 0x1
+ 718 0017 50       		.byte	0x50
+ 719 0018 9F       		.byte	0x9f
+ 720 0019 00000000 		.4byte	0
+ 721 001d 00000000 		.4byte	0
+ 722              	.LLST1:
+ 723 0021 00000000 		.4byte	.LVL3
+ 724 0025 04000000 		.4byte	.LVL4
+ 725 0029 0200     		.2byte	0x2
+ 726 002b 30       		.byte	0x30
+ 727 002c 9F       		.byte	0x9f
+ 728 002d 04000000 		.4byte	.LVL4
+ 729 0031 08000000 		.4byte	.LVL5
+ 730 0035 0100     		.2byte	0x1
+ 731 0037 53       		.byte	0x53
+ 732 0038 00000000 		.4byte	0
+ 733 003c 00000000 		.4byte	0
+ 734              	.LLST2:
+ 735 0040 00000000 		.4byte	.LVL6
+ 736 0044 06000000 		.4byte	.LVL7
+ 737 0048 0100     		.2byte	0x1
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 16
+
+
+ 738 004a 50       		.byte	0x50
+ 739 004b 06000000 		.4byte	.LVL7
+ 740 004f 10000000 		.4byte	.LFE3
+ 741 0053 0400     		.2byte	0x4
+ 742 0055 F3       		.byte	0xf3
+ 743 0056 01       		.uleb128 0x1
+ 744 0057 50       		.byte	0x50
+ 745 0058 9F       		.byte	0x9f
+ 746 0059 00000000 		.4byte	0
+ 747 005d 00000000 		.4byte	0
+ 748              		.section	.debug_aranges,"",%progbits
+ 749 0000 34000000 		.4byte	0x34
+ 750 0004 0200     		.2byte	0x2
+ 751 0006 00000000 		.4byte	.Ldebug_info0
+ 752 000a 04       		.byte	0x4
+ 753 000b 00       		.byte	0
+ 754 000c 0000     		.2byte	0
+ 755 000e 0000     		.2byte	0
+ 756 0010 00000000 		.4byte	.LFB0
+ 757 0014 0C000000 		.4byte	.LFE0-.LFB0
+ 758 0018 00000000 		.4byte	.LFB1
+ 759 001c 0A000000 		.4byte	.LFE1-.LFB1
+ 760 0020 00000000 		.4byte	.LFB2
+ 761 0024 18000000 		.4byte	.LFE2-.LFB2
+ 762 0028 00000000 		.4byte	.LFB3
+ 763 002c 10000000 		.4byte	.LFE3-.LFB3
+ 764 0030 00000000 		.4byte	0
+ 765 0034 00000000 		.4byte	0
+ 766              		.section	.debug_ranges,"",%progbits
+ 767              	.Ldebug_ranges0:
+ 768 0000 00000000 		.4byte	.LFB0
+ 769 0004 0C000000 		.4byte	.LFE0
+ 770 0008 00000000 		.4byte	.LFB1
+ 771 000c 0A000000 		.4byte	.LFE1
+ 772 0010 00000000 		.4byte	.LFB2
+ 773 0014 18000000 		.4byte	.LFE2
+ 774 0018 00000000 		.4byte	.LFB3
+ 775 001c 10000000 		.4byte	.LFE3
+ 776 0020 00000000 		.4byte	0
+ 777 0024 00000000 		.4byte	0
+ 778              		.section	.debug_line,"",%progbits
+ 779              	.Ldebug_line0:
+ 780 0000 C4000000 		.section	.debug_str,"MS",%progbits,1
+ 780      02007500 
+ 780      00000201 
+ 780      FB0E0D00 
+ 780      01010101 
+ 781              	.LASF24:
+ 782 0000 52435F45 		.ascii	"RC_ERROR_TIME_OUT\000"
+ 782      52524F52 
+ 782      5F54494D 
+ 782      455F4F55 
+ 782      5400
+ 783              	.LASF39:
+ 784 0012 52435F74 		.ascii	"RC_t\000"
+ 784      00
+ 785              	.LASF9:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 17
+
+
+ 786 0017 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 786      206C6F6E 
+ 786      6720756E 
+ 786      7369676E 
+ 786      65642069 
+ 787              	.LASF34:
+ 788 002e 52435F45 		.ascii	"RC_ERROR_BAD_DATA\000"
+ 788      52524F52 
+ 788      5F424144 
+ 788      5F444154 
+ 788      4100
+ 789              	.LASF8:
+ 790 0040 6C6F6E67 		.ascii	"long long int\000"
+ 790      206C6F6E 
+ 790      6720696E 
+ 790      7400
+ 791              	.LASF0:
+ 792 004e 7369676E 		.ascii	"signed char\000"
+ 792      65642063 
+ 792      68617200 
+ 793              	.LASF22:
+ 794 005a 52435F45 		.ascii	"RC_ERROR_BUFFER_EMTPY\000"
+ 794      52524F52 
+ 794      5F425546 
+ 794      4645525F 
+ 794      454D5450 
+ 795              	.LASF4:
+ 796 0070 6C6F6E67 		.ascii	"long int\000"
+ 796      20696E74 
+ 796      00
+ 797              	.LASF48:
+ 798 0079 75696E74 		.ascii	"uint8\000"
+ 798      3800
+ 799              	.LASF25:
+ 800 007f 52435F45 		.ascii	"RC_ERROR_OPEN\000"
+ 800      52524F52 
+ 800      5F4F5045 
+ 800      4E00
+ 801              	.LASF7:
+ 802 008d 646F7562 		.ascii	"double\000"
+ 802      6C6500
+ 803              	.LASF57:
+ 804 0094 43795764 		.ascii	"CyWdtClear\000"
+ 804      74436C65 
+ 804      617200
+ 805              	.LASF36:
+ 806 009f 52435F45 		.ascii	"RC_ERROR_INVALID_STATE\000"
+ 806      52524F52 
+ 806      5F494E56 
+ 806      414C4944 
+ 806      5F535441 
+ 807              	.LASF45:
+ 808 00b6 756E7369 		.ascii	"unsigned int\000"
+ 808      676E6564 
+ 808      20696E74 
+ 808      00
+ 809              	.LASF53:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 18
+
+
+ 810 00c3 57445F41 		.ascii	"WD_Alive\000"
+ 810      6C697665 
+ 810      00
+ 811              	.LASF37:
+ 812 00cc 52435F45 		.ascii	"RC_ERROR_UNKNOWN\000"
+ 812      52524F52 
+ 812      5F554E4B 
+ 812      4E4F574E 
+ 812      00
+ 813              	.LASF26:
+ 814 00dd 52435F45 		.ascii	"RC_ERROR_CHECKSUM\000"
+ 814      52524F52 
+ 814      5F434845 
+ 814      434B5355 
+ 814      4D00
+ 815              	.LASF5:
+ 816 00ef 6C6F6E67 		.ascii	"long unsigned int\000"
+ 816      20756E73 
+ 816      69676E65 
+ 816      6420696E 
+ 816      7400
+ 817              	.LASF15:
+ 818 0101 52435F45 		.ascii	"RC_ERROR_NULL\000"
+ 818      52524F52 
+ 818      5F4E554C 
+ 818      4C00
+ 819              	.LASF13:
+ 820 010f 52435F53 		.ascii	"RC_SUCCESS\000"
+ 820      55434345 
+ 820      535300
+ 821              	.LASF3:
+ 822 011a 73686F72 		.ascii	"short unsigned int\000"
+ 822      7420756E 
+ 822      7369676E 
+ 822      65642069 
+ 822      6E7400
+ 823              	.LASF60:
+ 824 012d 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
+ 824      61726D73 
+ 824      74616474 
+ 824      5C536563 
+ 824      6F6E6453 
+ 825 015a 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
+ 825      69634761 
+ 825      73506564 
+ 825      616C2E63 
+ 825      7964736E 
+ 826              	.LASF56:
+ 827 016f 43795764 		.ascii	"CyWdtStart\000"
+ 827      74537461 
+ 827      727400
+ 828              	.LASF21:
+ 829 017a 52435F45 		.ascii	"RC_ERROR_BUFFER_FULL\000"
+ 829      52524F52 
+ 829      5F425546 
+ 829      4645525F 
+ 829      46554C4C 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 19
+
+
+ 830              	.LASF31:
+ 831 018f 52435F45 		.ascii	"RC_ERROR_WRITE_FAILS\000"
+ 831      52524F52 
+ 831      5F575249 
+ 831      54455F46 
+ 831      41494C53 
+ 832              	.LASF32:
+ 833 01a4 52435F45 		.ascii	"RC_ERROR_NOT_MATCH\000"
+ 833      52524F52 
+ 833      5F4E4F54 
+ 833      5F4D4154 
+ 833      434800
+ 834              	.LASF41:
+ 835 01b7 5744545F 		.ascii	"WDT_16_TICKS\000"
+ 835      31365F54 
+ 835      49434B53 
+ 835      00
+ 836              	.LASF43:
+ 837 01c4 5744545F 		.ascii	"WDT_1024_TICKS\000"
+ 837      31303234 
+ 837      5F544943 
+ 837      4B5300
+ 838              	.LASF17:
+ 839 01d3 52435F45 		.ascii	"RC_ERROR_MEMORY\000"
+ 839      52524F52 
+ 839      5F4D454D 
+ 839      4F525900 
+ 840              	.LASF59:
+ 841 01e3 736F7572 		.ascii	"source\\bsw\\watchdog.c\000"
+ 841      63655C62 
+ 841      73775C77 
+ 841      61746368 
+ 841      646F672E 
+ 842              	.LASF46:
+ 843 01f9 6C6F6E67 		.ascii	"long double\000"
+ 843      20646F75 
+ 843      626C6500 
+ 844              	.LASF50:
+ 845 0205 57445F54 		.ascii	"WD_Trigger\000"
+ 845      72696767 
+ 845      657200
+ 846              	.LASF11:
+ 847 0210 626F6F6C 		.ascii	"boolean_t\000"
+ 847      65616E5F 
+ 847      7400
+ 848              	.LASF62:
+ 849 021a 62697446 		.ascii	"bitField\000"
+ 849      69656C64 
+ 849      00
+ 850              	.LASF35:
+ 851 0223 52435F45 		.ascii	"RC_ERROR_CANCELED\000"
+ 851      52524F52 
+ 851      5F43414E 
+ 851      43454C45 
+ 851      4400
+ 852              	.LASF20:
+ 853 0235 52435F45 		.ascii	"RC_ERROR_UNDERRUN\000"
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 20
+
+
+ 853      52524F52 
+ 853      5F554E44 
+ 853      45525255 
+ 853      4E00
+ 854              	.LASF30:
+ 855 0247 52435F45 		.ascii	"RC_ERROR_READ_FAILS\000"
+ 855      52524F52 
+ 855      5F524541 
+ 855      445F4641 
+ 855      494C5300 
+ 856              	.LASF14:
+ 857 025b 52435F45 		.ascii	"RC_ERROR\000"
+ 857      52524F52 
+ 857      00
+ 858              	.LASF6:
+ 859 0264 666C6F61 		.ascii	"float\000"
+ 859      7400
+ 860              	.LASF23:
+ 861 026a 52435F45 		.ascii	"RC_ERROR_BUSY\000"
+ 861      52524F52 
+ 861      5F425553 
+ 861      5900
+ 862              	.LASF51:
+ 863 0278 57445F43 		.ascii	"WD_CheckResetBit\000"
+ 863      6865636B 
+ 863      52657365 
+ 863      74426974 
+ 863      00
+ 864              	.LASF49:
+ 865 0289 72656738 		.ascii	"reg8\000"
+ 865      00
+ 866              	.LASF28:
+ 867 028e 52435F45 		.ascii	"RC_ERROR_WRITE_ONLY\000"
+ 867      52524F52 
+ 867      5F575249 
+ 867      54455F4F 
+ 867      4E4C5900 
+ 868              	.LASF1:
+ 869 02a2 756E7369 		.ascii	"unsigned char\000"
+ 869      676E6564 
+ 869      20636861 
+ 869      7200
+ 870              	.LASF2:
+ 871 02b0 73686F72 		.ascii	"short int\000"
+ 871      7420696E 
+ 871      7400
+ 872              	.LASF42:
+ 873 02ba 5744545F 		.ascii	"WDT_128_TICKS\000"
+ 873      3132385F 
+ 873      5449434B 
+ 873      5300
+ 874              	.LASF58:
+ 875 02c8 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 875      43313120 
+ 875      352E342E 
+ 875      31203230 
+ 875      31363036 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 21
+
+
+ 876 02fb 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 876      20726576 
+ 876      6973696F 
+ 876      6E203233 
+ 876      37373135 
+ 877 032e 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 877      66756E63 
+ 877      74696F6E 
+ 877      2D736563 
+ 877      74696F6E 
+ 878              	.LASF52:
+ 879 0356 57445F53 		.ascii	"WD_Start\000"
+ 879      74617274 
+ 879      00
+ 880              	.LASF16:
+ 881 035f 52435F45 		.ascii	"RC_ERROR_ZERO\000"
+ 881      52524F52 
+ 881      5F5A4552 
+ 881      4F00
+ 882              	.LASF33:
+ 883 036d 52435F45 		.ascii	"RC_ERROR_BAD_PARAM\000"
+ 883      52524F52 
+ 883      5F424144 
+ 883      5F504152 
+ 883      414D00
+ 884              	.LASF27:
+ 885 0380 52435F45 		.ascii	"RC_ERROR_READ_ONLY\000"
+ 885      52524F52 
+ 885      5F524541 
+ 885      445F4F4E 
+ 885      4C5900
+ 886              	.LASF12:
+ 887 0393 63686172 		.ascii	"char\000"
+ 887      00
+ 888              	.LASF38:
+ 889 0398 52435F45 		.ascii	"RC_ERROR_NOT_IMPLEMENTED\000"
+ 889      52524F52 
+ 889      5F4E4F54 
+ 889      5F494D50 
+ 889      4C454D45 
+ 890              	.LASF19:
+ 891 03b1 52435F45 		.ascii	"RC_ERROR_OVERRUN\000"
+ 891      52524F52 
+ 891      5F4F5645 
+ 891      5252554E 
+ 891      00
+ 892              	.LASF29:
+ 893 03c2 52435F45 		.ascii	"RC_ERROR_INVALID\000"
+ 893      52524F52 
+ 893      5F494E56 
+ 893      414C4944 
+ 893      00
+ 894              	.LASF18:
+ 895 03d3 52435F45 		.ascii	"RC_ERROR_RANGE\000"
+ 895      52524F52 
+ 895      5F52414E 
+ 895      474500
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\cckQtbml.s 			page 22
+
+
+ 896              	.LASF10:
+ 897 03e2 75696E74 		.ascii	"uint8_t\000"
+ 897      385F7400 
+ 898              	.LASF61:
+ 899 03ea 77646752 		.ascii	"wdgResetRegister\000"
+ 899      65736574 
+ 899      52656769 
+ 899      73746572 
+ 899      00
+ 900              	.LASF47:
+ 901 03fb 73697A65 		.ascii	"sizetype\000"
+ 901      74797065 
+ 901      00
+ 902              	.LASF40:
+ 903 0404 5744545F 		.ascii	"WDT_2_TICKS\000"
+ 903      325F5449 
+ 903      434B5300 
+ 904              	.LASF55:
+ 905 0410 6D794269 		.ascii	"myBitPosition\000"
+ 905      74506F73 
+ 905      6974696F 
+ 905      6E00
+ 906              	.LASF54:
+ 907 041e 74696D65 		.ascii	"timeout\000"
+ 907      6F757400 
+ 908              	.LASF44:
+ 909 0426 5744545F 		.ascii	"WDT_TimeOut_t\000"
+ 909      54696D65 
+ 909      4F75745F 
+ 909      7400
+ 910              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

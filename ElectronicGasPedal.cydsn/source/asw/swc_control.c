@@ -12,19 +12,18 @@
 #include "rte_types.h"
 #include "swc_control.h"
 
-
-
 /* USER CODE START SWC_CONTROL_INCLUDE */
-
+#include <stdio.h>
+#include "watchdog.h"
+#include "uart.h"
+#include "sp_common.h"
 /* USER CODE END SWC_CONTROL_INCLUDE */
 
-
-#include "sp_common.h"
-
 /* USER CODE START SWC_CONTROL_USERDEFINITIONS */
-
+#define ADC_OUTPUT_MIN              0
+#define ADC_OUTPUT_MAX              127
+#define WDG_ALIVE_STATUS_CONTROL    0x02
 /* USER CODE END SWC_CONTROL_USERDEFINITIONS */
-
 
 
 /*
@@ -41,7 +40,51 @@
 void CONTROL_calcControl_run(RTE_event ev){
 	
 	/* USER CODE START CONTROL_calcControl_run */
+    
+    //Temporary variable for UART logging, TODO: To be removed later
+    char speedString[50] = {0};
+    
+    SC_ADC_data_t adc_t;
+    SC_SPEED_data_t speedSignal_t;
+    
+    //Get joystick value and status
+    adc_t = RTE_SC_ADC_get(&SO_JOYSTICK_signal);
+    RTE_signalStatus_t adcSignalStatus = RTE_SC_ADC_getStatus(&SO_JOYSTICK_signal);
 
+    //Check validity of the signal
+    if(RTE_SIGNALSTATUS_VALID == adcSignalStatus)
+    {
+        //If value is out of bounds
+        if((adc_t.adc_output < ADC_OUTPUT_MIN) || (adc_t.adc_output > ADC_OUTPUT_MAX))
+        {
+            speedSignal_t.speed = 0; 
+        }
+        else
+        {
+            speedSignal_t.speed = 2*(adc_t.adc_output);
+        }
+    }
+    else
+    {
+        UART_Log_Tx("Invalid ADC signal");
+    }
+    
+    //Set the speed value and print
+    if(RC_SUCCESS == RTE_SC_SPEED_set(&SO_SPEED_signal, speedSignal_t))
+    {    
+        sprintf(speedString, "%d", speedSignal_t.speed);
+    
+        UART_Log_Tx("Speed values");
+        UART_Log_Tx(speedString);
+    }
+    else
+    {
+        UART_Log_Tx("Unable to set Speed signal");
+    }
+    
+    //Report Alive Status to Watchdog timer
+    WD_Alive(WDG_ALIVE_STATUS_CONTROL);
+    
     /* USER CODE END CONTROL_calcControl_run */
 }
 

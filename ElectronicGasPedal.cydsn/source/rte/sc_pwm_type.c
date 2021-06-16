@@ -11,11 +11,11 @@
 #include "rte.h"
 #include "rte_types.h"
 #include "sc_pwm_type.h"
-
+#include "sp_common.h"
 
 
 /* USER CODE START SC_PWM_INCLUDE */
-
+#include "pwm_rgb.h"
 /* USER CODE END SC_PWM_INCLUDE */
 
 
@@ -41,9 +41,10 @@
 inline RC_t SC_PWM_driverOut(const SC_PWM_data_t  *const data)
 {
 	/* USER CODE START driverOutSC_PWM */
-//#error "Add your code here"
-
-	//Scale application data to drive format
+    PWM_Green_setIntensity(data->pwm_engine);
+    //PWM_Engine_WriteCompare(LED__Pulse_Width[data->pwm_engine]);
+	
+    //Scale application data to drive format
 
 	//Write scaled data to driver
 

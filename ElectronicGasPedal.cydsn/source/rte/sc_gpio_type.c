@@ -41,7 +41,7 @@
 inline RC_t SC_GPIO_driverOut(const SC_GPIO_data_t  *const data)
 {
 	/* USER CODE START driverOutSC_GPIO */
-//#error "Add your code here"
+    Pin_RedLed_Write(data->brakeLight);
 
 	//Scale application data to drive format
 

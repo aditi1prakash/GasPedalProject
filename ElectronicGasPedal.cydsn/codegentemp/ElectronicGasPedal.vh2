@@ -2,7 +2,7 @@
 --	Conversion of ElectronicGasPedal.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Mon May 24 22:30:33 2021
+--	Mon May 31 23:19:49 2021
 --
 
 USE cypress.cypress.all;
@@ -12,102 +12,62 @@ ATTRIBUTE part_name of top_RTL:TYPE IS "cpsoc3";
 END top_RTL;
 --------------------------------------------------------
 ARCHITECTURE R_T_L OF top_RTL IS
-TERMINAL \ADC_JoyStick_x:Net_248\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_233\ : bit;
+TERMINAL \ADC_JoyStick:Net_248\ : bit;
+TERMINAL \ADC_JoyStick:Net_235\ : bit;
 SIGNAL Net_4 : bit;
-SIGNAL \ADC_JoyStick_x:vp_ctl_0\ : bit;
-SIGNAL \ADC_JoyStick_x:vp_ctl_2\ : bit;
-SIGNAL \ADC_JoyStick_x:vn_ctl_1\ : bit;
-SIGNAL \ADC_JoyStick_x:vn_ctl_3\ : bit;
-SIGNAL \ADC_JoyStick_x:vp_ctl_1\ : bit;
-SIGNAL \ADC_JoyStick_x:vp_ctl_3\ : bit;
-SIGNAL \ADC_JoyStick_x:vn_ctl_0\ : bit;
-SIGNAL \ADC_JoyStick_x:vn_ctl_2\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_385\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_381\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_188\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_221\ : bit;
+SIGNAL \ADC_JoyStick:vp_ctl_0\ : bit;
+SIGNAL \ADC_JoyStick:vp_ctl_2\ : bit;
+SIGNAL \ADC_JoyStick:vn_ctl_1\ : bit;
+SIGNAL \ADC_JoyStick:vn_ctl_3\ : bit;
+SIGNAL \ADC_JoyStick:vp_ctl_1\ : bit;
+SIGNAL \ADC_JoyStick:vp_ctl_3\ : bit;
+SIGNAL \ADC_JoyStick:vn_ctl_0\ : bit;
+SIGNAL \ADC_JoyStick:vn_ctl_2\ : bit;
+SIGNAL \ADC_JoyStick:Net_385\ : bit;
+SIGNAL \ADC_JoyStick:Net_381\ : bit;
+SIGNAL \ADC_JoyStick:Net_188\ : bit;
+SIGNAL \ADC_JoyStick:Net_221\ : bit;
 TERMINAL Net_1 : bit;
-TERMINAL \ADC_JoyStick_x:Net_126\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_215\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_257\ : bit;
-SIGNAL \ADC_JoyStick_x:soc\ : bit;
+TERMINAL \ADC_JoyStick:Net_126\ : bit;
+TERMINAL \ADC_JoyStick:Net_215\ : bit;
+TERMINAL \ADC_JoyStick:Net_257\ : bit;
+SIGNAL \ADC_JoyStick:soc\ : bit;
 SIGNAL zero : bit;
-SIGNAL \ADC_JoyStick_x:Net_252\ : bit;
+SIGNAL \ADC_JoyStick:Net_252\ : bit;
 SIGNAL Net_7 : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_11\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_10\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_9\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_8\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_7\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_6\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_5\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_4\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_3\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_2\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_1\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_207_0\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_210\ : bit;
-SIGNAL \ADC_JoyStick_x:tmpOE__Bypass_net_0\ : bit;
-SIGNAL \ADC_JoyStick_x:tmpFB_0__Bypass_net_0\ : bit;
-SIGNAL \ADC_JoyStick_x:tmpIO_0__Bypass_net_0\ : bit;
-TERMINAL \ADC_JoyStick_x:tmpSIOVREF__Bypass_net_0\ : bit;
-SIGNAL one : bit;
-SIGNAL \ADC_JoyStick_x:tmpINTERRUPT_0__Bypass_net_0\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_149\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_209\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_255\ : bit;
-TERMINAL \ADC_JoyStick_x:Net_368\ : bit;
-SIGNAL \ADC_JoyStick_x:Net_383\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_11\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_10\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_9\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_8\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_7\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_6\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_5\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_4\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_3\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_2\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_1\ : bit;
+SIGNAL \ADC_JoyStick:Net_207_0\ : bit;
+TERMINAL \ADC_JoyStick:Net_209\ : bit;
+TERMINAL Net_205 : bit;
+TERMINAL \ADC_JoyStick:Net_255\ : bit;
+TERMINAL \ADC_JoyStick:Net_368\ : bit;
+SIGNAL \ADC_JoyStick:Net_383\ : bit;
 SIGNAL tmpOE__Joystick_Pin_x_net_0 : bit;
 SIGNAL tmpFB_0__Joystick_Pin_x_net_0 : bit;
 SIGNAL tmpIO_0__Joystick_Pin_x_net_0 : bit;
 TERMINAL tmpSIOVREF__Joystick_Pin_x_net_0 : bit;
+SIGNAL one : bit;
 SIGNAL tmpINTERRUPT_0__Joystick_Pin_x_net_0 : bit;
 SIGNAL tmpOE__Joystick_Pin_y_net_0 : bit;
 SIGNAL tmpFB_0__Joystick_Pin_y_net_0 : bit;
-TERMINAL Net_10 : bit;
 SIGNAL tmpIO_0__Joystick_Pin_y_net_0 : bit;
 TERMINAL tmpSIOVREF__Joystick_Pin_y_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__Joystick_Pin_y_net_0 : bit;
-TERMINAL \ADC_JoyStick_y:Net_248\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_233\ : bit;
-SIGNAL Net_13 : bit;
-SIGNAL \ADC_JoyStick_y:vp_ctl_0\ : bit;
-SIGNAL \ADC_JoyStick_y:vp_ctl_2\ : bit;
-SIGNAL \ADC_JoyStick_y:vn_ctl_1\ : bit;
-SIGNAL \ADC_JoyStick_y:vn_ctl_3\ : bit;
-SIGNAL \ADC_JoyStick_y:vp_ctl_1\ : bit;
-SIGNAL \ADC_JoyStick_y:vp_ctl_3\ : bit;
-SIGNAL \ADC_JoyStick_y:vn_ctl_0\ : bit;
-SIGNAL \ADC_JoyStick_y:vn_ctl_2\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_385\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_381\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_188\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_221\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_126\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_215\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_257\ : bit;
-SIGNAL \ADC_JoyStick_y:soc\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_252\ : bit;
-SIGNAL Net_16 : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_11\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_10\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_9\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_8\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_7\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_6\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_5\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_4\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_3\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_2\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_1\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_207_0\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_209\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_149\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_255\ : bit;
-TERMINAL \ADC_JoyStick_y:Net_368\ : bit;
-SIGNAL \ADC_JoyStick_y:Net_383\ : bit;
+SIGNAL tmpOE__Pin_RedLed_net_0 : bit;
+SIGNAL tmpFB_0__Pin_RedLed_net_0 : bit;
+SIGNAL tmpIO_0__Pin_RedLed_net_0 : bit;
+TERMINAL tmpSIOVREF__Pin_RedLed_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Pin_RedLed_net_0 : bit;
 SIGNAL \UART_Joystick:Net_9\ : bit;
 SIGNAL \UART_Joystick:Net_61\ : bit;
 SIGNAL \UART_Joystick:BUART:clock_op\ : bit;
@@ -602,8 +562,8 @@ SIGNAL \PWM_Engine:PWMUDB:pwm2_i\ : bit;
 SIGNAL \PWM_Engine:PWMUDB:tc_i_reg\ : bit;
 SIGNAL \PWM_Engine:Net_101\ : bit;
 SIGNAL \PWM_Engine:Net_96\ : bit;
-SIGNAL Net_64 : bit;
-SIGNAL Net_65 : bit;
+SIGNAL Net_200 : bit;
+SIGNAL Net_201 : bit;
 SIGNAL \PWM_Engine:PWMUDB:pwm_temp\ : bit;
 SIGNAL \PWM_Engine:PWMUDB:MODULE_6:b_31\ : bit;
 SIGNAL \PWM_Engine:PWMUDB:MODULE_6:b_30\ : bit;
@@ -802,8 +762,8 @@ SIGNAL \PWM_Engine:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
 SIGNAL \PWM_Engine:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
 SIGNAL \PWM_Engine:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
 SIGNAL Net_63 : bit;
-SIGNAL Net_59 : bit;
-SIGNAL Net_67 : bit;
+SIGNAL Net_196 : bit;
+SIGNAL Net_203 : bit;
 SIGNAL \PWM_Engine:Net_113\ : bit;
 SIGNAL \PWM_Engine:Net_107\ : bit;
 SIGNAL \PWM_Engine:Net_114\ : bit;
@@ -812,6 +772,11 @@ SIGNAL tmpFB_0__Pin_RGB_Green_net_0 : bit;
 SIGNAL tmpIO_0__Pin_RGB_Green_net_0 : bit;
 TERMINAL tmpSIOVREF__Pin_RGB_Green_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__Pin_RGB_Green_net_0 : bit;
+SIGNAL tmpOE__Pin_WDGButton_net_0 : bit;
+SIGNAL Net_517 : bit;
+SIGNAL tmpIO_0__Pin_WDGButton_net_0 : bit;
+TERMINAL tmpSIOVREF__Pin_WDGButton_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Pin_WDGButton_net_0 : bit;
 SIGNAL \UART_Joystick:BUART:reset_reg\\D\ : bit;
 SIGNAL \UART_Joystick:BUART:txn\\D\ : bit;
 SIGNAL \UART_Joystick:BUART:tx_state_1\\D\ : bit;
@@ -861,7 +826,7 @@ BEGIN
 
 zero <=  ('0') ;
 
-one <=  ('1') ;
+tmpOE__Joystick_Pin_x_net_0 <=  ('1') ;
 
 Net_25 <= (not \UART_Joystick:BUART:txn\);
 
@@ -986,141 +951,71 @@ Net_39D <= ((not \UART_Joystick:BUART:reset_reg\ and \UART_Joystick:BUART:tx_sta
 
 \PWM_Engine:PWMUDB:pwm_i\ <= ((\PWM_Engine:PWMUDB:runmode_enable\ and \PWM_Engine:PWMUDB:cmp1_less\));
 
-\ADC_JoyStick_x:cy_analog_virtualmux_3_connect\:cy_connect_v1_0
+\ADC_JoyStick:cy_analog_virtualmux_3_connect\:cy_connect_v1_0
 	GENERIC MAP(sig_width=>1,
 		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_x:Net_248\,
-		signal2=>\ADC_JoyStick_x:Net_233\);
-\ADC_JoyStick_x:IRQ\:cy_isr_v1_0
+	PORT MAP(signal1=>\ADC_JoyStick:Net_248\,
+		signal2=>\ADC_JoyStick:Net_235\);
+\ADC_JoyStick:IRQ\:cy_isr_v1_0
 	GENERIC MAP(int_type=>"10",
 		is_nmi=>'0')
 	PORT MAP(int_signal=>Net_4);
-\ADC_JoyStick_x:theACLK\:cy_clock_v1_0
+\ADC_JoyStick:theACLK\:cy_clock_v1_0
 	GENERIC MAP(cy_registers=>"",
 		id=>"1c97a4b3-c427-44c8-9c6f-c8d8c557c986/696a0979-21fc-4185-bf38-6c79febcde7a",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"793650793.650794",
+		period=>"833333333.333333",
 		is_direct=>'0',
 		is_digital=>'0')
-	PORT MAP(clock_out=>\ADC_JoyStick_x:Net_385\,
-		dig_domain_out=>\ADC_JoyStick_x:Net_381\);
-\ADC_JoyStick_x:ADC_SAR\:cy_psoc5_sar_v2_0
+	PORT MAP(clock_out=>\ADC_JoyStick:Net_385\,
+		dig_domain_out=>\ADC_JoyStick:Net_381\);
+\ADC_JoyStick:ADC_SAR\:cy_psoc5_sar_v2_0
 	GENERIC MAP(cy_registers=>"")
 	PORT MAP(vplus=>Net_1,
-		vminus=>\ADC_JoyStick_x:Net_126\,
-		ext_pin=>\ADC_JoyStick_x:Net_215\,
-		vrefhi_out=>\ADC_JoyStick_x:Net_257\,
-		vref=>\ADC_JoyStick_x:Net_248\,
-		clock=>\ADC_JoyStick_x:Net_385\,
-		pump_clock=>\ADC_JoyStick_x:Net_385\,
+		vminus=>\ADC_JoyStick:Net_126\,
+		ext_pin=>\ADC_JoyStick:Net_215\,
+		vrefhi_out=>\ADC_JoyStick:Net_257\,
+		vref=>\ADC_JoyStick:Net_248\,
+		clock=>\ADC_JoyStick:Net_385\,
+		pump_clock=>\ADC_JoyStick:Net_385\,
 		sof_udb=>zero,
 		clk_udb=>zero,
 		vp_ctl_udb=>(zero, zero, zero, zero),
 		vn_ctl_udb=>(zero, zero, zero, zero),
-		irq=>\ADC_JoyStick_x:Net_252\,
+		irq=>\ADC_JoyStick:Net_252\,
 		next_out=>Net_7,
-		data_out=>(\ADC_JoyStick_x:Net_207_11\, \ADC_JoyStick_x:Net_207_10\, \ADC_JoyStick_x:Net_207_9\, \ADC_JoyStick_x:Net_207_8\,
-			\ADC_JoyStick_x:Net_207_7\, \ADC_JoyStick_x:Net_207_6\, \ADC_JoyStick_x:Net_207_5\, \ADC_JoyStick_x:Net_207_4\,
-			\ADC_JoyStick_x:Net_207_3\, \ADC_JoyStick_x:Net_207_2\, \ADC_JoyStick_x:Net_207_1\, \ADC_JoyStick_x:Net_207_0\),
+		data_out=>(\ADC_JoyStick:Net_207_11\, \ADC_JoyStick:Net_207_10\, \ADC_JoyStick:Net_207_9\, \ADC_JoyStick:Net_207_8\,
+			\ADC_JoyStick:Net_207_7\, \ADC_JoyStick:Net_207_6\, \ADC_JoyStick:Net_207_5\, \ADC_JoyStick:Net_207_4\,
+			\ADC_JoyStick:Net_207_3\, \ADC_JoyStick:Net_207_2\, \ADC_JoyStick:Net_207_1\, \ADC_JoyStick:Net_207_0\),
 		eof_udb=>Net_4);
-\ADC_JoyStick_x:cy_analog_virtualmux_2_connect\:cy_connect_v1_0
+\ADC_JoyStick:cy_analog_virtualmux_2_connect\:cy_connect_v1_0
 	GENERIC MAP(sig_width=>1,
 		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_x:Net_215\,
-		signal2=>\ADC_JoyStick_x:Net_210\);
-\ADC_JoyStick_x:Bypass\:cy_psoc3_pins_v1_10
-	GENERIC MAP(id=>"1c97a4b3-c427-44c8-9c6f-c8d8c557c986/16a808f6-2e13-45b9-bce0-b001c8655113",
-		drive_mode=>"000",
-		ibuf_enabled=>"0",
-		init_dr_st=>"0",
-		input_sync=>"1",
-		input_clk_en=>'0',
-		input_sync_mode=>"0",
-		intr_mode=>"00",
-		invert_in_clock=>'0',
-		invert_in_clock_en=>'0',
-		invert_in_reset=>'0',
-		invert_out_clock=>'0',
-		invert_out_clock_en=>'0',
-		invert_out_reset=>'0',
-		io_voltage=>"",
-		layout_mode=>"CONTIGUOUS",
-		output_conn=>"0",
-		output_sync=>"0",
-		output_clk_en=>'0',
-		output_mode=>"0",
-		output_reset=>'0',
-		output_clock_mode=>"0",
-		oe_sync=>"0",
-		oe_conn=>"0",
-		oe_reset=>'0',
-		pin_aliases=>"",
-		pin_mode=>"A",
-		por_state=>4,
-		sio_group_cnt=>0,
-		sio_hifreq=>"00000000",
-		sio_hyst=>"1",
-		sio_ibuf=>"00000000",
-		sio_info=>"00",
-		sio_obuf=>"00000000",
-		sio_refsel=>"00000000",
-		sio_vtrip=>"00000000",
-		sio_vohsel=>"00000000",
-		slew_rate=>"0",
-		spanning=>'0',
-		sw_only=>'0',
-		vtrip=>"10",
-		width=>1,
-		port_alias_required=>'0',
-		port_alias_group=>"",
-		use_annotation=>"0",
-		pa_in_clock=>-1,
-		pa_in_clock_en=>-1,
-		pa_in_reset=>-1,
-		pa_out_clock=>-1,
-		pa_out_clock_en=>-1,
-		pa_out_reset=>-1,
-		ovt_needed=>"0",
-		ovt_slew_control=>"00",
-		ovt_hyst_trim=>"0",
-		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
-		y=>(zero),
-		fb=>(\ADC_JoyStick_x:tmpFB_0__Bypass_net_0\),
-		analog=>\ADC_JoyStick_x:Net_210\,
-		io=>(\ADC_JoyStick_x:tmpIO_0__Bypass_net_0\),
-		siovref=>(\ADC_JoyStick_x:tmpSIOVREF__Bypass_net_0\),
-		annotation=>(open),
-		in_clock=>zero,
-		in_clock_en=>one,
-		in_reset=>zero,
-		out_clock=>zero,
-		out_clock_en=>one,
-		out_reset=>zero,
-		interrupt=>\ADC_JoyStick_x:tmpINTERRUPT_0__Bypass_net_0\);
-\ADC_JoyStick_x:cy_analog_virtualmux_1_connect\:cy_connect_v1_0
+	PORT MAP(signal1=>\ADC_JoyStick:Net_215\,
+		signal2=>\ADC_JoyStick:Net_209\);
+\ADC_JoyStick:cy_analog_virtualmux_1_connect\:cy_connect_v1_0
 	GENERIC MAP(sig_width=>1,
 		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_x:Net_126\,
-		signal2=>\ADC_JoyStick_x:Net_149\);
-\ADC_JoyStick_x:noconnect\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_x:Net_209\);
-\ADC_JoyStick_x:vRef_1024\:cy_vref_v1_0
-	GENERIC MAP(guid=>"89B398AD-36A8-4627-9212-707F2986319E",
-		name=>"1.024V",
+	PORT MAP(signal1=>\ADC_JoyStick:Net_126\,
+		signal2=>Net_205);
+\ADC_JoyStick:noconnect\:cy_analog_noconnect_v1_0
+	PORT MAP(noconnect=>\ADC_JoyStick:Net_209\);
+\ADC_JoyStick:cy_analog_virtualmux_4_connect\:cy_connect_v1_0
+	GENERIC MAP(sig_width=>1,
+		is_net_join=>'0')
+	PORT MAP(signal1=>\ADC_JoyStick:Net_257\,
+		signal2=>\ADC_JoyStick:Net_255\);
+\ADC_JoyStick:cy_analog_noconnect_1\:cy_analog_noconnect_v1_0
+	PORT MAP(noconnect=>\ADC_JoyStick:Net_255\);
+\ADC_JoyStick:vRef_Vdda_1\:cy_vref_v1_0
+	GENERIC MAP(guid=>"4720866E-BC14-478d-B8A0-3E44F38CADAC",
+		name=>"Vdda/2",
 		autoenable=>'1',
 		ignoresleep=>'0')
-	PORT MAP(vout=>\ADC_JoyStick_x:Net_233\);
-\ADC_JoyStick_x:cy_analog_virtualmux_4_connect\:cy_connect_v1_0
-	GENERIC MAP(sig_width=>1,
-		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_x:Net_257\,
-		signal2=>\ADC_JoyStick_x:Net_149\);
-\ADC_JoyStick_x:cy_analog_noconnect_1\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_x:Net_255\);
-\ADC_JoyStick_x:noconnect_1\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_x:Net_368\);
+	PORT MAP(vout=>\ADC_JoyStick:Net_235\);
+\ADC_JoyStick:noconnect_1\:cy_analog_noconnect_v1_0
+	PORT MAP(noconnect=>\ADC_JoyStick:Net_368\);
 Joystick_Pin_x:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"77715107-f8d5-47e5-a629-0fb83101ac6b",
 		drive_mode=>"000",
@@ -1177,7 +1072,7 @@ Joystick_Pin_x:cy_psoc3_pins_v1_10
 		ovt_slew_control=>"00",
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
 		y=>(zero),
 		fb=>(tmpFB_0__Joystick_Pin_x_net_0),
 		analog=>Net_1,
@@ -1185,10 +1080,10 @@ Joystick_Pin_x:cy_psoc3_pins_v1_10
 		siovref=>(tmpSIOVREF__Joystick_Pin_x_net_0),
 		annotation=>(open),
 		in_clock=>zero,
-		in_clock_en=>one,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		in_reset=>zero,
 		out_clock=>zero,
-		out_clock_en=>one,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Joystick_Pin_x_net_0);
 Joystick_Pin_y:cy_psoc3_pins_v1_10
@@ -1247,85 +1142,90 @@ Joystick_Pin_y:cy_psoc3_pins_v1_10
 		ovt_slew_control=>"00",
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
 		y=>(zero),
 		fb=>(tmpFB_0__Joystick_Pin_y_net_0),
-		analog=>Net_10,
+		analog=>Net_205,
 		io=>(tmpIO_0__Joystick_Pin_y_net_0),
 		siovref=>(tmpSIOVREF__Joystick_Pin_y_net_0),
 		annotation=>(open),
 		in_clock=>zero,
-		in_clock_en=>one,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		in_reset=>zero,
 		out_clock=>zero,
-		out_clock_en=>one,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Joystick_Pin_y_net_0);
-\ADC_JoyStick_y:cy_analog_virtualmux_3_connect\:cy_connect_v1_0
-	GENERIC MAP(sig_width=>1,
-		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_y:Net_248\,
-		signal2=>\ADC_JoyStick_y:Net_233\);
-\ADC_JoyStick_y:IRQ\:cy_isr_v1_0
-	GENERIC MAP(int_type=>"10",
-		is_nmi=>'0')
-	PORT MAP(int_signal=>Net_13);
-\ADC_JoyStick_y:theACLK\:cy_clock_v1_0
-	GENERIC MAP(cy_registers=>"",
-		id=>"b9450ec4-2c79-45a7-ba15-7860a9dfe902/696a0979-21fc-4185-bf38-6c79febcde7a",
-		source_clock_id=>"",
-		divisor=>0,
-		period=>"625001562.503906",
-		is_direct=>'0',
-		is_digital=>'0')
-	PORT MAP(clock_out=>\ADC_JoyStick_y:Net_385\,
-		dig_domain_out=>\ADC_JoyStick_y:Net_381\);
-\ADC_JoyStick_y:ADC_SAR\:cy_psoc5_sar_v2_0
-	GENERIC MAP(cy_registers=>"")
-	PORT MAP(vplus=>Net_10,
-		vminus=>\ADC_JoyStick_y:Net_126\,
-		ext_pin=>\ADC_JoyStick_y:Net_215\,
-		vrefhi_out=>\ADC_JoyStick_y:Net_257\,
-		vref=>\ADC_JoyStick_y:Net_248\,
-		clock=>\ADC_JoyStick_y:Net_385\,
-		pump_clock=>\ADC_JoyStick_y:Net_385\,
-		sof_udb=>zero,
-		clk_udb=>zero,
-		vp_ctl_udb=>(zero, zero, zero, zero),
-		vn_ctl_udb=>(zero, zero, zero, zero),
-		irq=>\ADC_JoyStick_y:Net_252\,
-		next_out=>Net_16,
-		data_out=>(\ADC_JoyStick_y:Net_207_11\, \ADC_JoyStick_y:Net_207_10\, \ADC_JoyStick_y:Net_207_9\, \ADC_JoyStick_y:Net_207_8\,
-			\ADC_JoyStick_y:Net_207_7\, \ADC_JoyStick_y:Net_207_6\, \ADC_JoyStick_y:Net_207_5\, \ADC_JoyStick_y:Net_207_4\,
-			\ADC_JoyStick_y:Net_207_3\, \ADC_JoyStick_y:Net_207_2\, \ADC_JoyStick_y:Net_207_1\, \ADC_JoyStick_y:Net_207_0\),
-		eof_udb=>Net_13);
-\ADC_JoyStick_y:cy_analog_virtualmux_2_connect\:cy_connect_v1_0
-	GENERIC MAP(sig_width=>1,
-		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_y:Net_215\,
-		signal2=>\ADC_JoyStick_y:Net_209\);
-\ADC_JoyStick_y:cy_analog_virtualmux_1_connect\:cy_connect_v1_0
-	GENERIC MAP(sig_width=>1,
-		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_y:Net_126\,
-		signal2=>\ADC_JoyStick_y:Net_149\);
-\ADC_JoyStick_y:noconnect\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_y:Net_209\);
-\ADC_JoyStick_y:vRef_1024\:cy_vref_v1_0
-	GENERIC MAP(guid=>"89B398AD-36A8-4627-9212-707F2986319E",
-		name=>"1.024V",
-		autoenable=>'1',
-		ignoresleep=>'0')
-	PORT MAP(vout=>\ADC_JoyStick_y:Net_233\);
-\ADC_JoyStick_y:cy_analog_virtualmux_4_connect\:cy_connect_v1_0
-	GENERIC MAP(sig_width=>1,
-		is_net_join=>'0')
-	PORT MAP(signal1=>\ADC_JoyStick_y:Net_257\,
-		signal2=>\ADC_JoyStick_y:Net_149\);
-\ADC_JoyStick_y:cy_analog_noconnect_1\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_y:Net_255\);
-\ADC_JoyStick_y:noconnect_1\:cy_analog_noconnect_v1_0
-	PORT MAP(noconnect=>\ADC_JoyStick_y:Net_368\);
+Pin_RedLed:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"05b341a6-3ab2-46cd-96c3-4878370fe854",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__Pin_RedLed_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Pin_RedLed_net_0),
+		siovref=>(tmpSIOVREF__Pin_RedLed_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Pin_RedLed_net_0);
 \UART_Joystick:IntClock\:cy_clock_v1_0
 	GENERIC MAP(cy_registers=>"",
 		id=>"b0162966-0060-4af5-82d1-fcb491ad7619/be0a0e37-ad17-42ca-b5a1-1a654d736358",
@@ -1339,7 +1239,7 @@ Joystick_Pin_y:cy_psoc3_pins_v1_10
 \UART_Joystick:BUART:ClkSync\:cy_psoc3_udb_clock_enable_v1_0
 	GENERIC MAP(sync_mode=>'1')
 	PORT MAP(clock_in=>\UART_Joystick:Net_9\,
-		enable=>one,
+		enable=>tmpOE__Joystick_Pin_x_net_0,
 		clock_out=>\UART_Joystick:BUART:clock_op\);
 \UART_Joystick:BUART:sTX:TxShifter:u0\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000000000000000000000000000000000000000000000000000011000000000000000000000000000010010000000000000000000000000000000000000011111111000000001111111111111111000000000000000001000100111100000000000000001100",
@@ -1618,7 +1518,7 @@ Joystick_Pin_y:cy_psoc3_pins_v1_10
 	PORT MAP(clock=>\UART_Joystick:BUART:clock_op\,
 		reset=>\UART_Joystick:BUART:reset_reg\,
 		load=>\UART_Joystick:BUART:rx_counter_load\,
-		enable=>one,
+		enable=>tmpOE__Joystick_Pin_x_net_0,
 		count=>(\UART_Joystick:BUART:rx_count_6\, \UART_Joystick:BUART:rx_count_5\, \UART_Joystick:BUART:rx_count_4\, \UART_Joystick:BUART:rx_count_3\,
 			\UART_Joystick:BUART:rx_count_2\, \UART_Joystick:BUART:rx_count_1\, \UART_Joystick:BUART:rx_count_0\),
 		tc=>\UART_Joystick:BUART:rx_count7_tc\);
@@ -1687,7 +1587,7 @@ Rx_uart:cy_psoc3_pins_v1_10
 		ovt_slew_control=>"00",
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
 		y=>(zero),
 		fb=>Net_21,
 		analog=>(open),
@@ -1695,10 +1595,10 @@ Rx_uart:cy_psoc3_pins_v1_10
 		siovref=>(tmpSIOVREF__Rx_uart_net_0),
 		annotation=>(open),
 		in_clock=>zero,
-		in_clock_en=>one,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		in_reset=>zero,
 		out_clock=>zero,
-		out_clock_en=>one,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Rx_uart_net_0);
 Tx_uart:cy_psoc3_pins_v1_10
@@ -1757,7 +1657,7 @@ Tx_uart:cy_psoc3_pins_v1_10
 		ovt_slew_control=>"00",
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
 		y=>Net_25,
 		fb=>(tmpFB_0__Tx_uart_net_0),
 		analog=>(open),
@@ -1765,16 +1665,16 @@ Tx_uart:cy_psoc3_pins_v1_10
 		siovref=>(tmpSIOVREF__Tx_uart_net_0),
 		annotation=>(open),
 		in_clock=>zero,
-		in_clock_en=>one,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		in_reset=>zero,
 		out_clock=>zero,
-		out_clock_en=>one,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Tx_uart_net_0);
 \PWM_Engine:PWMUDB:clock_enable_block\:cy_psoc3_udb_clock_enable_v1_0
 	GENERIC MAP(sync_mode=>'1')
 	PORT MAP(clock_in=>Net_56,
-		enable=>one,
+		enable=>tmpOE__Joystick_Pin_x_net_0,
 		clock_out=>\PWM_Engine:PWMUDB:ClockOutFromEnBlock\);
 \PWM_Engine:PWMUDB:genblk1:ctrlreg\:cy_psoc3_control
 	GENERIC MAP(cy_init_value=>"00000000",
@@ -1895,7 +1795,7 @@ Clock_PWM_Engine:cy_clock_v1_0
 		id=>"d619f73d-49b8-473c-bede-cc0e3d055ee2",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"1000000000",
+		period=>"833333333.333333",
 		is_direct=>'0',
 		is_digital=>'1')
 	PORT MAP(clock_out=>Net_56,
@@ -1956,7 +1856,7 @@ Pin_RGB_Green:cy_psoc3_pins_v1_10
 		ovt_slew_control=>"00",
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
-	PORT MAP(oe=>(one),
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
 		y=>Net_63,
 		fb=>(tmpFB_0__Pin_RGB_Green_net_0),
 		analog=>(open),
@@ -1964,12 +1864,86 @@ Pin_RGB_Green:cy_psoc3_pins_v1_10
 		siovref=>(tmpSIOVREF__Pin_RGB_Green_net_0),
 		annotation=>(open),
 		in_clock=>zero,
-		in_clock_en=>one,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		in_reset=>zero,
 		out_clock=>zero,
-		out_clock_en=>one,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Pin_RGB_Green_net_0);
+Pin_WDGButton:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
+		drive_mode=>"001",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"I",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Joystick_Pin_x_net_0),
+		y=>(zero),
+		fb=>Net_517,
+		analog=>(open),
+		io=>(tmpIO_0__Pin_WDGButton_net_0),
+		siovref=>(tmpSIOVREF__Pin_WDGButton_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Joystick_Pin_x_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Joystick_Pin_x_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Pin_WDGButton_net_0);
+isr_wdgButton:cy_isr_v1_0
+	GENERIC MAP(int_type=>"10",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_517);
 \UART_Joystick:BUART:reset_reg\:cy_dff
 	PORT MAP(d=>zero,
 		clk=>\UART_Joystick:BUART:clock_op\,
@@ -2087,7 +2061,7 @@ Net_39:cy_dff
 		clk=>\UART_Joystick:BUART:clock_op\,
 		q=>\UART_Joystick:BUART:rx_parity_bit\);
 \PWM_Engine:PWMUDB:min_kill_reg\:cy_dsrff
-	PORT MAP(d=>one,
+	PORT MAP(d=>tmpOE__Joystick_Pin_x_net_0,
 		s=>zero,
 		r=>zero,
 		clk=>\PWM_Engine:PWMUDB:ClockOutFromEnBlock\,
@@ -2111,7 +2085,7 @@ Net_39:cy_dff
 		clk=>\PWM_Engine:PWMUDB:ClockOutFromEnBlock\,
 		q=>\PWM_Engine:PWMUDB:sc_kill_tmp\);
 \PWM_Engine:PWMUDB:ltch_kill_reg\:cy_dsrff
-	PORT MAP(d=>one,
+	PORT MAP(d=>tmpOE__Joystick_Pin_x_net_0,
 		s=>zero,
 		r=>zero,
 		clk=>\PWM_Engine:PWMUDB:ClockOutFromEnBlock\,

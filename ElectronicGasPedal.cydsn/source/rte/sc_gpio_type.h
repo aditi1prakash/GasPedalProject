@@ -30,14 +30,14 @@ typedef
 /* USER CODE START SC_GPIO_SIGNALDATADEFINITION */
 struct
 {
-	//#error "Provide your data structure"
+	uint8_t brakeLight;
 } 
 /* USER CODE END SC_GPIO_SIGNALDATADEFINITION */
 SC_GPIO_data_t;
 
 /* USER CODE START InitSC_GPIO */
 //#error "Provide a sensible init value"
-#define SC_GPIO_INIT_DATA ((SC_GPIO_data_t){})
+#define SC_GPIO_INIT_DATA ((SC_GPIO_data_t){0})
 /* USER CODE END InitSC_GPIO */
 
 

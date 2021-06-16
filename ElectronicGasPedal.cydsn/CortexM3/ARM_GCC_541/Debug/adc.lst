@@ -1,0 +1,1007 @@
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"adc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ADC_init,"ax",%progbits
+  20              		.align	2
+  21              		.global	ADC_init
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	ADC_init, %function
+  25              	ADC_init:
+  26              	.LFB0:
+  27              		.file 1 "source\\bsw\\adc.c"
+   1:source\bsw/adc.c **** /**
+   2:source\bsw/adc.c **** * \file adc.c
+   3:source\bsw/adc.c **** * \author Aditi Prakash
+   4:source\bsw/adc.c **** * \date 27-05-2021
+   5:source\bsw/adc.c **** *
+   6:source\bsw/adc.c **** * \brief Source file for ADC component
+   7:source\bsw/adc.c **** *
+   8:source\bsw/adc.c **** * \copyright Copyright ©2016
+   9:source\bsw/adc.c **** * Department of electrical engineering and information technology, Hochschule Darmstadt - Universit
+  10:source\bsw/adc.c **** * Permission to use, copy, modify, and distribute this software and its documentation for education
+  11:source\bsw/adc.c **** * (unless permitted by h_da) and official h_da projects, is hereby granted for enrolled students of
+  12:source\bsw/adc.c **** * this paragraph and the following paragraph appear in all copies, modifications, and distributions
+  13:source\bsw/adc.c **** * Contact Prof.Dr.-Ing. Peter Fromm, peter.fromm@h-da.de, Birkenweg 8 64295 Darmstadt - GERMANY for
+  14:source\bsw/adc.c **** *
+  15:source\bsw/adc.c **** * \warning This software is a PROTOTYPE version and is not designed or intended for use in producti
+  16:source\bsw/adc.c **** * The user represents and warrants that it will NOT use or redistribute the Software for such purpo
+  17:source\bsw/adc.c **** * This prototype is for research purposes only. This software is provided "AS IS," without a warran
+  18:source\bsw/adc.c **** */
+  19:source\bsw/adc.c **** 
+  20:source\bsw/adc.c **** /*****************************************************************************/
+  21:source\bsw/adc.c **** /* Include files                                                             */
+  22:source\bsw/adc.c **** /*****************************************************************************/
+  23:source\bsw/adc.c **** #include "adc.h"
+  24:source\bsw/adc.c **** 
+  25:source\bsw/adc.c **** /*****************************************************************************/
+  26:source\bsw/adc.c **** /* Local pre-processor symbols/macros ('#define')                            */
+  27:source\bsw/adc.c **** /*****************************************************************************/
+  28:source\bsw/adc.c **** 
+  29:source\bsw/adc.c **** /*****************************************************************************/
+  30:source\bsw/adc.c **** /* Global variable definitions (declared in header file with 'extern')       */
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 2
+
+
+  31:source\bsw/adc.c **** /*****************************************************************************/
+  32:source\bsw/adc.c **** 
+  33:source\bsw/adc.c **** /*****************************************************************************/
+  34:source\bsw/adc.c **** /* Local type definitions ('typedef')                                        */
+  35:source\bsw/adc.c **** /*****************************************************************************/
+  36:source\bsw/adc.c **** 
+  37:source\bsw/adc.c **** /*****************************************************************************/
+  38:source\bsw/adc.c **** /* Local variable definitions ('static')                                     */
+  39:source\bsw/adc.c **** /*****************************************************************************/
+  40:source\bsw/adc.c **** 
+  41:source\bsw/adc.c **** 
+  42:source\bsw/adc.c **** /*****************************************************************************/
+  43:source\bsw/adc.c **** /* Local function prototypes ('static')                                      */
+  44:source\bsw/adc.c **** /*****************************************************************************/
+  45:source\bsw/adc.c **** 
+  46:source\bsw/adc.c **** 
+  47:source\bsw/adc.c **** /*****************************************************************************/
+  48:source\bsw/adc.c **** /* Function implementation - global ('extern') and local ('static')          */
+  49:source\bsw/adc.c **** /*****************************************************************************/
+  50:source\bsw/adc.c **** 
+  51:source\bsw/adc.c **** /**
+  52:source\bsw/adc.c ****  * @brief       : API to initialize the ADC component
+  53:source\bsw/adc.c ****  * @param [OUT] : int8_t *const adc_value - Digital converted value of the input to the ADC
+  54:source\bsw/adc.c ****  * @return      : RC_t Returns error code success or failure
+  55:source\bsw/adc.c ****  */
+  56:source\bsw/adc.c **** RC_t ADC_init()
+  57:source\bsw/adc.c **** {
+  28              		.loc 1 57 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  58:source\bsw/adc.c ****     //Start the ADC component
+  59:source\bsw/adc.c ****     ADC_JoyStick_Start();
+  36              		.loc 1 59 0
+  37 0002 FFF7FEFF 		bl	ADC_JoyStick_Start
+  38              	.LVL0:
+  60:source\bsw/adc.c ****     ADC_JoyStick_StartConvert();
+  39              		.loc 1 60 0
+  40 0006 FFF7FEFF 		bl	ADC_JoyStick_StartConvert
+  41              	.LVL1:
+  61:source\bsw/adc.c ****    
+  62:source\bsw/adc.c ****     return RC_SUCCESS;
+  63:source\bsw/adc.c **** }
+  42              		.loc 1 63 0
+  43 000a 0020     		movs	r0, #0
+  44 000c 08BD     		pop	{r3, pc}
+  45              		.cfi_endproc
+  46              	.LFE0:
+  47              		.size	ADC_init, .-ADC_init
+  48 000e 00BF     		.section	.text.ADC_getValue,"ax",%progbits
+  49              		.align	2
+  50              		.global	ADC_getValue
+  51              		.thumb
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 3
+
+
+  52              		.thumb_func
+  53              		.type	ADC_getValue, %function
+  54              	ADC_getValue:
+  55              	.LFB1:
+  64:source\bsw/adc.c **** 
+  65:source\bsw/adc.c **** /**
+  66:source\bsw/adc.c ****  * @brief       : API to get converted values from ADC
+  67:source\bsw/adc.c ****  * @param [OUT] : int8_t *const adc_value - Digital converted value of the input to the ADC
+  68:source\bsw/adc.c ****  * @return      : RC_t Returns error code success or failure
+  69:source\bsw/adc.c ****  */
+  70:source\bsw/adc.c **** RC_t ADC_getValue(int8_t *const adc_value)
+  71:source\bsw/adc.c **** {
+  56              		.loc 1 71 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              	.LVL2:
+  61 0000 10B5     		push	{r4, lr}
+  62              		.cfi_def_cfa_offset 8
+  63              		.cfi_offset 4, -8
+  64              		.cfi_offset 14, -4
+  65 0002 0446     		mov	r4, r0
+  72:source\bsw/adc.c ****     //Check for end of conversion and read out the digital value from ADC
+  73:source\bsw/adc.c ****     if(ADC_JoyStick_IsEndConversion(ADC_JoyStick_WAIT_FOR_RESULT))
+  66              		.loc 1 73 0
+  67 0004 0020     		movs	r0, #0
+  68              	.LVL3:
+  69 0006 FFF7FEFF 		bl	ADC_JoyStick_IsEndConversion
+  70              	.LVL4:
+  71 000a 20B1     		cbz	r0, .L5
+  74:source\bsw/adc.c ****     {
+  75:source\bsw/adc.c ****         *adc_value = ADC_JoyStick_GetResult8();
+  72              		.loc 1 75 0
+  73 000c FFF7FEFF 		bl	ADC_JoyStick_GetResult8
+  74              	.LVL5:
+  75 0010 2070     		strb	r0, [r4]
+  76:source\bsw/adc.c ****         return RC_SUCCESS;
+  76              		.loc 1 76 0
+  77 0012 0020     		movs	r0, #0
+  78 0014 10BD     		pop	{r4, pc}
+  79              	.LVL6:
+  80              	.L5:
+  77:source\bsw/adc.c ****     }  
+  78:source\bsw/adc.c ****     else
+  79:source\bsw/adc.c ****     {
+  80:source\bsw/adc.c ****         return RC_ERROR;
+  81              		.loc 1 80 0
+  82 0016 4FF0FF30 		mov	r0, #-1
+  81:source\bsw/adc.c ****     }
+  82:source\bsw/adc.c **** }
+  83              		.loc 1 82 0
+  84 001a 10BD     		pop	{r4, pc}
+  85              		.cfi_endproc
+  86              	.LFE1:
+  87              		.size	ADC_getValue, .-ADC_getValue
+  88              		.text
+  89              	.Letext0:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 4
+
+
+  90              		.file 2 "source\\bsw\\global.h"
+  91              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+  92              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+  93              		.file 5 "Generated_Source\\PSoC5/ADC_JoyStick.h"
+  94              		.section	.debug_info,"",%progbits
+  95              	.Ldebug_info0:
+  96 0000 EF010000 		.4byte	0x1ef
+  97 0004 0400     		.2byte	0x4
+  98 0006 00000000 		.4byte	.Ldebug_abbrev0
+  99 000a 04       		.byte	0x4
+ 100 000b 01       		.uleb128 0x1
+ 101 000c 22030000 		.4byte	.LASF45
+ 102 0010 0C       		.byte	0xc
+ 103 0011 FE000000 		.4byte	.LASF46
+ 104 0015 C8010000 		.4byte	.LASF47
+ 105 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 106 001d 00000000 		.4byte	0
+ 107 0021 00000000 		.4byte	.Ldebug_line0
+ 108 0025 02       		.uleb128 0x2
+ 109 0026 01       		.byte	0x1
+ 110 0027 06       		.byte	0x6
+ 111 0028 A5010000 		.4byte	.LASF0
+ 112 002c 02       		.uleb128 0x2
+ 113 002d 01       		.byte	0x1
+ 114 002e 08       		.byte	0x8
+ 115 002f 97010000 		.4byte	.LASF1
+ 116 0033 02       		.uleb128 0x2
+ 117 0034 02       		.byte	0x2
+ 118 0035 05       		.byte	0x5
+ 119 0036 39000000 		.4byte	.LASF2
+ 120 003a 02       		.uleb128 0x2
+ 121 003b 02       		.byte	0x2
+ 122 003c 07       		.byte	0x7
+ 123 003d 49020000 		.4byte	.LASF3
+ 124 0041 02       		.uleb128 0x2
+ 125 0042 04       		.byte	0x4
+ 126 0043 05       		.byte	0x5
+ 127 0044 33010000 		.4byte	.LASF4
+ 128 0048 02       		.uleb128 0x2
+ 129 0049 04       		.byte	0x4
+ 130 004a 07       		.byte	0x7
+ 131 004b B8020000 		.4byte	.LASF5
+ 132 004f 02       		.uleb128 0x2
+ 133 0050 04       		.byte	0x4
+ 134 0051 04       		.byte	0x4
+ 135 0052 D1000000 		.4byte	.LASF6
+ 136 0056 02       		.uleb128 0x2
+ 137 0057 08       		.byte	0x8
+ 138 0058 04       		.byte	0x4
+ 139 0059 CA020000 		.4byte	.LASF7
+ 140 005d 02       		.uleb128 0x2
+ 141 005e 08       		.byte	0x8
+ 142 005f 05       		.byte	0x5
+ 143 0060 F0000000 		.4byte	.LASF8
+ 144 0064 02       		.uleb128 0x2
+ 145 0065 08       		.byte	0x8
+ 146 0066 07       		.byte	0x7
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 5
+
+
+ 147 0067 B1010000 		.4byte	.LASF9
+ 148 006b 02       		.uleb128 0x2
+ 149 006c 01       		.byte	0x1
+ 150 006d 08       		.byte	0x8
+ 151 006e 65020000 		.4byte	.LASF10
+ 152 0072 03       		.uleb128 0x3
+ 153 0073 01       		.byte	0x1
+ 154 0074 25000000 		.4byte	0x25
+ 155 0078 02       		.byte	0x2
+ 156 0079 CF       		.byte	0xcf
+ 157 007a 1B010000 		.4byte	0x11b
+ 158 007e 04       		.uleb128 0x4
+ 159 007f 13000000 		.4byte	.LASF11
+ 160 0083 00       		.byte	0
+ 161 0084 05       		.uleb128 0x5
+ 162 0085 92020000 		.4byte	.LASF12
+ 163 0089 7F       		.sleb128 -1
+ 164 008a 05       		.uleb128 0x5
+ 165 008b 25020000 		.4byte	.LASF13
+ 166 008f 7E       		.sleb128 -2
+ 167 0090 05       		.uleb128 0x5
+ 168 0091 76000000 		.4byte	.LASF14
+ 169 0095 7D       		.sleb128 -3
+ 170 0096 05       		.uleb128 0x5
+ 171 0097 B0030000 		.4byte	.LASF15
+ 172 009b 7C       		.sleb128 -4
+ 173 009c 05       		.uleb128 0x5
+ 174 009d C2000000 		.4byte	.LASF16
+ 175 00a1 7B       		.sleb128 -5
+ 176 00a2 05       		.uleb128 0x5
+ 177 00a3 43000000 		.4byte	.LASF17
+ 178 00a7 7A       		.sleb128 -6
+ 179 00a8 05       		.uleb128 0x5
+ 180 00a9 3C010000 		.4byte	.LASF18
+ 181 00ad 79       		.sleb128 -7
+ 182 00ae 05       		.uleb128 0x5
+ 183 00af 6A020000 		.4byte	.LASF19
+ 184 00b3 78       		.sleb128 -8
+ 185 00b4 05       		.uleb128 0x5
+ 186 00b5 33020000 		.4byte	.LASF20
+ 187 00b9 77       		.sleb128 -9
+ 188 00ba 05       		.uleb128 0x5
+ 189 00bb 4E010000 		.4byte	.LASF21
+ 190 00bf 76       		.sleb128 -10
+ 191 00c0 05       		.uleb128 0x5
+ 192 00c1 C5030000 		.4byte	.LASF22
+ 193 00c5 75       		.sleb128 -11
+ 194 00c6 05       		.uleb128 0x5
+ 195 00c7 17020000 		.4byte	.LASF23
+ 196 00cb 74       		.sleb128 -12
+ 197 00cc 05       		.uleb128 0x5
+ 198 00cd EB020000 		.4byte	.LASF24
+ 199 00d1 73       		.sleb128 -13
+ 200 00d2 05       		.uleb128 0x5
+ 201 00d3 00000000 		.4byte	.LASF25
+ 202 00d7 72       		.sleb128 -14
+ 203 00d8 05       		.uleb128 0x5
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 6
+
+
+ 204 00d9 25000000 		.4byte	.LASF26
+ 205 00dd 71       		.sleb128 -15
+ 206 00de 05       		.uleb128 0x5
+ 207 00df 5C010000 		.4byte	.LASF27
+ 208 00e3 70       		.sleb128 -16
+ 209 00e4 05       		.uleb128 0x5
+ 210 00e5 84000000 		.4byte	.LASF28
+ 211 00e9 6F       		.sleb128 -17
+ 212 00ea 05       		.uleb128 0x5
+ 213 00eb 54000000 		.4byte	.LASF29
+ 214 00ef 6E       		.sleb128 -18
+ 215 00f0 05       		.uleb128 0x5
+ 216 00f1 0F010000 		.4byte	.LASF30
+ 217 00f5 6D       		.sleb128 -19
+ 218 00f6 05       		.uleb128 0x5
+ 219 00f7 7F020000 		.4byte	.LASF31
+ 220 00fb 6C       		.sleb128 -20
+ 221 00fc 05       		.uleb128 0x5
+ 222 00fd 6D010000 		.4byte	.LASF32
+ 223 0101 6B       		.sleb128 -21
+ 224 0102 05       		.uleb128 0x5
+ 225 0103 10030000 		.4byte	.LASF33
+ 226 0107 6A       		.sleb128 -22
+ 227 0108 05       		.uleb128 0x5
+ 228 0109 AB000000 		.4byte	.LASF34
+ 229 010d 69       		.sleb128 -23
+ 230 010e 05       		.uleb128 0x5
+ 231 010f 22010000 		.4byte	.LASF35
+ 232 0113 68       		.sleb128 -24
+ 233 0114 05       		.uleb128 0x5
+ 234 0115 D7000000 		.4byte	.LASF36
+ 235 0119 67       		.sleb128 -25
+ 236 011a 00       		.byte	0
+ 237 011b 06       		.uleb128 0x6
+ 238 011c C0030000 		.4byte	.LASF37
+ 239 0120 02       		.byte	0x2
+ 240 0121 EA       		.byte	0xea
+ 241 0122 72000000 		.4byte	0x72
+ 242 0126 06       		.uleb128 0x6
+ 243 0127 5C020000 		.4byte	.LASF38
+ 244 012b 03       		.byte	0x3
+ 245 012c 1B       		.byte	0x1b
+ 246 012d 25000000 		.4byte	0x25
+ 247 0131 07       		.uleb128 0x7
+ 248 0132 04       		.byte	0x4
+ 249 0133 05       		.byte	0x5
+ 250 0134 696E7400 		.ascii	"int\000"
+ 251 0138 02       		.uleb128 0x2
+ 252 0139 04       		.byte	0x4
+ 253 013a 07       		.byte	0x7
+ 254 013b 0A020000 		.4byte	.LASF39
+ 255 013f 06       		.uleb128 0x6
+ 256 0140 1E000000 		.4byte	.LASF40
+ 257 0144 04       		.byte	0x4
+ 258 0145 14       		.byte	0x14
+ 259 0146 26010000 		.4byte	0x126
+ 260 014a 08       		.uleb128 0x8
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 7
+
+
+ 261 014b A2000000 		.4byte	.LASF48
+ 262 014f 01       		.byte	0x1
+ 263 0150 38       		.byte	0x38
+ 264 0151 1B010000 		.4byte	0x11b
+ 265 0155 00000000 		.4byte	.LFB0
+ 266 0159 0E000000 		.4byte	.LFE0-.LFB0
+ 267 015d 01       		.uleb128 0x1
+ 268 015e 9C       		.byte	0x9c
+ 269 015f 76010000 		.4byte	0x176
+ 270 0163 09       		.uleb128 0x9
+ 271 0164 06000000 		.4byte	.LVL0
+ 272 0168 C6010000 		.4byte	0x1c6
+ 273 016c 09       		.uleb128 0x9
+ 274 016d 0A000000 		.4byte	.LVL1
+ 275 0171 D1010000 		.4byte	0x1d1
+ 276 0175 00       		.byte	0
+ 277 0176 0A       		.uleb128 0xa
+ 278 0177 69000000 		.4byte	.LASF49
+ 279 017b 01       		.byte	0x1
+ 280 017c 46       		.byte	0x46
+ 281 017d 1B010000 		.4byte	0x11b
+ 282 0181 00000000 		.4byte	.LFB1
+ 283 0185 1C000000 		.4byte	.LFE1-.LFB1
+ 284 0189 01       		.uleb128 0x1
+ 285 018a 9C       		.byte	0x9c
+ 286 018b BB010000 		.4byte	0x1bb
+ 287 018f 0B       		.uleb128 0xb
+ 288 0190 98000000 		.4byte	.LASF50
+ 289 0194 01       		.byte	0x1
+ 290 0195 46       		.byte	0x46
+ 291 0196 C1010000 		.4byte	0x1c1
+ 292 019a 00000000 		.4byte	.LLST0
+ 293 019e 0C       		.uleb128 0xc
+ 294 019f 0A000000 		.4byte	.LVL4
+ 295 01a3 DC010000 		.4byte	0x1dc
+ 296 01a7 B1010000 		.4byte	0x1b1
+ 297 01ab 0D       		.uleb128 0xd
+ 298 01ac 01       		.uleb128 0x1
+ 299 01ad 50       		.byte	0x50
+ 300 01ae 01       		.uleb128 0x1
+ 301 01af 30       		.byte	0x30
+ 302 01b0 00       		.byte	0
+ 303 01b1 09       		.uleb128 0x9
+ 304 01b2 10000000 		.4byte	.LVL5
+ 305 01b6 E7010000 		.4byte	0x1e7
+ 306 01ba 00       		.byte	0
+ 307 01bb 0E       		.uleb128 0xe
+ 308 01bc 04       		.byte	0x4
+ 309 01bd 3F010000 		.4byte	0x13f
+ 310 01c1 0F       		.uleb128 0xf
+ 311 01c2 BB010000 		.4byte	0x1bb
+ 312 01c6 10       		.uleb128 0x10
+ 313 01c7 FD020000 		.4byte	.LASF41
+ 314 01cb FD020000 		.4byte	.LASF41
+ 315 01cf 05       		.byte	0x5
+ 316 01d0 34       		.byte	0x34
+ 317 01d1 10       		.uleb128 0x10
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 8
+
+
+ 318 01d2 D1020000 		.4byte	.LASF42
+ 319 01d6 D1020000 		.4byte	.LASF42
+ 320 01da 05       		.byte	0x5
+ 321 01db D1       		.byte	0xd1
+ 322 01dc 10       		.uleb128 0x10
+ 323 01dd 9B020000 		.4byte	.LASF43
+ 324 01e1 9B020000 		.4byte	.LASF43
+ 325 01e5 05       		.byte	0x5
+ 326 01e6 39       		.byte	0x39
+ 327 01e7 10       		.uleb128 0x10
+ 328 01e8 7F010000 		.4byte	.LASF44
+ 329 01ec 7F010000 		.4byte	.LASF44
+ 330 01f0 05       		.byte	0x5
+ 331 01f1 3A       		.byte	0x3a
+ 332 01f2 00       		.byte	0
+ 333              		.section	.debug_abbrev,"",%progbits
+ 334              	.Ldebug_abbrev0:
+ 335 0000 01       		.uleb128 0x1
+ 336 0001 11       		.uleb128 0x11
+ 337 0002 01       		.byte	0x1
+ 338 0003 25       		.uleb128 0x25
+ 339 0004 0E       		.uleb128 0xe
+ 340 0005 13       		.uleb128 0x13
+ 341 0006 0B       		.uleb128 0xb
+ 342 0007 03       		.uleb128 0x3
+ 343 0008 0E       		.uleb128 0xe
+ 344 0009 1B       		.uleb128 0x1b
+ 345 000a 0E       		.uleb128 0xe
+ 346 000b 55       		.uleb128 0x55
+ 347 000c 17       		.uleb128 0x17
+ 348 000d 11       		.uleb128 0x11
+ 349 000e 01       		.uleb128 0x1
+ 350 000f 10       		.uleb128 0x10
+ 351 0010 17       		.uleb128 0x17
+ 352 0011 00       		.byte	0
+ 353 0012 00       		.byte	0
+ 354 0013 02       		.uleb128 0x2
+ 355 0014 24       		.uleb128 0x24
+ 356 0015 00       		.byte	0
+ 357 0016 0B       		.uleb128 0xb
+ 358 0017 0B       		.uleb128 0xb
+ 359 0018 3E       		.uleb128 0x3e
+ 360 0019 0B       		.uleb128 0xb
+ 361 001a 03       		.uleb128 0x3
+ 362 001b 0E       		.uleb128 0xe
+ 363 001c 00       		.byte	0
+ 364 001d 00       		.byte	0
+ 365 001e 03       		.uleb128 0x3
+ 366 001f 04       		.uleb128 0x4
+ 367 0020 01       		.byte	0x1
+ 368 0021 0B       		.uleb128 0xb
+ 369 0022 0B       		.uleb128 0xb
+ 370 0023 49       		.uleb128 0x49
+ 371 0024 13       		.uleb128 0x13
+ 372 0025 3A       		.uleb128 0x3a
+ 373 0026 0B       		.uleb128 0xb
+ 374 0027 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 9
+
+
+ 375 0028 0B       		.uleb128 0xb
+ 376 0029 01       		.uleb128 0x1
+ 377 002a 13       		.uleb128 0x13
+ 378 002b 00       		.byte	0
+ 379 002c 00       		.byte	0
+ 380 002d 04       		.uleb128 0x4
+ 381 002e 28       		.uleb128 0x28
+ 382 002f 00       		.byte	0
+ 383 0030 03       		.uleb128 0x3
+ 384 0031 0E       		.uleb128 0xe
+ 385 0032 1C       		.uleb128 0x1c
+ 386 0033 0B       		.uleb128 0xb
+ 387 0034 00       		.byte	0
+ 388 0035 00       		.byte	0
+ 389 0036 05       		.uleb128 0x5
+ 390 0037 28       		.uleb128 0x28
+ 391 0038 00       		.byte	0
+ 392 0039 03       		.uleb128 0x3
+ 393 003a 0E       		.uleb128 0xe
+ 394 003b 1C       		.uleb128 0x1c
+ 395 003c 0D       		.uleb128 0xd
+ 396 003d 00       		.byte	0
+ 397 003e 00       		.byte	0
+ 398 003f 06       		.uleb128 0x6
+ 399 0040 16       		.uleb128 0x16
+ 400 0041 00       		.byte	0
+ 401 0042 03       		.uleb128 0x3
+ 402 0043 0E       		.uleb128 0xe
+ 403 0044 3A       		.uleb128 0x3a
+ 404 0045 0B       		.uleb128 0xb
+ 405 0046 3B       		.uleb128 0x3b
+ 406 0047 0B       		.uleb128 0xb
+ 407 0048 49       		.uleb128 0x49
+ 408 0049 13       		.uleb128 0x13
+ 409 004a 00       		.byte	0
+ 410 004b 00       		.byte	0
+ 411 004c 07       		.uleb128 0x7
+ 412 004d 24       		.uleb128 0x24
+ 413 004e 00       		.byte	0
+ 414 004f 0B       		.uleb128 0xb
+ 415 0050 0B       		.uleb128 0xb
+ 416 0051 3E       		.uleb128 0x3e
+ 417 0052 0B       		.uleb128 0xb
+ 418 0053 03       		.uleb128 0x3
+ 419 0054 08       		.uleb128 0x8
+ 420 0055 00       		.byte	0
+ 421 0056 00       		.byte	0
+ 422 0057 08       		.uleb128 0x8
+ 423 0058 2E       		.uleb128 0x2e
+ 424 0059 01       		.byte	0x1
+ 425 005a 3F       		.uleb128 0x3f
+ 426 005b 19       		.uleb128 0x19
+ 427 005c 03       		.uleb128 0x3
+ 428 005d 0E       		.uleb128 0xe
+ 429 005e 3A       		.uleb128 0x3a
+ 430 005f 0B       		.uleb128 0xb
+ 431 0060 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 10
+
+
+ 432 0061 0B       		.uleb128 0xb
+ 433 0062 49       		.uleb128 0x49
+ 434 0063 13       		.uleb128 0x13
+ 435 0064 11       		.uleb128 0x11
+ 436 0065 01       		.uleb128 0x1
+ 437 0066 12       		.uleb128 0x12
+ 438 0067 06       		.uleb128 0x6
+ 439 0068 40       		.uleb128 0x40
+ 440 0069 18       		.uleb128 0x18
+ 441 006a 9742     		.uleb128 0x2117
+ 442 006c 19       		.uleb128 0x19
+ 443 006d 01       		.uleb128 0x1
+ 444 006e 13       		.uleb128 0x13
+ 445 006f 00       		.byte	0
+ 446 0070 00       		.byte	0
+ 447 0071 09       		.uleb128 0x9
+ 448 0072 898201   		.uleb128 0x4109
+ 449 0075 00       		.byte	0
+ 450 0076 11       		.uleb128 0x11
+ 451 0077 01       		.uleb128 0x1
+ 452 0078 31       		.uleb128 0x31
+ 453 0079 13       		.uleb128 0x13
+ 454 007a 00       		.byte	0
+ 455 007b 00       		.byte	0
+ 456 007c 0A       		.uleb128 0xa
+ 457 007d 2E       		.uleb128 0x2e
+ 458 007e 01       		.byte	0x1
+ 459 007f 3F       		.uleb128 0x3f
+ 460 0080 19       		.uleb128 0x19
+ 461 0081 03       		.uleb128 0x3
+ 462 0082 0E       		.uleb128 0xe
+ 463 0083 3A       		.uleb128 0x3a
+ 464 0084 0B       		.uleb128 0xb
+ 465 0085 3B       		.uleb128 0x3b
+ 466 0086 0B       		.uleb128 0xb
+ 467 0087 27       		.uleb128 0x27
+ 468 0088 19       		.uleb128 0x19
+ 469 0089 49       		.uleb128 0x49
+ 470 008a 13       		.uleb128 0x13
+ 471 008b 11       		.uleb128 0x11
+ 472 008c 01       		.uleb128 0x1
+ 473 008d 12       		.uleb128 0x12
+ 474 008e 06       		.uleb128 0x6
+ 475 008f 40       		.uleb128 0x40
+ 476 0090 18       		.uleb128 0x18
+ 477 0091 9742     		.uleb128 0x2117
+ 478 0093 19       		.uleb128 0x19
+ 479 0094 01       		.uleb128 0x1
+ 480 0095 13       		.uleb128 0x13
+ 481 0096 00       		.byte	0
+ 482 0097 00       		.byte	0
+ 483 0098 0B       		.uleb128 0xb
+ 484 0099 05       		.uleb128 0x5
+ 485 009a 00       		.byte	0
+ 486 009b 03       		.uleb128 0x3
+ 487 009c 0E       		.uleb128 0xe
+ 488 009d 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 11
+
+
+ 489 009e 0B       		.uleb128 0xb
+ 490 009f 3B       		.uleb128 0x3b
+ 491 00a0 0B       		.uleb128 0xb
+ 492 00a1 49       		.uleb128 0x49
+ 493 00a2 13       		.uleb128 0x13
+ 494 00a3 02       		.uleb128 0x2
+ 495 00a4 17       		.uleb128 0x17
+ 496 00a5 00       		.byte	0
+ 497 00a6 00       		.byte	0
+ 498 00a7 0C       		.uleb128 0xc
+ 499 00a8 898201   		.uleb128 0x4109
+ 500 00ab 01       		.byte	0x1
+ 501 00ac 11       		.uleb128 0x11
+ 502 00ad 01       		.uleb128 0x1
+ 503 00ae 31       		.uleb128 0x31
+ 504 00af 13       		.uleb128 0x13
+ 505 00b0 01       		.uleb128 0x1
+ 506 00b1 13       		.uleb128 0x13
+ 507 00b2 00       		.byte	0
+ 508 00b3 00       		.byte	0
+ 509 00b4 0D       		.uleb128 0xd
+ 510 00b5 8A8201   		.uleb128 0x410a
+ 511 00b8 00       		.byte	0
+ 512 00b9 02       		.uleb128 0x2
+ 513 00ba 18       		.uleb128 0x18
+ 514 00bb 9142     		.uleb128 0x2111
+ 515 00bd 18       		.uleb128 0x18
+ 516 00be 00       		.byte	0
+ 517 00bf 00       		.byte	0
+ 518 00c0 0E       		.uleb128 0xe
+ 519 00c1 0F       		.uleb128 0xf
+ 520 00c2 00       		.byte	0
+ 521 00c3 0B       		.uleb128 0xb
+ 522 00c4 0B       		.uleb128 0xb
+ 523 00c5 49       		.uleb128 0x49
+ 524 00c6 13       		.uleb128 0x13
+ 525 00c7 00       		.byte	0
+ 526 00c8 00       		.byte	0
+ 527 00c9 0F       		.uleb128 0xf
+ 528 00ca 26       		.uleb128 0x26
+ 529 00cb 00       		.byte	0
+ 530 00cc 49       		.uleb128 0x49
+ 531 00cd 13       		.uleb128 0x13
+ 532 00ce 00       		.byte	0
+ 533 00cf 00       		.byte	0
+ 534 00d0 10       		.uleb128 0x10
+ 535 00d1 2E       		.uleb128 0x2e
+ 536 00d2 00       		.byte	0
+ 537 00d3 3F       		.uleb128 0x3f
+ 538 00d4 19       		.uleb128 0x19
+ 539 00d5 3C       		.uleb128 0x3c
+ 540 00d6 19       		.uleb128 0x19
+ 541 00d7 6E       		.uleb128 0x6e
+ 542 00d8 0E       		.uleb128 0xe
+ 543 00d9 03       		.uleb128 0x3
+ 544 00da 0E       		.uleb128 0xe
+ 545 00db 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 12
+
+
+ 546 00dc 0B       		.uleb128 0xb
+ 547 00dd 3B       		.uleb128 0x3b
+ 548 00de 0B       		.uleb128 0xb
+ 549 00df 00       		.byte	0
+ 550 00e0 00       		.byte	0
+ 551 00e1 00       		.byte	0
+ 552              		.section	.debug_loc,"",%progbits
+ 553              	.Ldebug_loc0:
+ 554              	.LLST0:
+ 555 0000 00000000 		.4byte	.LVL2
+ 556 0004 06000000 		.4byte	.LVL3
+ 557 0008 0100     		.2byte	0x1
+ 558 000a 50       		.byte	0x50
+ 559 000b 06000000 		.4byte	.LVL3
+ 560 000f 1C000000 		.4byte	.LFE1
+ 561 0013 0100     		.2byte	0x1
+ 562 0015 54       		.byte	0x54
+ 563 0016 00000000 		.4byte	0
+ 564 001a 00000000 		.4byte	0
+ 565              		.section	.debug_aranges,"",%progbits
+ 566 0000 24000000 		.4byte	0x24
+ 567 0004 0200     		.2byte	0x2
+ 568 0006 00000000 		.4byte	.Ldebug_info0
+ 569 000a 04       		.byte	0x4
+ 570 000b 00       		.byte	0
+ 571 000c 0000     		.2byte	0
+ 572 000e 0000     		.2byte	0
+ 573 0010 00000000 		.4byte	.LFB0
+ 574 0014 0E000000 		.4byte	.LFE0-.LFB0
+ 575 0018 00000000 		.4byte	.LFB1
+ 576 001c 1C000000 		.4byte	.LFE1-.LFB1
+ 577 0020 00000000 		.4byte	0
+ 578 0024 00000000 		.4byte	0
+ 579              		.section	.debug_ranges,"",%progbits
+ 580              	.Ldebug_ranges0:
+ 581 0000 00000000 		.4byte	.LFB0
+ 582 0004 0E000000 		.4byte	.LFE0
+ 583 0008 00000000 		.4byte	.LFB1
+ 584 000c 1C000000 		.4byte	.LFE1
+ 585 0010 00000000 		.4byte	0
+ 586 0014 00000000 		.4byte	0
+ 587              		.section	.debug_line,"",%progbits
+ 588              	.Ldebug_line0:
+ 589 0000 86010000 		.section	.debug_str,"MS",%progbits,1
+ 589      02005901 
+ 589      00000201 
+ 589      FB0E0D00 
+ 589      01010101 
+ 590              	.LASF25:
+ 591 0000 52435F45 		.ascii	"RC_ERROR_READ_ONLY\000"
+ 591      52524F52 
+ 591      5F524541 
+ 591      445F4F4E 
+ 591      4C5900
+ 592              	.LASF11:
+ 593 0013 52435F53 		.ascii	"RC_SUCCESS\000"
+ 593      55434345 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 13
+
+
+ 593      535300
+ 594              	.LASF40:
+ 595 001e 696E7438 		.ascii	"int8_t\000"
+ 595      5F7400
+ 596              	.LASF26:
+ 597 0025 52435F45 		.ascii	"RC_ERROR_WRITE_ONLY\000"
+ 597      52524F52 
+ 597      5F575249 
+ 597      54455F4F 
+ 597      4E4C5900 
+ 598              	.LASF2:
+ 599 0039 73686F72 		.ascii	"short int\000"
+ 599      7420696E 
+ 599      7400
+ 600              	.LASF17:
+ 601 0043 52435F45 		.ascii	"RC_ERROR_OVERRUN\000"
+ 601      52524F52 
+ 601      5F4F5645 
+ 601      5252554E 
+ 601      00
+ 602              	.LASF29:
+ 603 0054 52435F45 		.ascii	"RC_ERROR_WRITE_FAILS\000"
+ 603      52524F52 
+ 603      5F575249 
+ 603      54455F46 
+ 603      41494C53 
+ 604              	.LASF49:
+ 605 0069 4144435F 		.ascii	"ADC_getValue\000"
+ 605      67657456 
+ 605      616C7565 
+ 605      00
+ 606              	.LASF14:
+ 607 0076 52435F45 		.ascii	"RC_ERROR_ZERO\000"
+ 607      52524F52 
+ 607      5F5A4552 
+ 607      4F00
+ 608              	.LASF28:
+ 609 0084 52435F45 		.ascii	"RC_ERROR_READ_FAILS\000"
+ 609      52524F52 
+ 609      5F524541 
+ 609      445F4641 
+ 609      494C5300 
+ 610              	.LASF50:
+ 611 0098 6164635F 		.ascii	"adc_value\000"
+ 611      76616C75 
+ 611      6500
+ 612              	.LASF48:
+ 613 00a2 4144435F 		.ascii	"ADC_init\000"
+ 613      696E6974 
+ 613      00
+ 614              	.LASF34:
+ 615 00ab 52435F45 		.ascii	"RC_ERROR_INVALID_STATE\000"
+ 615      52524F52 
+ 615      5F494E56 
+ 615      414C4944 
+ 615      5F535441 
+ 616              	.LASF16:
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 14
+
+
+ 617 00c2 52435F45 		.ascii	"RC_ERROR_RANGE\000"
+ 617      52524F52 
+ 617      5F52414E 
+ 617      474500
+ 618              	.LASF6:
+ 619 00d1 666C6F61 		.ascii	"float\000"
+ 619      7400
+ 620              	.LASF36:
+ 621 00d7 52435F45 		.ascii	"RC_ERROR_NOT_IMPLEMENTED\000"
+ 621      52524F52 
+ 621      5F4E4F54 
+ 621      5F494D50 
+ 621      4C454D45 
+ 622              	.LASF8:
+ 623 00f0 6C6F6E67 		.ascii	"long long int\000"
+ 623      206C6F6E 
+ 623      6720696E 
+ 623      7400
+ 624              	.LASF46:
+ 625 00fe 736F7572 		.ascii	"source\\bsw\\adc.c\000"
+ 625      63655C62 
+ 625      73775C61 
+ 625      64632E63 
+ 625      00
+ 626              	.LASF30:
+ 627 010f 52435F45 		.ascii	"RC_ERROR_NOT_MATCH\000"
+ 627      52524F52 
+ 627      5F4E4F54 
+ 627      5F4D4154 
+ 627      434800
+ 628              	.LASF35:
+ 629 0122 52435F45 		.ascii	"RC_ERROR_UNKNOWN\000"
+ 629      52524F52 
+ 629      5F554E4B 
+ 629      4E4F574E 
+ 629      00
+ 630              	.LASF4:
+ 631 0133 6C6F6E67 		.ascii	"long int\000"
+ 631      20696E74 
+ 631      00
+ 632              	.LASF18:
+ 633 013c 52435F45 		.ascii	"RC_ERROR_UNDERRUN\000"
+ 633      52524F52 
+ 633      5F554E44 
+ 633      45525255 
+ 633      4E00
+ 634              	.LASF21:
+ 635 014e 52435F45 		.ascii	"RC_ERROR_BUSY\000"
+ 635      52524F52 
+ 635      5F425553 
+ 635      5900
+ 636              	.LASF27:
+ 637 015c 52435F45 		.ascii	"RC_ERROR_INVALID\000"
+ 637      52524F52 
+ 637      5F494E56 
+ 637      414C4944 
+ 637      00
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 15
+
+
+ 638              	.LASF32:
+ 639 016d 52435F45 		.ascii	"RC_ERROR_BAD_DATA\000"
+ 639      52524F52 
+ 639      5F424144 
+ 639      5F444154 
+ 639      4100
+ 640              	.LASF44:
+ 641 017f 4144435F 		.ascii	"ADC_JoyStick_GetResult8\000"
+ 641      4A6F7953 
+ 641      7469636B 
+ 641      5F476574 
+ 641      52657375 
+ 642              	.LASF1:
+ 643 0197 756E7369 		.ascii	"unsigned char\000"
+ 643      676E6564 
+ 643      20636861 
+ 643      7200
+ 644              	.LASF0:
+ 645 01a5 7369676E 		.ascii	"signed char\000"
+ 645      65642063 
+ 645      68617200 
+ 646              	.LASF9:
+ 647 01b1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 647      206C6F6E 
+ 647      6720756E 
+ 647      7369676E 
+ 647      65642069 
+ 648              	.LASF47:
+ 649 01c8 433A5C44 		.ascii	"C:\\Darmstadt\\SecondSem\\EAA\\Lab1\\GasPedal\\Elec"
+ 649      61726D73 
+ 649      74616474 
+ 649      5C536563 
+ 649      6F6E6453 
+ 650 01f5 74726F6E 		.ascii	"tronicGasPedal.cydsn\000"
+ 650      69634761 
+ 650      73506564 
+ 650      616C2E63 
+ 650      7964736E 
+ 651              	.LASF39:
+ 652 020a 756E7369 		.ascii	"unsigned int\000"
+ 652      676E6564 
+ 652      20696E74 
+ 652      00
+ 653              	.LASF23:
+ 654 0217 52435F45 		.ascii	"RC_ERROR_OPEN\000"
+ 654      52524F52 
+ 654      5F4F5045 
+ 654      4E00
+ 655              	.LASF13:
+ 656 0225 52435F45 		.ascii	"RC_ERROR_NULL\000"
+ 656      52524F52 
+ 656      5F4E554C 
+ 656      4C00
+ 657              	.LASF20:
+ 658 0233 52435F45 		.ascii	"RC_ERROR_BUFFER_EMTPY\000"
+ 658      52524F52 
+ 658      5F425546 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 16
+
+
+ 658      4645525F 
+ 658      454D5450 
+ 659              	.LASF3:
+ 660 0249 73686F72 		.ascii	"short unsigned int\000"
+ 660      7420756E 
+ 660      7369676E 
+ 660      65642069 
+ 660      6E7400
+ 661              	.LASF38:
+ 662 025c 5F5F696E 		.ascii	"__int8_t\000"
+ 662      74385F74 
+ 662      00
+ 663              	.LASF10:
+ 664 0265 63686172 		.ascii	"char\000"
+ 664      00
+ 665              	.LASF19:
+ 666 026a 52435F45 		.ascii	"RC_ERROR_BUFFER_FULL\000"
+ 666      52524F52 
+ 666      5F425546 
+ 666      4645525F 
+ 666      46554C4C 
+ 667              	.LASF31:
+ 668 027f 52435F45 		.ascii	"RC_ERROR_BAD_PARAM\000"
+ 668      52524F52 
+ 668      5F424144 
+ 668      5F504152 
+ 668      414D00
+ 669              	.LASF12:
+ 670 0292 52435F45 		.ascii	"RC_ERROR\000"
+ 670      52524F52 
+ 670      00
+ 671              	.LASF43:
+ 672 029b 4144435F 		.ascii	"ADC_JoyStick_IsEndConversion\000"
+ 672      4A6F7953 
+ 672      7469636B 
+ 672      5F497345 
+ 672      6E64436F 
+ 673              	.LASF5:
+ 674 02b8 6C6F6E67 		.ascii	"long unsigned int\000"
+ 674      20756E73 
+ 674      69676E65 
+ 674      6420696E 
+ 674      7400
+ 675              	.LASF7:
+ 676 02ca 646F7562 		.ascii	"double\000"
+ 676      6C6500
+ 677              	.LASF42:
+ 678 02d1 4144435F 		.ascii	"ADC_JoyStick_StartConvert\000"
+ 678      4A6F7953 
+ 678      7469636B 
+ 678      5F537461 
+ 678      7274436F 
+ 679              	.LASF24:
+ 680 02eb 52435F45 		.ascii	"RC_ERROR_CHECKSUM\000"
+ 680      52524F52 
+ 680      5F434845 
+ 680      434B5355 
+ARM GAS  C:\Users\aditi\AppData\Local\Temp\ccTcNj5V.s 			page 17
+
+
+ 680      4D00
+ 681              	.LASF41:
+ 682 02fd 4144435F 		.ascii	"ADC_JoyStick_Start\000"
+ 682      4A6F7953 
+ 682      7469636B 
+ 682      5F537461 
+ 682      727400
+ 683              	.LASF33:
+ 684 0310 52435F45 		.ascii	"RC_ERROR_CANCELED\000"
+ 684      52524F52 
+ 684      5F43414E 
+ 684      43454C45 
+ 684      4400
+ 685              	.LASF45:
+ 686 0322 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 686      43313120 
+ 686      352E342E 
+ 686      31203230 
+ 686      31363036 
+ 687 0355 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 687      20726576 
+ 687      6973696F 
+ 687      6E203233 
+ 687      37373135 
+ 688 0388 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 688      66756E63 
+ 688      74696F6E 
+ 688      2D736563 
+ 688      74696F6E 
+ 689              	.LASF15:
+ 690 03b0 52435F45 		.ascii	"RC_ERROR_MEMORY\000"
+ 690      52524F52 
+ 690      5F4D454D 
+ 690      4F525900 
+ 691              	.LASF37:
+ 692 03c0 52435F74 		.ascii	"RC_t\000"
+ 692      00
+ 693              	.LASF22:
+ 694 03c5 52435F45 		.ascii	"RC_ERROR_TIME_OUT\000"
+ 694      52524F52 
+ 694      5F54494D 
+ 694      455F4F55 
+ 694      5400
+ 695              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

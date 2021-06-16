@@ -33,8 +33,9 @@
   <signalpool description="The common global signal pool, all signals will be stored here" endaddr="ADR_SP_COMMON_END" name="sp_common" shortname="common" startaddr="ADR_SP_COMMON_START"/>
  </signalpools>
  <tasks>
-  <task description="This task will contain all IO operations, e.g: joystick, engine..." events="" mode="Cyclic and Event" name="tsk_io" shortname="io" signalpoolsRO="sp_common" signalpoolsRW="sp_common" tickEvent="0" timertickperiod="1"/>
-  <task description="Task control will call the application code (control algorithm)" events="" mode="Event" name="tsk_control" shortname="control" signalpoolsRO="sp_common" signalpoolsRW="sp_common" tickEvent="0" timertickperiod="1"/>
+  <task description="This task will contain all IO operations, e.g: joystick, engine..." events="ev_speed_onData|ev_tick_1ms" mode="Cyclic and Event" name="tsk_io" shortname="io" signalpoolsRO="sp_common" signalpoolsRW="sp_common" tickEvent="ev_tick_1ms" timertickperiod="1"/>
+  <task description="Task control will call the application code (control algorithm)" events="ev_joystick_onData" mode="Event" name="tsk_control" shortname="control" signalpoolsRO="sp_common" signalpoolsRW="sp_common" tickEvent="0" timertickperiod="1"/>
+  <task description="Task to measure the age of the signals" events="" mode="System" name="tsk_system" shortname="system" signalpoolsRO="sp_common" signalpoolsRW="sp_common" tickEvent="0" timertickperiod="1"/>
  </tasks>
  <signalclasses>
   <signalclass description="Joystick Representation" name="sc_adc" shortname="adc"/>
@@ -63,6 +64,7 @@
  <events>
   <event description="Event is triggered on update of Joystick data" name="ev_joystick_onData" shortname="joystick_onData"/>
   <event description="Event is triggered on update of Speed signal" name="ev_speed_onData" shortname="speed_onData"/>
+  <event description="Tick Event for the IO task" name="ev_tick_1ms" shortname="tick_1ms"/>
  </events>
  <resources/>
 </rte>

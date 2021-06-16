@@ -52,7 +52,7 @@ tasks:
         mode: Cyclic and Event
         signalpoolsRO: sp_common
         signalpoolsRW: sp_common
-        events: ev_speed_onData
+        events: ev_speed_onData|ev_tick_1ms
         runnables:
                 JOYSTICK_readJoystick_run:
                     task: tsk_io
@@ -88,6 +88,14 @@ tasks:
                     events: ev_joystick_onData
                     signalIN: so_joystick
                     signalOUT: so_speed
+            
+    tsk_system:
+        timertickperiod: 1
+        mode: System
+        signalpoolsRO: sp_common
+        signalpoolsRW: sp_common
+        events: 
+        runnables:
 
 swc:
     swc_joystick:

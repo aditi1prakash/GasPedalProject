@@ -327,7 +327,10 @@
     </Group>
     <Group key="Pin">
       <Data key="1c97a4b3-c427-44c8-9c6f-c8d8c557c986/16a808f6-2e13-45b9-bce0-b001c8655113" value="ADC_JoyStick_x_Bypass" />
+      <Data key="05b341a6-3ab2-46cd-96c3-4878370fe854" value="Pin_RedLed" />
       <Data key="5c3cea1f-1fee-44ba-acdb-2bfbfe04b4c5" value="Joystick_Pin_y" />
+      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="Pin_WDGButton" />
+      <Data key="811477c2-6fd3-4a90-835d-d818b7d36278" value="Pin_RedLed" />
       <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="Rx_uart" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="Joystick_Pin_x" />
       <Data key="b9450ec4-2c79-45a7-ba15-7860a9dfe902/16a808f6-2e13-45b9-bce0-b001c8655113" value="ADC_JoyStick_y_Bypass" />
@@ -3419,9 +3422,24 @@
     </Group>
   </Group>
   <Group key="Pin2">
+    <Group key="05b341a6-3ab2-46cd-96c3-4878370fe854">
+      <Group key="0">
+        <Data key="Port Format" value="0,6" />
+      </Group>
+    </Group>
     <Group key="5c3cea1f-1fee-44ba-acdb-2bfbfe04b4c5">
       <Group key="0">
         <Data key="Port Format" value="0,1" />
+      </Group>
+    </Group>
+    <Group key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba">
+      <Group key="0">
+        <Data key="Port Format" value="0,3" />
+      </Group>
+    </Group>
+    <Group key="811477c2-6fd3-4a90-835d-d818b7d36278">
+      <Group key="0">
+        <Data key="Port Format" value="0,6" />
       </Group>
     </Group>
     <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
@@ -3444,6 +3462,7 @@
         <Data key="Port Format" value="12,7" />
       </Group>
     </Group>
+    <Group key="UnAssigned Pins" />
   </Group>
   <Group key="PlaceDir">
     <Data key="count" value="0" />
