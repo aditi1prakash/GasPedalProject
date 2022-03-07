@@ -75,7 +75,7 @@ Your task is to implement a timeout supervision concept for the PSOC. In case th
 
 ## Alive watchdog ##
 
-![Requirement3] (./img/Requirement3.png)
+![Requirement3](./img/Requirement3.png)
 
 
 ## Deadline monitoring ##
