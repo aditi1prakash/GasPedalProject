@@ -68,8 +68,9 @@ Your task is to implement a timeout supervision concept for the PSOC. In case th
 
 ## Hardware Watchdog Driver ##
 
-![Requirement1] (img\Requirement1.png)
-![Requirement2] (./img/Requirement2.png)
+![Requirement1](./img/Requirement1.png)
+
+![Requirement2](./img/Requirement2.png)
 
 
 ## Alive watchdog ##
